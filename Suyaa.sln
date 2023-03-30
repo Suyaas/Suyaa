@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Tests", "UnitTests\Eg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure", "Suyaa.Configure\Suyaa.Configure.csproj", "{85E664CB-6E53-47C4-9833-07B11AE7B093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Configure.Tests", "UnitTests\Suyaa.Configure.Tests\Suyaa.Configure.Tests.csproj", "{80FD68BB-C9B6-435C-AFDB-E0BFD6D168D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Tests", "UnitTests\Suyaa.Configure.Tests\Suyaa.Configure.Tests.csproj", "{80FD68BB-C9B6-435C-AFDB-E0BFD6D168D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Logs.Tests", "UnitTests\Suyaa.Log.Tests\Suyaa.Logs.Tests.csproj", "{71E21DBF-34E3-4C4C-8577-7AD47BA88467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Logs.Tests", "UnitTests\Suyaa.Log.Tests\Suyaa.Logs.Tests.csproj", "{71E21DBF-34E3-4C4C-8577-7AD47BA88467}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Logs", "Suyaa.Logs\Suyaa.Logs.csproj", "{D5BAF6AE-ED6C-4631-AD4E-D99DFB310D7F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data", "Suyaa.Data\Suyaa.Data.csproj", "{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{D5BAF6AE-ED6C-4631-AD4E-D99DFB310D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5BAF6AE-ED6C-4631-AD4E-D99DFB310D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5BAF6AE-ED6C-4631-AD4E-D99DFB310D7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
