@@ -20,7 +20,7 @@ namespace Suyaa.Logs.Tests
             sy.Logger.GetCurrentLogger().Use((string mesage) =>
             {
                 Debug.WriteLine(mesage);
-            }).Use(new FileLogger("D:\\test.log"));
+            }).Use(new FileLogger(sy.IO.GetExecutionPath("log")));
             sy.Logger.Info("≤‚ ‘");
         }
     }

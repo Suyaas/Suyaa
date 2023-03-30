@@ -115,7 +115,7 @@ namespace Suyaa.Data.Sqlite
         {
             // 创建表
             Type type = typeof(T);
-            string tableName = type.Name;
+            string tableName = type.GetTableName();
             return $"SELECT [name] FROM [sqlite_master] WHERE [name] = '{tableName}' AND [type]='table' LIMIT 1;";
         }
 
@@ -126,7 +126,7 @@ namespace Suyaa.Data.Sqlite
         public string GetColumnExistsSqlString<T>(PropertyInfo property)
         {
             Type type = typeof(T);
-            string tableName = type.Name;
+            string tableName = type.GetTableName();
             // 获取字段信息
             string columnName = property.GetColumnName();
             return $"SELECT [name] FROM [sqlite_master] WHERE [type]='table'" +

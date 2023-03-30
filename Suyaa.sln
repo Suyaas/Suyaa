@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.Sqlite", "Suyaa.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.PostgreSQL", "Suyaa.Data.PostgreSQL\Suyaa.Data.PostgreSQL.csproj", "{A7DE8B1B-D312-4659-8345-C7C90497BEC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Sqlite.Tests", "UnitTests\Suyaa.Sqlite.Tests\Suyaa.Sqlite.Tests.csproj", "{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{A7DE8B1B-D312-4659-8345-C7C90497BEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7DE8B1B-D312-4659-8345-C7C90497BEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7DE8B1B-D312-4659-8345-C7C90497BEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{32B6EC94-BB19-4887-8A63-89C27F54A472} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 		{80FD68BB-C9B6-435C-AFDB-E0BFD6D168D2} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 		{71E21DBF-34E3-4C4C-8577-7AD47BA88467} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
+		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89808027-9D7E-4CCD-819C-186060D5B287}
