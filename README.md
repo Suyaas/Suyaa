@@ -13,12 +13,12 @@ A comprehensive auxiliary development kit based on .Net Standard 2.1.
 | 组件 | .Net版本 | 描述 | 操作 |
 | ---- | ----- | ---- | ---- |
 | Suyaa | .Net Standard 2.1 | 基础组件 | [访问详情](https://github.com/Suyaas/Suyaa) |
-| Suyaa.Configure | .Net 6 | 配置组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.Configure) |
-| Suyaa.Data | .Net Standard 2.1 | 数据库组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.Data) |
-| Suyaa.Data.PostgreSQL | .Net Standard 2.1 | PostgreSQL组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.Data.PostgreSQL) |
-| Suyaa.Data.Sqlite | .Net Standard 2.1 | Sqlite组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.Data.Sqlite) |
-| Suyaa.EFCore | .Net Standard 2.1 | EFCore组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.EFCore) |
-| Suyaa.Logger | .Net Standard 2.1 | 日志组件 | [访问详情](https://github.com/Suyaas/Suyaa/Suyaa.Logger) |
+| Suyaa.Configure | .Net 6 | 配置组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Configure) |
+| Suyaa.Data | .Net Standard 2.1 | 数据库组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Data) |
+| Suyaa.Data.PostgreSQL | .Net Standard 2.1 | PostgreSQL组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Data.PostgreSQL) |
+| Suyaa.Data.Sqlite | .Net Standard 2.1 | Sqlite组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Data.Sqlite) |
+| Suyaa.EFCore | .Net Standard 2.1 | EFCore组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.EFCore) |
+| Suyaa.Logger | .Net Standard 2.1 | 日志组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Logger) |
 
 ## Nuget包下载
 
