@@ -13,7 +13,7 @@ namespace Suyaa.Data.Entities
     /// <summary>
     /// 带主键的实例
     /// </summary>
-    public class Entity<TId> : IEntity<TId>
+    public abstract class Entity<TId> : IEntity<TId>
     {
         /// <summary>
         /// 唯一标识
@@ -21,6 +21,15 @@ namespace Suyaa.Data.Entities
         [Key]
         [Column("id")]
         public virtual TId Id { get; set; }
+
+        /// <summary>
+        /// 带主键的实例
+        /// </summary>
+        /// <param name="id"></param>
+        public Entity(TId id)
+        {
+            this.Id = id;
+        }
 
     }
 }

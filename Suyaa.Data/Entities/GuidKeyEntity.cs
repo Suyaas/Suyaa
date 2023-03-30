@@ -24,10 +24,7 @@ namespace Suyaa.Data.Entities
         /// <summary>
         /// 对象实例化
         /// </summary>
-        public GuidKeyEntity()
-        {
-            base.Id = Guid.NewGuid().ToString("N");
-        }
+        public GuidKeyEntity() : base(Guid.NewGuid().ToString("N")) { }
 
     }
 }

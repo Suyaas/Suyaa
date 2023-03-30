@@ -38,6 +38,7 @@ namespace Suyaa.Data
             _connection = connection;
             if (_connection.IsOpened)
                 _provider = connection.Provider;
+            if (_provider is null) throw new DatabaseException($"数据库供应商获取失败");
             _updater = new Updater<TClass, TId>(connection);
         }
 
