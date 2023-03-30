@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa", "Suyaa\Suyaa.csproj", "{EF4D8DF7-D263-4BA5-9D7E-B95FCBDDBDF5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{BE93F3E5-E556-4225-B51F-1DDF84B4600F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Tests", "UnitTests\Egg.Tests\Suyaa.Tests.csproj", "{32B6EC94-BB19-4887-8A63-89C27F54A472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{EF4D8DF7-D263-4BA5-9D7E-B95FCBDDBDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF4D8DF7-D263-4BA5-9D7E-B95FCBDDBDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF4D8DF7-D263-4BA5-9D7E-B95FCBDDBDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B6EC94-BB19-4887-8A63-89C27F54A472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B6EC94-BB19-4887-8A63-89C27F54A472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B6EC94-BB19-4887-8A63-89C27F54A472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B6EC94-BB19-4887-8A63-89C27F54A472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32B6EC94-BB19-4887-8A63-89C27F54A472} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89808027-9D7E-4CCD-819C-186060D5B287}
