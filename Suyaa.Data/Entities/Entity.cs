@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,6 +19,7 @@ namespace Suyaa.Data.Entities
         /// 唯一标识
         /// </summary>
         [Key]
+        [Column("id")]
         public virtual TId Id { get; set; }
 
     }

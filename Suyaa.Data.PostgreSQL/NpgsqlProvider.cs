@@ -103,7 +103,7 @@ namespace Suyaa.Data.PostgreSQL
             {
                 if (isFirst) { isFirst = false; } else { sb.Append(','); sb.AppendLine(); }
                 sb.Append(new string(' ', 4));
-                sb.AppendLine(GetColumnCreateSqlString(tableName, column));
+                sb.Append(GetColumnCreateSqlString(tableName, column));
                 // 记录主键
                 if (column.IsKey()) keyName = column.GetColumnName();
             }
