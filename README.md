@@ -18,7 +18,7 @@ A comprehensive auxiliary development kit based on .Net Standard 2.1.
 | Suyaa.Data.PostgreSQL | .Net Standard 2.1 | PostgreSQL组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Data.PostgreSQL) |
 | Suyaa.Data.Sqlite | .Net Standard 2.1 | Sqlite组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Data.Sqlite) |
 | Suyaa.EFCore | .Net Standard 2.1 | EFCore组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.EFCore) |
-| Suyaa.Logger | .Net Standard 2.1 | 日志组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Logger) |
+| Suyaa.Logs | .Net Standard 2.1 | 日志组件 | [访问详情](https://github.com/Suyaas/Suyaa/tree/main/Suyaa.Logs) |
 
 ## Nuget包下载
 
