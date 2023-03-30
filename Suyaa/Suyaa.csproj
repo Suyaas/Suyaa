@@ -5,21 +5,16 @@
     <Nullable>enable</Nullable>
     <Version>1.0.2304.1</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-    <Description>一套基于.Net Standard的综合性辅助开发套件基础件</Description>
-    <PackageIcon>logo.png</PackageIcon>
+    <Description>基于.Net Standard 2.1的综合开发工具包，包括基本类型处理、ORM框架、日志管理等</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/inmount/egg</RepositoryUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="..\icon\logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

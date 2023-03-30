@@ -14,14 +14,6 @@ namespace sy
     {
 
         /// <summary>
-        /// 检测文件是否存在 - 可使用FileExists替代
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static bool CheckFileExists(string path) { return System.IO.File.Exists(path); }
-
-        /// <summary>
         /// 检测文件是否存在
         /// </summary>
         /// <param name="path"></param>

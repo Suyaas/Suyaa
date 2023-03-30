@@ -27,14 +27,6 @@ namespace sy
         }
 
         /// <summary>
-        /// 检测文件夹是否存在 - 可使用FolderExists替代
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static bool CheckFolderExists(string path) { return System.IO.Directory.Exists(path); }
-
-        /// <summary>
         /// 检测文件夹是否存在
         /// </summary>
         /// <param name="path"></param>
