@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Suyaa.Logger\Suyaa.Log.csproj" />
+    <ProjectReference Include="..\..\Suyaa.Logs\Suyaa.Logs.csproj" />
   </ItemGroup>
 
 </Project>

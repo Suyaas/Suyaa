@@ -1,8 +1,9 @@
-using Suyaa.Log.Loggers;
+using Suyaa.Logs;
+using Suyaa.Logs.Loggers;
 using System.Diagnostics;
 using Xunit.Abstractions;
 
-namespace Suyaa.Log.Tests
+namespace Suyaa.Logs.Tests
 {
     public class Test
     {
