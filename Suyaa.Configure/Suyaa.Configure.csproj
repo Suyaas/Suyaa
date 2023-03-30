@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>16.2.2303.17</Version>
+    <Authors>Egg Studio</Authors>
+    <Description>Egg套件的配置文件开发组件</Description>
+    <PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/inmount/egg</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Suyaa\Suyaa.csproj" />
+  </ItemGroup>
+
+</Project>
