@@ -1,8 +1,8 @@
 # 舒雅开发套件（Suyaa）
 
-一个基于.Net Standard 2.1的综合性辅助开发套件基础件。
+基于.Net Standard 2.1的综合开发工具包，包括基本类型处理、ORM框架、日志管理等
 
-A comprehensive auxiliary development kit based on .Net Standard 2.1.
+Comprehensive development kit based on .Net Standard 2.1, including basic type processing, ORM framework, log management, etc
 
 ![license](https://img.shields.io/github/license/suyaas/suyaa)
 ![codeSize](https://img.shields.io/github/languages/code-size/suyaas/suyaa)
