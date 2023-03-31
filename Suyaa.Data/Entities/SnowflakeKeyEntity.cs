@@ -16,17 +16,9 @@ namespace Suyaa.Data.Entities
     {
 
         /// <summary>
-        /// 雪花Id
-        /// </summary>
-        public override long Id { get => base.Id; set => base.Id = value; }
-
-        /// <summary>
         /// 对象实例化
         /// </summary>
-        public SnowflakeKeyEntity()
-        {
-            base.Id = sy.Generator.GetSnowflakeId();
-        }
+        public SnowflakeKeyEntity() : base(sy.Generator.GetSnowflakeId()) { }
 
     }
 }

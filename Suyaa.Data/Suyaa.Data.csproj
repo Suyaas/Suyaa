@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<Version>1.0.2304.1</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-		<Description>舒雅套件中的用于操作数据库的开发组件</Description>
+		<Description>舒雅套件中用于操作数据库的开发组件</Description>
 		<PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>

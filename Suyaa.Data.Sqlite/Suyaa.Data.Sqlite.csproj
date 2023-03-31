@@ -6,7 +6,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Version>1.0.2304.1</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-		<Description>一套服务于Sqlite EFCore的辅助开发组件</Description>
+		<Description>舒雅套件中服务于Sqlite数据库的辅助开发组件</Description>
 		<RepositoryUrl>https://github.com/inmount/egg</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>

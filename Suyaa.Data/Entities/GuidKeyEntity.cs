@@ -18,16 +18,13 @@ namespace Suyaa.Data.Entities
         /// <summary>
         /// GUID标识
         /// </summary>
-        [Column(TypeName = "varchar(50)")]
+        [Column("id", TypeName = "varchar(50)")]
         public override string Id { get => base.Id; set => base.Id = value; }
 
         /// <summary>
         /// 对象实例化
         /// </summary>
-        public GuidKeyEntity()
-        {
-            base.Id = Guid.NewGuid().ToString("N");
-        }
+        public GuidKeyEntity() : base(Guid.NewGuid().ToString("N")) { }
 
     }
 }
