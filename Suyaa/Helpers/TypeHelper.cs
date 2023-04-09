@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -114,5 +115,23 @@ namespace Suyaa.Helpers
         /// <returns></returns>
         public static bool HasInterface<T>(this Type? type)
             => type.HasInterface(typeof(T));
+
+        /// <summary>
+        /// 创建一个实例对象
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static T Create<T>(this Type? type, object[]? args = null) where T : class
+            => sy.Assembly.Create<T>(type, args);
+
+        /// <summary>
+        /// 创建一个实例对象
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static object Create(this Type? type, object[]? args = null)
+            => sy.Assembly.CreateInstance(type, args) ?? throw new NullException(type);
     }
 }

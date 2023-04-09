@@ -12,7 +12,7 @@ namespace sy
     /// <summary>
     /// 程序集
     /// </summary>
-    public static class Assembly
+    public static partial class Assembly
     {
 
         // 私有变量
@@ -117,59 +117,6 @@ namespace sy
             var obj = new T();
             obj.SetParams(args);
             return obj;
-        }
-
-        /// <summary>
-        /// 根据名称查找类型
-        /// </summary>
-        /// <param name="name">类型名称</param>
-        /// <returns></returns>
-        public static Type? FindType(string name)
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                    if (type.FullName == name) return type;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 根据名称查找类型
-        /// </summary>
-        /// <param name="name">类型名称</param>
-        /// <param name="dllPath">类文件路径</param>
-        /// <returns></returns>
-        public static Type? FindType(string name, string dllPath)
-        {
-            // 先进行名称查找类型
-            Type? type = FindType(name);
-            // 未找到则先加载关联的dll文件，再重新查找
-            if (type is null)
-            {
-                System.Reflection.Assembly.LoadFrom(dllPath);
-                type = FindType(name);
-            }
-            return type;
-        }
-
-        /// <summary>
-        /// 从文件中加载程序集
-        /// </summary>
-        /// <param name="path"></param>
-        public static void LoadAssemblyFromFile(string path)
-            => System.Reflection.Assembly.LoadFrom(path);
-
-        /// <summary>
-        /// 从文件夹中加载所有程序集
-        /// </summary>
-        /// <param name="path"></param>
-        public static void LoadAssemblyFromFolder(string path)
-        {
-            var files = sy.IO.GetFiles(path, "*.dll");
-            foreach (var file in files) LoadAssemblyFromFile(file);
         }
 
     }
