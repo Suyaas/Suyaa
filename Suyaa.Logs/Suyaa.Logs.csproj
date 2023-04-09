@@ -8,7 +8,15 @@
     <Description>舒雅套件中的日志开发组件</Description>
     <PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageIcon>suyaa_128.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon\suyaa_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Suyaa\Suyaa.csproj" />

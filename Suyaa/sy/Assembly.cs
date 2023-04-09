@@ -155,5 +155,22 @@ namespace sy
             return type;
         }
 
+        /// <summary>
+        /// 从文件中加载程序集
+        /// </summary>
+        /// <param name="path"></param>
+        public static void LoadAssemblyFromFile(string path)
+            => System.Reflection.Assembly.LoadFrom(path);
+
+        /// <summary>
+        /// 从文件夹中加载所有程序集
+        /// </summary>
+        /// <param name="path"></param>
+        public static void LoadAssemblyFromFolder(string path)
+        {
+            var files = sy.IO.GetFiles(path, "*.dll");
+            foreach (var file in files) LoadAssemblyFromFile(file);
+        }
+
     }
 }

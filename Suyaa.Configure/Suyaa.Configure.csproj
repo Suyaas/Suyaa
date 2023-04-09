@@ -10,7 +10,15 @@
     <PackageProjectUrl>https://github.com/inmount/egg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/inmount/egg</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageIcon>suyaa_128.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon\suyaa_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Suyaa\Suyaa.csproj" />
