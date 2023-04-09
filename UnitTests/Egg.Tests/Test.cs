@@ -127,5 +127,29 @@ namespace Suyaa.Tests
             t2 = Environment.TickCount;
             _output.WriteLine($"第七组：{sz} / {t2 - t1} 毫秒");
         }
+
+        [Fact]
+        public void TypeCode()
+        {
+            // 定义数据
+            int? a1 = null;
+            _output.WriteLine("a1:" + Type.GetTypeCode(a1?.GetType()).ToString());
+            int? a2 = 1;
+            _output.WriteLine("a2:" + Type.GetTypeCode(a2.GetType()).ToString());
+
+            _output.WriteLine("test:" + Type.GetTypeCode(typeof(Test)).ToString());
+
+            string? s1 = null;
+            _output.WriteLine("s1:" + Type.GetTypeCode(s1?.GetType()).ToString());
+            string? s2 = string.Empty;
+            _output.WriteLine("s2:" + Type.GetTypeCode(s2?.GetType()).ToString());
+            string? s3 = nameof(Test);
+            _output.WriteLine("s3:" + Type.GetTypeCode(s3?.GetType()).ToString());
+
+            _output.WriteLine("TypeCode:" + Type.GetTypeCode(typeof(TypeCode)).ToString());
+
+            _output.WriteLine("int?:" + Type.GetTypeCode(typeof(int?)).ToString());
+            _output.WriteLine(typeof(int?).FullName);
+        }
     }
 }

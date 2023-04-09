@@ -36,34 +36,20 @@ namespace Suyaa.Helpers
         }
 
         /// <summary>
+        /// 获取类型编码
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static TypeCode GetTypeCode(this Type? type)
+            => Type.GetTypeCode(type);
+
+        /// <summary>
         /// 判断是否为数值类型
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         public static bool IsNumeric(this Type? type)
-        {
-            if (type is null) return false;
-            string topName = type.GetTopName();
-            switch (topName)
-            {
-                case "System.Byte":
-                case "System.SByte":
-                case "System.Decimal":
-                case "System.Single":
-                case "System.Double":
-                case "System.Int16":
-                case "System.Int32":
-                case "System.Int64":
-                case "System.UInt16":
-                case "System.UInt32":
-                case "System.UInt64":
-                case "System.Boolean":
-                    return true;
-                default:
-                    if (type.BaseType != null) return type.BaseType.IsNumeric();
-                    return false;
-            }
-        }
+            => type.GetTypeCode().IsNumeric();
 
         /// <summary>
         /// 判断是否继承类
