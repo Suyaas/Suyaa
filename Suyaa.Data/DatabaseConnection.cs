@@ -82,18 +82,24 @@ namespace Suyaa.Data
             {
                 case DatabaseTypes.PostgreSQL:
                     providerName = "Suyaa.Data.PostgreSQL.NpgsqlProvider";
-                    providerDllPath = "Suyaa.Data.PostgreSQL.dll";
+                    providerDllPath = "Suyaa.Data.PostgreSQL";
                     break;
                 case DatabaseTypes.Sqlite:
                 case DatabaseTypes.Sqlite3:
                     providerName = "Suyaa.Data.Sqlite.SqliteProvider";
-                    providerDllPath = "Suyaa.Data.Sqlite.dll";
+                    providerDllPath = "Suyaa.Data.Sqlite";
                     break;
                 default: throw new DatabaseException($"不支持的数据库类型\'{type.ToString()}\'");
             }
-            Type? providerType = sy.Assembly.FindType(providerName, sy.IO.GetExecutionPath(providerDllPath));
-            if (providerType is null) throw new DatabaseException($"未找到供应商\'{providerName}\'");
-            return (IDatabaseProvider)Activator.CreateInstance(providerType);
+            string dllPath = sy.IO.GetExecutionPath(providerDllPath);
+            Type? providerType = sy.Assembly.FindType(providerName, dllPath);
+            if (providerType is null)
+            {
+                sy.IO.CreateFolder(dllPath);
+                throw new DatabaseException($"未找到供应商\'{providerName}\'");
+            }
+            //return (IDatabaseProvider)Activator.CreateInstance(providerType);
+            return providerType.Create<IDatabaseProvider>();
         }
 
         /// <summary>
