@@ -110,6 +110,16 @@ namespace sy
             return GetClosedPath(path1) + GetOSPathFormat(path2);
         }
 
+        /// <summary>
+        /// 获取文件夹路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string GetFolderPath(string path)
+        {
+            return GetClosedPath(System.IO.Path.GetDirectoryName(path));
+        }
+
     }
 
 }
