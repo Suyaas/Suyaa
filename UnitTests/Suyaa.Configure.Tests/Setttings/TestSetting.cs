@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Tests.Setttings
 {
-    public class TestSetting : JsonSetting
+    public class TestSetting : JsonConfigManager
     {
         public string Name { get; set; } = string.Empty;
     }
