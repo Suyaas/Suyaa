@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/inmount/egg</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageIcon>suyaa_128.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
