@@ -157,10 +157,8 @@ namespace Suyaa.Data
         #region [=====自动化=====]
 
         /// <summary>
-        /// 确保数据库创建
+        /// 数据表创建
         /// </summary>
-        /// <param name="conn"></param>
-        /// <param name="entity"></param>
         /// <returns></returns>
         public async Task<bool> TableCreated<T>()
         {

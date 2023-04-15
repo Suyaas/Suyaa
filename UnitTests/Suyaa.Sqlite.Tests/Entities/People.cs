@@ -1,4 +1,5 @@
-﻿using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace Suyaa.Sqlite.Tests.Entities
         /// 名称
         /// </summary>
         [Column("name")]
+        [DbColumnType(DbColumnTypes.Varchar, 128)]
         public virtual string Name { get; set; } = string.Empty;
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Entities;
 using Suyaa.Helpers;
 using System;
 using System.Collections.Generic;
@@ -91,6 +92,13 @@ namespace Suyaa.Data.Extensions
         /// <returns></returns>
         public static string GetColumnName(this PropertyInfo pro)
         {
+            #region 兼容 DbColumn 特性
+            var dbColumnAttr = pro.GetCustomAttribute<DbColumnAttribute>();
+            if (dbColumnAttr != null)
+            {
+                
+            }
+            #endregion
             var columnAttr = pro.GetCustomAttribute<ColumnAttribute>();
             if (columnAttr is null) return pro.Name;
             if (columnAttr.Name.IsNullOrWhiteSpace()) return pro.Name;

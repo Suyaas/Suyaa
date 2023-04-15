@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
-namespace Suyaa.Data.Sqlite.Extensions
+namespace Suyaa.Data.Sqlite.Helpers
 {
     /// <summary>
     /// DbContext扩展
     /// </summary>
-    public static class DbContextExtensions
+    public static class DbContextHelper
     {
         /// <summary>
         /// 创建
