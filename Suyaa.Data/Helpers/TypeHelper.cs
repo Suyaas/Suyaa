@@ -1,4 +1,5 @@
-﻿using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Entities;
 using Suyaa.Helpers;
 using System;
 using System.Collections.Generic;
@@ -8,21 +9,35 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data.Extensions
+namespace Suyaa.Data.Helpers
 {
     /// <summary>
     /// 类型扩展
     /// </summary>
-    public static class TypeExtensions
+    public static class TypeHelper
     {
 
         /// <summary>
         /// 获取表名称
         /// </summary>
-        /// <param name="pro"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public static string GetTableName(this Type type)
         {
+            #region 兼容 DbTable 特性
+            var dbTableAttr = type.GetCustomAttribute<DbTableAttribute>();
+            if (dbTableAttr != null)
+            {
+                string name = dbTableAttr.Name;
+                if (name.IsNullOrWhiteSpace()) name = type.Name;
+                switch (dbTableAttr.Convert)
+                {
+                    case DbNameConvertTypes.UnderlineLower: return name.ToLowerDbName();
+                    case DbNameConvertTypes.UnderlineUpper: return name.ToUpperDbName();
+                    default: return name;
+                }
+            }
+            #endregion
             var tableAttr = type.GetCustomAttribute<TableAttribute>();
             if (tableAttr is null) return type.Name;
             if (tableAttr.Name.IsNullOrWhiteSpace()) return type.Name;
@@ -32,7 +47,7 @@ namespace Suyaa.Data.Extensions
         /// <summary>
         /// 获取表名称
         /// </summary>
-        /// <param name="pro"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public static string? GetSchemaName(this Type type)
         {

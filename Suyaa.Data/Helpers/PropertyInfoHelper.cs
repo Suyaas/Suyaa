@@ -10,12 +10,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data.Extensions
+namespace Suyaa.Data.Helpers
 {
     /// <summary>
     /// 属性扩展
     /// </summary>
-    public static class PropertyInfoExtensions
+    public static class PropertyInfoHelper
     {
         /// <summary>
         /// 是否含有Key特性
@@ -96,7 +96,14 @@ namespace Suyaa.Data.Extensions
             var dbColumnAttr = pro.GetCustomAttribute<DbColumnAttribute>();
             if (dbColumnAttr != null)
             {
-                
+                string name = dbColumnAttr.Name;
+                if (name.IsNullOrWhiteSpace()) name = pro.Name;
+                switch (dbColumnAttr.Convert)
+                {
+                    case DbNameConvertTypes.UnderlineLower: return name.ToLowerDbName();
+                    case DbNameConvertTypes.UnderlineUpper: return name.ToUpperDbName();
+                    default: return name;
+                }
             }
             #endregion
             var columnAttr = pro.GetCustomAttribute<ColumnAttribute>();

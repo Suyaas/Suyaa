@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Linq;
 using System.Reflection;
-using Suyaa.Data.Extensions;
+using Suyaa.Data.Helpers;
 using Suyaa.Helpers;
 
 namespace Suyaa.Data

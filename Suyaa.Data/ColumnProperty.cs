@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
@@ -38,33 +39,6 @@ namespace Suyaa.Data
         /// 获取是否为数字
         /// </summary>
         public bool IsNumeric { get; }
-
-        /// <summary>
-        /// 判断是否数字类型类型
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsNumericType(Type type)
-        {
-            string typeFullName = GetTypeName(type);
-            switch (typeFullName)
-            {
-                case "System.Byte":
-                case "System.Decimal":
-                case "System.Single":
-                case "System.Double":
-                case "System.Int16":
-                case "System.Int32":
-                case "System.Int64":
-                case "System.UInt16":
-                case "System.UInt32":
-                case "System.UInt64":
-                case "System.Boolean":
-                    return true;
-                default:
-                    return false;
-            }
-        }
 
         /// <summary>
         /// 获取Sql中的值
@@ -107,22 +81,8 @@ namespace Suyaa.Data
                 if (!string.IsNullOrWhiteSpace(column.Name)) this.ColumnName = column.Name;
             }
             this.IsModified = false;
+            this.IsNumeric = property.PropertyType.IsNumeric();
             string typeFullName = GetTypeName(property.PropertyType);
-            switch (typeFullName)
-            {
-                case "System.Byte":
-                case "System.Decimal":
-                case "System.Single":
-                case "System.Double":
-                case "System.Int32":
-                case "System.Int64":
-                case "System.Boolean":
-                    IsNumeric = true;
-                    break;
-                default:
-                    IsNumeric = false;
-                    break;
-            }
         }
     }
 }

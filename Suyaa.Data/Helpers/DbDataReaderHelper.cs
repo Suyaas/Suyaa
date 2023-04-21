@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace Suyaa.Data.Extensions
+namespace Suyaa.Data.Helpers
 {
     /// <summary>
     /// 数据库阅读器
     /// </summary>
-    public static class DbDataReaderExtensions
+    public static class DbDataReaderHelper
     {
 
         /// <summary>

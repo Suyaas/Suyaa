@@ -5,39 +5,37 @@ using System.Text;
 namespace Suyaa.Data.Dependency
 {
     /// <summary>
-    /// 数据表特性
+    /// 数据字段特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DbColumnAttribute : System.Attribute
     {
-        // 名称
-        private readonly string _name;
 
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name => _name;
+        public string Name { get; }
 
         /// <summary>
         /// 转换类型
         /// </summary>
-        public DbNameConvertTypes Convert { get; set; }
+        public DbNameConvertTypes Convert { get; set; } = DbNameConvertTypes.None;
 
         /// <summary>
-        /// 数据表特性
+        /// 数据字段特性
         /// </summary>
         /// <param name="name"></param>
         public DbColumnAttribute(string name)
         {
-            _name = name;
+            this.Name = name;
         }
 
         /// <summary>
-        /// 数据表特性
+        /// 数据字段特性
         /// </summary>
         public DbColumnAttribute()
         {
-            _name = string.Empty;
+            this.Name = string.Empty;
         }
     }
 }

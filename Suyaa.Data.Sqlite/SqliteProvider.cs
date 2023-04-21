@@ -1,6 +1,6 @@
 ﻿using Suyaa.Data.Entities;
-using Suyaa.Data.Extensions;
-using Suyaa.Data.Sqlite.Extensions;
+using Suyaa.Data.Helpers;
+using Suyaa.Data.Sqlite.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

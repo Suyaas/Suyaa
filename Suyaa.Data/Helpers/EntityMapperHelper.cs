@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace Suyaa.Data.Extensions
+namespace Suyaa.Data.Helpers
 {
     /// <summary>
     /// 数据映射器扩展
     /// </summary>
-    public static class EntityMapperExtensions
+    public static class EntityMapperHelper
     {
 
         /// <summary>

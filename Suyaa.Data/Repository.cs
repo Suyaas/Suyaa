@@ -1,6 +1,6 @@
 ﻿using Suyaa.Data;
 using Suyaa.Data.Entities;
-using Suyaa.Data.Extensions;
+using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -107,7 +107,11 @@ namespace Suyaa.Data
 
         #region [=====插入数据=====]
 
-        // 获取插入sql语句
+        /// <summary>
+        /// 获取插入sql语句
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public string GetInsertSqlString(TClass entity)
         {
             string columns = GetInsertColumns<TClass>();
@@ -116,7 +120,11 @@ namespace Suyaa.Data
             return $"INSERT INTO {fullTableName} ({columns}) VALUES ({values});";
         }
 
-        // 获取插入列表sql语句
+        /// <summary>
+        /// 获取插入列表sql语句
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         public string GetInsertListSqlString(IEnumerable<TClass> entities)
         {
             StringBuilder sb = new StringBuilder();
@@ -152,7 +160,7 @@ namespace Suyaa.Data
         /// <summary>
         /// 插入数据列表
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entities"></param>
         /// <returns></returns>
         public async Task InsertListAsync(IEnumerable<TClass> entities)
             => await _connection.ExecuteNonQueryAsync(GetInsertListSqlString(entities));
@@ -324,7 +332,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取单行数据
         /// </summary>
-        /// <typeparam name="TClass"></typeparam>
         /// <param name="predicate"></param>
         /// <returns></returns>
         public async Task<TClass?> GetRowAsync(Expression<Func<TClass, bool>>? predicate = null)
@@ -333,7 +340,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取多行数据
         /// </summary>
-        /// <typeparam name="TClass"></typeparam>
         /// <param name="predicate"></param>
         /// <returns></returns>
         public async Task<List<TClass>> GetRowsAsync(Expression<Func<TClass, bool>>? predicate = null)

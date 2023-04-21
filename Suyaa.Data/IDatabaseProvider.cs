@@ -67,7 +67,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取列添加语句
         /// </summary>
-        /// <param name="tableName"></param>
         /// <param name="column"></param>
         /// <returns></returns>
         string GetColumnAddSqlString<T>(PropertyInfo column);
@@ -75,7 +74,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取数据表创建语句
         /// </summary>
-        /// <param name="entity"></param>
         /// <returns></returns>
         string GetTableCreateSqlString<T>();
 

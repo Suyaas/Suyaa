@@ -24,7 +24,6 @@ namespace Suyaa.Data
         /// 事务单元
         /// </summary>
         /// <param name="connection"></param>
-        /// <param name="uow"></param>
         public UnitOfWork(DatabaseConnection connection)
         {
             _connection = connection;

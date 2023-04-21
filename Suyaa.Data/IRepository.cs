@@ -119,7 +119,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取单行数据
         /// </summary>
-        /// <typeparam name="TClass"></typeparam>
         /// <param name="predicate"></param>
         /// <returns></returns>
         Task<TClass?> GetRowAsync(Expression<Func<TClass, bool>>? predicate = null);
@@ -127,7 +126,6 @@ namespace Suyaa.Data
         /// <summary>
         /// 获取多行数据
         /// </summary>
-        /// <typeparam name="TClass"></typeparam>
         /// <param name="predicate"></param>
         /// <returns></returns>
         Task<List<TClass>> GetRowsAsync(Expression<Func<TClass, bool>>? predicate = null);

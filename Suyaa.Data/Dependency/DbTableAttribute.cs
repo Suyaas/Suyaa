@@ -10,13 +10,11 @@ namespace Suyaa.Data.Dependency
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class DbTableAttribute : System.Attribute
     {
-        // 名称
-        private readonly string _name;
 
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name => _name;
+        public string Name { get; }
 
         /// <summary>
         /// 架构名称
@@ -26,7 +24,7 @@ namespace Suyaa.Data.Dependency
         /// <summary>
         /// 转换类型
         /// </summary>
-        public DbNameConvertTypes Convert { get; set; }
+        public DbNameConvertTypes Convert { get; set; } = DbNameConvertTypes.None;
 
         /// <summary>
         /// 数据表特性
@@ -34,7 +32,7 @@ namespace Suyaa.Data.Dependency
         /// <param name="name"></param>
         public DbTableAttribute(string name)
         {
-            _name = name;
+            this.Name = name;
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace Suyaa.Data.Dependency
         /// </summary>
         public DbTableAttribute()
         {
-            _name = string.Empty;
+            this.Name = string.Empty;
         }
     }
 }

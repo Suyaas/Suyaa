@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Data.SqlTypes;
 using Suyaa;
-using Suyaa.Data.Extensions;
+using Suyaa.Data.Helpers;
 using System.Threading.Tasks;
 using Suyaa.Helpers;
 
@@ -120,6 +120,12 @@ namespace Suyaa.Data
             return this;
         }
 
+        /// <summary>
+        /// 获取Sql字符串
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public string GetSqlString(TClass entity, Expression<Func<TClass, bool>> predicate)
         {
             // 数据库供应商
@@ -174,7 +180,6 @@ namespace Suyaa.Data
         /// 设置需要保存的数据
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="predicate"></param>
         /// <returns></returns>
         public async Task SetAsync(TClass entity)
             => await SetAsync(entity, d => Equals(d.Id, entity.Id));
