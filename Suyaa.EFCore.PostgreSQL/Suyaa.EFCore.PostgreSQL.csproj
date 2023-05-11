@@ -4,7 +4,20 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.1.2305.4</Version>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Description>舒雅套件中服务于PostgreSql数据库EFCore框架的辅助开发组件</Description>
+    <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/suyaas/suyaa</RepositoryUrl>
+    <PackageIcon>suyaa_128.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon\suyaa_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
