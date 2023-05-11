@@ -8,12 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data.PostgreSQL.Extensions
+namespace Suyaa.Data.PostgreSQL.Helpers
 {
     /// <summary>
     /// 属性扩展
     /// </summary>
-    public static class PropertyInfoExtensions
+    public static class PropertyInfoHelper
     {
         /// <summary>
         /// 获取列属性类型

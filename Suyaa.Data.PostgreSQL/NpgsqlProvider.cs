@@ -1,13 +1,8 @@
-﻿using Suyaa.Data.Extensions;
-using Suyaa.Data.PostgreSQL.Extensions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Suyaa.Data.PostgreSQL.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using System.Xml.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using Suyaa.Helpers;
+using Suyaa.Data.Helpers;
 
 namespace Suyaa.Data.PostgreSQL
 {

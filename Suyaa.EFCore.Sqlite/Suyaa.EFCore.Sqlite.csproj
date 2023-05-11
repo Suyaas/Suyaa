@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Suyaa.Data.Sqlite\Suyaa.Data.Sqlite.csproj" />
     <ProjectReference Include="..\Suyaa.EFCore\Suyaa.EFCore.csproj" />
   </ItemGroup>

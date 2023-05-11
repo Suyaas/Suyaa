@@ -54,7 +54,7 @@ namespace Suyaa.Sqlite.Tests
                     departmentRepository.Insert(bigDepartment);
                 }
                 // 添加小部门
-                Department? smallDepartment = departmentRepository.GetRow(d => d.Name == "大部门");
+                Department? smallDepartment = departmentRepository.GetRow(d => d.Name == "小部门");
                 if (smallDepartment is null)
                 {
                     smallDepartment = new Department()
@@ -119,7 +119,7 @@ namespace Suyaa.Sqlite.Tests
         }
 
         [Fact]
-        public void EfQuery()
+        public void EFQuery()
         {
             // 定义数据
             string connectionString = $"data source={sy.IO.GetExecutionPath("temp.db")}";
@@ -132,7 +132,7 @@ namespace Suyaa.Sqlite.Tests
                 IEfRepository<Department, string> departmentRepository = new EfRepository<Department, string>(context);
                 var query = from p in peopleRepository.Query()
                             join d in departmentRepository.Query() on p.DepartmentId equals d.Id
-                            where p.Name.Contains("大")
+                            where d.Name.Contains("大")
                             select p;
                 // 返回结果
                 _output.WriteLine($"peoples: {query.Count()}");

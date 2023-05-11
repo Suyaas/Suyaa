@@ -26,9 +26,13 @@ namespace sy
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                    if (type.FullName == name) return type;
+                try
+                {
+                    var types = assembly.GetTypes();
+                    foreach (var type in types)
+                        if (type.FullName == name) return type;
+                }
+                catch { }
             }
             return null;
         }

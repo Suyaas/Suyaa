@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Suyaa.Data.Entities;
-using Suyaa.Helpers;
+using Suyaa;
 
 namespace Suyaa.EFCore.Helpers
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Suyaa.Data.Helpers;
 using System;
+using System.Reflection;
 
 namespace Suyaa.EFCore.Helpers
 {
@@ -14,8 +15,16 @@ namespace Suyaa.EFCore.Helpers
             var list = typeof(T).GetRepositoryInfos();
             foreach (var item in list)
             {
+                // 设置表名
                 Type entityType = item.ObjectType.GenericTypeArguments[0];
-                modelBuilder.Entity(entityType).ToTable(entityType.Name.ToLowerDbName());
+                string tableName = entityType.GetTableName();
+                modelBuilder.Entity(entityType).ToTable(tableName);
+                // 设置字段名称
+                var pros = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                foreach (var property in pros)
+                {
+                    modelBuilder.Entity(entityType).Property(property.Name).HasColumnName(property.GetColumnName());
+                }
             }
         }
     }

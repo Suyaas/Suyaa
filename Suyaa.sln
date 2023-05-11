@@ -27,9 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Sqlite.Tests", "UnitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.PostgreSQL.Tests", "Suyaa.PostgreSQL.Tests\Suyaa.PostgreSQL.Tests.csproj", "{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.EFCore", "Suyaa.EFCore\Suyaa.EFCore.csproj", "{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore", "Suyaa.EFCore\Suyaa.EFCore.csproj", "{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.EFCore.Sqlite", "Suyaa.EFCore.Sqlite\Suyaa.EFCore.Sqlite.csproj", "{42008DE4-59C9-4370-B699-B076938B44C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore.Sqlite", "Suyaa.EFCore.Sqlite\Suyaa.EFCore.Sqlite.csproj", "{42008DE4-59C9-4370-B699-B076938B44C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore.PostgreSQL", "Suyaa.EFCore.PostgreSQL\Suyaa.EFCore.PostgreSQL.csproj", "{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{42008DE4-59C9-4370-B699-B076938B44C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42008DE4-59C9-4370-B699-B076938B44C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42008DE4-59C9-4370-B699-B076938B44C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
