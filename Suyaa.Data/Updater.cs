@@ -15,7 +15,6 @@ using System.Data.SqlTypes;
 using Suyaa;
 using Suyaa.Data.Helpers;
 using System.Threading.Tasks;
-using Suyaa.Helpers;
 
 namespace Suyaa.Data
 {
@@ -24,7 +23,7 @@ namespace Suyaa.Data
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public class Updater<TClass, TId> where TClass : IEntity<TId>
+    public class Updater<TClass, TId> where TClass : IEntity<TId> where TId : notnull
     {
         /// <summary>
         /// 获取类型名称

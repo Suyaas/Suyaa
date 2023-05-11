@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Data.Dependency;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
@@ -17,7 +18,8 @@ namespace Suyaa.Data.Entities
         /// <summary>
         /// 自动增长标识
         /// </summary>
-        [AutoIncrement]
+        [DbAutoIncrement]
+        [DbColumnType(DbColumnTypes.BigInt)]
         public override long Id { get => base.Id; set => base.Id = value; }
 
         /// <summary>

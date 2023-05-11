@@ -8,13 +8,14 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Suyaa.EFCore.Helpers;
 
 namespace Suyaa.EFCore.Dbsets
 {
     /// <summary>
     /// 数据仓库
     /// </summary>
-    public class Repository<TClass, TId> : IRepository<TClass, TId> where TClass : class, IEntity<TId>
+    public class EfRepository<TClass, TId> : IEfRepository<TClass, TId> where TClass : class, IEntity<TId> where TId : notnull
     {
         // 私有变量
         private Updater<TClass, TId> _updater;
@@ -22,7 +23,7 @@ namespace Suyaa.EFCore.Dbsets
         /// <summary>
         /// DB上下文
         /// </summary>
-        public DbContext? Context { get; }
+        public DbContextBase? Context { get; }
 
         /// <summary>
         /// 实体集合
@@ -33,22 +34,11 @@ namespace Suyaa.EFCore.Dbsets
         /// 对象实例化
         /// </summary>
         /// <param name="context"></param>
-        public Repository(DbContext context)
+        public EfRepository(DbContextBase context)
         {
             Context = context;
             DbSet = context.Set<TClass>();
             _updater = new Updater<TClass, TId>(new DatabaseConnection(context.GetDatabaseConnectionInfo()));
-        }
-
-        /// <summary>
-        /// 对象实例化
-        /// </summary>
-        /// <param name="connection"></param>
-        public Repository(DatabaseConnection connection)
-        {
-            Context = null;
-            DbSet = null;
-            _updater = new Updater<TClass, TId>(connection);
         }
 
         /// <summary>
@@ -69,6 +59,7 @@ namespace Suyaa.EFCore.Dbsets
         {
             if (DbSet is null) throw new DatabaseException($"'DbSet'尚未定义");
             var entity = await DbSet.FindAsync(id);
+            if (entity is null) return;
             DbSet.Remove(entity);
         }
 
@@ -76,7 +67,6 @@ namespace Suyaa.EFCore.Dbsets
         /// 添加数据
         /// </summary>
         /// <param name="entity"></param>
-        /// <exception cref="NotImplementedException"></exception>
         public void Insert(TClass entity)
         {
             InsertAsync(entity).Wait();
@@ -150,7 +140,7 @@ namespace Suyaa.EFCore.Dbsets
             var updater = new Updater<TClass, TId>(this.Context.GetDatabaseConnection());
             if (selector is null)
             {
-
+                updater.UseAll();
             }
             else
             {
@@ -187,7 +177,7 @@ namespace Suyaa.EFCore.Dbsets
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public TClass Get(TId id)
+        public TClass? Get(TId id)
         {
             return GetAsync(id).Result;
         }
@@ -197,7 +187,7 @@ namespace Suyaa.EFCore.Dbsets
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TClass> GetAsync(TId id)
+        public async Task<TClass?> GetAsync(TId id)
         {
             if (DbSet is null) throw new DatabaseException($"'DbSet'尚未定义");
             return await DbSet.FindAsync(id);

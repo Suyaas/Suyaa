@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Data.Dependency;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +19,8 @@ namespace Suyaa.Data.Entities
         /// <summary>
         /// GUID标识
         /// </summary>
-        [Column("id", TypeName = "varchar(50)")]
+        [DbColumnType(DbColumnTypes.Varchar, 50)]
+        [StringLength(50)]
         public override string Id { get => base.Id; set => base.Id = value; }
 
         /// <summary>

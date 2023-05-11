@@ -9,9 +9,16 @@ using System.Threading.Tasks;
 namespace Suyaa.Data.Entities
 {
     /// <summary>
+    /// 数据实例
+    /// </summary>
+    public interface IEntity
+    {
+    }
+
+    /// <summary>
     /// 带主键的实例
     /// </summary>
-    public interface IEntity<TId>
+    public interface IEntity<TId> : IEntity where TId : notnull
     {
         /// <summary>
         /// 唯一标识

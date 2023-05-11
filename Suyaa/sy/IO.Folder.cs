@@ -3,7 +3,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using Suyaa;
-using Suyaa.Helpers;
 
 namespace sy
 {

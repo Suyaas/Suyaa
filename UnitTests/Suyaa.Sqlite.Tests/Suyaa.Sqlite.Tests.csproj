@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Suyaa.Data.Sqlite\Suyaa.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\..\Suyaa.EFCore.Sqlite\Suyaa.EFCore.Sqlite.csproj" />
   </ItemGroup>
 
 </Project>

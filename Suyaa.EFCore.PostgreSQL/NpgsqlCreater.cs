@@ -16,8 +16,10 @@ using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
 using Suyaa.EFCore.Dbsets;
-using Suyaa.Data.Entities;
 using Suyaa.Data.PostgreSQL.Extensions;
+using Suyaa.Data.Dependency;
+using Suyaa.EFCore.Helpers;
+using Suyaa.Data.PostgreSQL.Helpers;
 
 namespace Suyaa.EFCore
 {
@@ -32,7 +34,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task<bool> EnsureCreated(DbContext context)
+        public async Task<bool> EnsureCreated(DbContextBase context)
         {
             try
             {
@@ -51,7 +53,7 @@ namespace Suyaa.EFCore
         /// <param name="table"></param>
         /// <param name="column"></param>
         /// <returns></returns>
-        public string GetAddColumnSql(IEntityType table, IMutableProperty column)
+        public string GetAddColumnSql(IEntityType table, IProperty column)
         {
             return $"ALTER TABLE {table.GetSchemaQualifiedTableName()} ADD {GetColumnSql(table, column)};";
         }
@@ -62,12 +64,12 @@ namespace Suyaa.EFCore
         /// <param name="table"></param>
         /// <param name="column"></param>
         /// <returns></returns>
-        public string GetAlterColumnSql(IEntityType table, IMutableProperty column)
+        public string GetAlterColumnSql(IEntityType table, IProperty column)
         {
             StringBuilder sb = new StringBuilder();
             if (column.IsPrimaryKey())
             {
-                bool isAutoIncrement = column.PropertyInfo.GetCustomAttributes<AutoIncrementAttribute>().Count() > 0;
+                bool isAutoIncrement = column.IsAutoIncrement();
                 sb.AppendLine($"ALTER TABLE {table.GetSchemaQualifiedTableName()} ALTER COLUMN \"{column.GetColumnBaseName()}\" TYPE {(isAutoIncrement ? "serial" : column.GetColumnType())};");
                 sb.AppendLine($"ALTER TABLE {table.GetSchemaQualifiedTableName()} ALTER \"{column.GetColumnBaseName()}\" SET NOT NULL;");
             }
@@ -86,11 +88,11 @@ namespace Suyaa.EFCore
         /// <param name="column"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string GetColumnSql(IEntityType table, IMutableProperty column)
+        public string GetColumnSql(IEntityType table, IProperty column)
         {
             if (column.IsPrimaryKey())
             {
-                bool isAutoIncrement = column.PropertyInfo.GetCustomAttributes<AutoIncrementAttribute>().Count() > 0;
+                bool isAutoIncrement = column.IsAutoIncrement();
                 return $"\"{column.GetColumnBaseName()}\" {(isAutoIncrement ? "serial" : column.GetColumnType())} NOT NULL";
             }
             else
@@ -107,16 +109,16 @@ namespace Suyaa.EFCore
         public string GetCreateTableSql(IEntityType table)
         {
             StringBuilder sb = new StringBuilder();
-            string schema = table.GetSchema();
-            string tableName = table.GetTableName();
-            string tableFullName = table.GetSchemaQualifiedTableName();
+            string schema = table.GetSchema().ToNotNull();
+            string tableName = table.GetTableName().ToNotNull();
+            string tableFullName = table.GetSchemaQualifiedTableName().ToNotNull();
             string? primaryKey = null;
             bool isFirst = true;
             // 拼接构架
             if (!string.IsNullOrWhiteSpace(schema)) sb.AppendLine($"CREATE SCHEMA IF NOT EXISTS \"{schema}\";");
             // 拼接语句
             sb.Append($"CREATE TABLE IF NOT EXISTS {tableFullName}(\n");
-            foreach (IMutableProperty property in table.GetProperties())
+            foreach (IProperty property in table.GetProperties())
             {
                 if (property.IsPrimaryKey()) primaryKey = property.GetColumnBaseName();
                 if (isFirst) { isFirst = false; } else { sb.Append(','); sb.AppendLine(); }
@@ -146,12 +148,12 @@ namespace Suyaa.EFCore
         {
             StringBuilder sb = new StringBuilder();
             // 添加表
-            string schmaName = table.GetSchema();
+            string schmaName = table.GetSchema().ToNotNull();
             if (string.IsNullOrWhiteSpace(schmaName)) schmaName = "public";
-            string tableName = table.GetTableName();
+            string tableName = table.GetTableName().ToNotNull();
             sb.Append(GetCreateTableSql(table));
             // 添加所有字段
-            foreach (IMutableProperty property in table.GetProperties())
+            foreach (IProperty property in table.GetProperties())
             {
                 if (!property.IsPrimaryKey())
                 {
@@ -171,7 +173,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>        
-        public string GetEnsureCreatedSql(DbContext context)
+        public string GetEnsureCreatedSql(DbContextBase context)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("do $$");

@@ -1,5 +1,5 @@
 ﻿using Suyaa.Data.Helpers;
-using Suyaa.Helpers;
+using Suyaa;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -9,9 +9,9 @@ using System.Text;
 namespace Suyaa.Data.Entities
 {
     /// <summary>
-    /// 数据映射器
+    /// 数据实体映射器
     /// </summary>
-    public class EntityMapper<T>
+    public class EntityMapper<T> : IEntity
     {
         // 对象类型
         private readonly Type _type;

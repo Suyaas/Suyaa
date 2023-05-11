@@ -13,7 +13,7 @@ namespace Suyaa.EFCore.Dbsets
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public interface IRepository<TClass, TId> where TClass : IEntity<TId>
+    public interface IEfRepository<TClass, TId> where TClass : IEntity<TId> where TId : notnull
     {
 
         /// <summary>
@@ -26,13 +26,13 @@ namespace Suyaa.EFCore.Dbsets
         /// 获取单行数据
         /// </summary>
         /// <returns></returns>
-        TClass Get(TId id);
+        TClass? Get(TId id);
 
         /// <summary>
         /// 获取单行数据
         /// </summary>
         /// <returns></returns>
-        Task<TClass> GetAsync(TId id);
+        Task<TClass?> GetAsync(TId id);
 
         /// <summary>
         /// 新增

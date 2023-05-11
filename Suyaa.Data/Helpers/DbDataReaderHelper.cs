@@ -1,5 +1,5 @@
 ﻿using Suyaa.Data.Entities;
-using Suyaa.Helpers;
+using Suyaa;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;

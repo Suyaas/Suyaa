@@ -15,6 +15,7 @@ namespace Suyaa.Data
     /// <typeparam name="TId"></typeparam>
     public interface IRepository<TClass, TId> : IDisposable
         where TClass : class, IEntity<TId>
+        where TId : notnull
     {
         /// <summary>
         /// 数据库连接

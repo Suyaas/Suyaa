@@ -1,6 +1,5 @@
 ﻿using Suyaa.Data.Entities;
-using Suyaa.Data.Extensions;
-using Suyaa.Helpers;
+using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

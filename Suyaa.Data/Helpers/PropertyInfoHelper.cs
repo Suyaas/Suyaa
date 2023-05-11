@@ -1,6 +1,5 @@
 ﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Entities;
-using Suyaa.Helpers;
+using Suyaa;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +44,7 @@ namespace Suyaa.Data.Helpers
         /// <returns></returns>
         public static bool IsAutoIncrement(this PropertyInfo pro)
         {
-            return pro.GetCustomAttributes<AutoIncrementAttribute>().Any();
+            return pro.GetCustomAttributes<DbAutoIncrementAttribute>().Any();
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace Suyaa.Data.Helpers
         /// <returns></returns>
         public static bool IsIndex(this PropertyInfo pro)
         {
-            return pro.GetCustomAttributes<IndexAttribute>().Any();
+            return pro.GetCustomAttributes<DbIndexAttribute>().Any();
         }
 
 
@@ -66,7 +65,7 @@ namespace Suyaa.Data.Helpers
         /// <returns></returns>
         public static bool IsUniqueIndex(this PropertyInfo pro)
         {
-            var indexAttr = pro.GetCustomAttribute<IndexAttribute>();
+            var indexAttr = pro.GetCustomAttribute<DbIndexAttribute>();
             if (indexAttr is null) return false;
             return indexAttr.Unique;
         }
@@ -78,7 +77,7 @@ namespace Suyaa.Data.Helpers
         /// <returns></returns>
         public static string GetIndexName<T>(this PropertyInfo pro)
         {
-            var indexAttr = pro.GetCustomAttribute<IndexAttribute>();
+            var indexAttr = pro.GetCustomAttribute<DbIndexAttribute>();
             if (!indexAttr.Name.IsNullOrWhiteSpace()) return indexAttr.Name;
             string tableName = typeof(T).GetTableName();
             string columnName = pro.GetColumnName();

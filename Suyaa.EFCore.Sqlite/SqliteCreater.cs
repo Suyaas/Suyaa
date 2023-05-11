@@ -1,22 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using Suyaa;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Xml.Linq;
-using System.Security.Cryptography;
-using Suyaa.EFCore.Sqlite;
 using Suyaa.Data.Sqlite;
-using Suyaa.EFCore.Extensions;
-using Suyaa.Data;
+using Suyaa.EFCore.Helpers;
+using Suyaa;
 
 namespace Suyaa.EFCore
 {
@@ -41,7 +28,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task<bool> EnsureCreated(DbContext context)
+        public async Task<bool> EnsureCreated(DbContextBase context)
         {
             // 获取数据库连接
             System.Data.Common.DbConnection conn = context.Database.GetDbConnection();
@@ -58,12 +45,12 @@ namespace Suyaa.EFCore
                         foreach (var entity in entities)
                         {
                             // 创建表
-                            string tableName = entity.GetTableName();
+                            string tableName = entity.GetTableName().ToNotNull();
                             string createTableSql = GetCreateTableSql(entity);
                             comm.CommandText = createTableSql;
                             await comm.ExecuteNonQueryAsync();
                             // 获取所有字段
-                            foreach (IMutableProperty property in entity.GetProperties())
+                            foreach (IProperty property in entity.GetProperties())
                             {
                                 string columnName = property.GetColumnBaseName();
                                 string checkFieldSql = $"select * from [sqlite_master] where type='table' and name ='{tableName}' and (sql like '%[{columnName}]%' or sql like '%\"{columnName}\"%' or sql like '%,{columnName},%'or sql like '%({columnName},%'or sql like '%,{columnName})%' or sql like '% {columnName} %');";
@@ -110,9 +97,9 @@ namespace Suyaa.EFCore
         /// <param name="table"></param>
         /// <param name="column"></param>
         /// <returns></returns>
-        public string GetAddColumnSql(IEntityType table, IMutableProperty column)
+        public string GetAddColumnSql(IEntityType table, IProperty column)
         {
-            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName())} ADD COLUMN {GetColumnSql(table, column)};";
+            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().ToNotNull())} ADD COLUMN {GetColumnSql(table, column)};";
         }
 
         /// <summary>
@@ -121,9 +108,9 @@ namespace Suyaa.EFCore
         /// <param name="table"></param>
         /// <param name="column"></param>
         /// <returns></returns>
-        public string GetAlterColumnSql(IEntityType table, IMutableProperty column)
+        public string GetAlterColumnSql(IEntityType table, IProperty column)
         {
-            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName())} ALTER COLUMN {GetColumnSql(table, column)};";
+            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().ToNotNull())} ALTER COLUMN {GetColumnSql(table, column)};";
         }
 
         /// <summary>
@@ -133,7 +120,7 @@ namespace Suyaa.EFCore
         /// <param name="column"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string GetColumnSql(IEntityType table, IMutableProperty column)
+        public string GetColumnSql(IEntityType table, IProperty column)
         {
             if (column.IsPrimaryKey())
             {
@@ -160,11 +147,11 @@ namespace Suyaa.EFCore
         public string GetCreateTableSql(IEntityType table)
         {
             StringBuilder sb = new StringBuilder();
-            string tableName = table.GetTableName();
+            string tableName = table.GetTableName().ToNotNull();
             bool isFirst = true;
             // 拼接语句
             sb.Append($"CREATE TABLE IF NOT EXISTS {_provider.GetNameString(tableName)}(\n");
-            foreach (IMutableProperty property in table.GetProperties())
+            foreach (IProperty property in table.GetProperties())
             {
                 if (isFirst) { isFirst = false; } else { sb.Append(','); sb.AppendLine(); }
                 sb.Append("    ");
@@ -182,7 +169,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>        
-        public string GetEnsureCreatedSql(DbContext context)
+        public string GetEnsureCreatedSql(DbContextBase context)
         {
             StringBuilder sb = new StringBuilder();
             // 获取根类型
@@ -191,10 +178,10 @@ namespace Suyaa.EFCore
             foreach (var entity in entities)
             {
                 // 创建表
-                string tableName = entity.GetTableName();
+                string tableName = entity.GetTableName().ToNotNull();
                 sb.Append(GetCreateTableSql(entity));
                 // 获取所有字段
-                foreach (IMutableProperty property in entity.GetProperties())
+                foreach (IProperty property in entity.GetProperties())
                 {
                     sb.Append(GetAddColumnSql(entity, property));
                     sb.AppendLine();

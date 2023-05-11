@@ -25,7 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Suyaa.EFCore\Suyaa.EFCore.csproj" />
+	  <ProjectReference Include="..\Suyaa.Data\Suyaa.Data.csproj" />
 	</ItemGroup>
 
 </Project>

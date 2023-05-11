@@ -2,19 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Suyaa.EFCore.Helpers;
 
-namespace Suyaa.Data.PostgreSQL.Extensions
+namespace Suyaa.Data.PostgreSQL.Helpers
 {
     /// <summary>
     /// DbContext扩展
     /// </summary>
-    public static class DbContextExtensions
+    public static class DbContextHelper
     {
         /// <summary>
         /// 创建
         /// </summary>
         /// <param name="context"></param>
-        public static bool EnsureCreatedPostgreSQL(this DbContext context)
+        public static bool EnsureCreatedPostgreSQL(this DbContextBase context)
         {
             return context.EnsureCreated<NpgsqlCreater>();
         }
@@ -24,7 +25,7 @@ namespace Suyaa.Data.PostgreSQL.Extensions
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<int> ExecuteNonQueryAsync(this DbContext context, string sql)
+        public static async Task<int> ExecuteNonQueryAsync(this DbContextBase context, string sql)
         {
             int res = 0;
             // 连接数据库
@@ -49,7 +50,7 @@ namespace Suyaa.Data.PostgreSQL.Extensions
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(this DbContext context, string sql)
+        public static int ExecuteNonQuery(this DbContextBase context, string sql)
         {
             return context.ExecuteNonQueryAsync(sql).Result;
         }

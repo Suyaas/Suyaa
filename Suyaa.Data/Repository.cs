@@ -16,7 +16,7 @@ namespace Suyaa.Data
     /// <summary>
     /// 数据仓库
     /// </summary>
-    public class Repository<TClass, TId> : IRepository<TClass, TId> where TClass : class, IEntity<TId>
+    public class Repository<TClass, TId> : IRepository<TClass, TId> where TClass : class, IEntity<TId> where TId : notnull
     {
         // 数据库连接
         private readonly IDatabaseConnection _connection;

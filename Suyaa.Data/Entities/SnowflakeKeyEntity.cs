@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Data.Dependency;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,12 @@ namespace Suyaa.Data.Entities
     /// </summary>
     public class SnowflakeKeyEntity : Entity<long>
     {
+
+        /// <summary>
+        /// 自动增长标识
+        /// </summary>
+        [DbColumnType(DbColumnTypes.BigInt)]
+        public override long Id { get => base.Id; set => base.Id = value; }
 
         /// <summary>
         /// 对象实例化

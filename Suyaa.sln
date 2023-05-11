@@ -19,15 +19,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Logs", "Suyaa.Logs\Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data", "Suyaa.Data\Suyaa.Data.csproj", "{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore", "Suyaa.EFCore\Suyaa.EFCore.csproj", "{4F9A9482-2AEF-4C57-AF12-80BFB9255996}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.Sqlite", "Suyaa.Data.Sqlite\Suyaa.Data.Sqlite.csproj", "{1322566E-37A2-4101-A128-305D96C23EBB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.PostgreSQL", "Suyaa.Data.PostgreSQL\Suyaa.Data.PostgreSQL.csproj", "{A7DE8B1B-D312-4659-8345-C7C90497BEC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Sqlite.Tests", "UnitTests\Suyaa.Sqlite.Tests\Suyaa.Sqlite.Tests.csproj", "{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Sqlite.Tests", "UnitTests\Suyaa.Sqlite.Tests\Suyaa.Sqlite.Tests.csproj", "{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.PostgreSQL.Tests", "Suyaa.PostgreSQL.Tests\Suyaa.PostgreSQL.Tests.csproj", "{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.PostgreSQL.Tests", "Suyaa.PostgreSQL.Tests\Suyaa.PostgreSQL.Tests.csproj", "{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.EFCore", "Suyaa.EFCore\Suyaa.EFCore.csproj", "{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.EFCore.Sqlite", "Suyaa.EFCore.Sqlite\Suyaa.EFCore.Sqlite.csproj", "{42008DE4-59C9-4370-B699-B076938B44C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +65,6 @@ Global
 		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8E0687-C218-4F1A-B3FB-F9A7B91867CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F9A9482-2AEF-4C57-AF12-80BFB9255996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F9A9482-2AEF-4C57-AF12-80BFB9255996}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F9A9482-2AEF-4C57-AF12-80BFB9255996}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F9A9482-2AEF-4C57-AF12-80BFB9255996}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1322566E-37A2-4101-A128-305D96C23EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1322566E-37A2-4101-A128-305D96C23EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1322566E-37A2-4101-A128-305D96C23EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,6 +81,14 @@ Global
 		{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D941EDAD-37CE-4ACB-BB2D-BC2C9640AB08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42008DE4-59C9-4370-B699-B076938B44C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42008DE4-59C9-4370-B699-B076938B44C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42008DE4-59C9-4370-B699-B076938B44C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42008DE4-59C9-4370-B699-B076938B44C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

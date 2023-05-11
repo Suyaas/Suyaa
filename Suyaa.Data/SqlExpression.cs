@@ -6,7 +6,7 @@ using System.Text;
 using System.Linq;
 using System.Reflection;
 using Suyaa.Data.Helpers;
-using Suyaa.Helpers;
+using Suyaa;
 
 namespace Suyaa.Data
 {

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Data.Entities
+namespace Suyaa.Data.Dependency
 {
     /// <summary>
     /// 索引字段
     /// </summary>
-    public class IndexAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class DbIndexAttribute : Attribute
     {
         /// <summary>
         /// 名称
@@ -22,11 +23,11 @@ namespace Suyaa.Data.Entities
         /// <summary>
         /// 索引字段
         /// </summary>
-        public IndexAttribute() { this.Name = string.Empty; }
+        public DbIndexAttribute() { Name = string.Empty; }
 
         /// <summary>
         /// 索引字段
         /// </summary>
-        public IndexAttribute(string name) { this.Name = name; }
+        public DbIndexAttribute(string name) { Name = name; }
     }
 }
