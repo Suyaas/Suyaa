@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.IO;
 using System.Text.Json;
 using Suyaa.Configure;
-using Suyaa.Helpers;
+using Suyaa;
 
 namespace sy
 {
@@ -20,7 +20,7 @@ namespace sy
         /// <summary>
         /// 从字符串中加载Json配置
         /// </summary>
-        /// <param name="json">Json字符串</param>
+        /// <param name="path">文件地址</param>
         /// <returns></returns>
         public static JsonConfigManager<T> LoadJsonSetting<T>(string path) where T : IConfig, new()
             => new JsonConfigManager<T>(path);
