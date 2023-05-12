@@ -10,6 +10,7 @@
     <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
     <RepositoryUrl>https://github.com/suyaas/suyaa</RepositoryUrl>
     <PackageIcon>suyaa_128.png</PackageIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
