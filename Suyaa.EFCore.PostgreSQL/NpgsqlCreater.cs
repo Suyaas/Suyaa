@@ -1,25 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using Suyaa;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Xml.Linq;
-using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
-using Suyaa.EFCore.Dbsets;
-using Suyaa.Data.PostgreSQL.Extensions;
-using Suyaa.Data.Dependency;
-using Suyaa.EFCore.Helpers;
 using Suyaa.Data.PostgreSQL.Helpers;
+using Suyaa.EFCore.Helpers;
 
 namespace Suyaa.EFCore
 {
