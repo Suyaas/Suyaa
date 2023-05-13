@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore.PostgreSQL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.PostgreSQL.Tests", "UnitTests\Suyaa.PostgreSQL.Tests\Suyaa.PostgreSQL.Tests.csproj", "{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Windows", "Suyaa.Windows\Suyaa.Windows.csproj", "{B6636793-C7F2-4D74-84BC-6AE8156F841C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
