@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.1.2305.4</Version>
+    <Version>1.1.2305.5</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Description>基于.Net Standard 2.1的综合开发工具包，包括基本类型处理、ORM框架、日志管理等</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

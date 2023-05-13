@@ -19,7 +19,7 @@ namespace Suyaa.Data.Dependency
         /// <summary>
         /// 架构名称
         /// </summary>
-        public string Sechma { get; set; } = string.Empty;
+        public string Schema { get; set; } = string.Empty;
 
         /// <summary>
         /// 转换类型
