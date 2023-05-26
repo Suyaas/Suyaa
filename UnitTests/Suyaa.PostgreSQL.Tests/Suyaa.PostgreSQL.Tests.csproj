@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Suyaa.Data.PostgreSQL\Suyaa.Data.PostgreSQL.csproj" />
+    <ProjectReference Include="..\..\Suyaa.EFCore.PostgreSQL\Suyaa.EFCore.PostgreSQL.csproj" />
   </ItemGroup>
 
 </Project>
