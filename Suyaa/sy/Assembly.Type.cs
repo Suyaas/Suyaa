@@ -118,15 +118,6 @@ namespace sy
         /// <summary>
         /// 创建一个对象实例
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static T Create<T>(Type? type, object[]? args = null) where T : class
-            => (T)(CreateInstance(type, args) ?? throw new NullException(type));
-
-        /// <summary>
-        /// 创建一个对象实例
-        /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(object[]? args = null) where T : class

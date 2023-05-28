@@ -47,6 +47,11 @@ namespace sy
         public static string Name { get { return ExecutionInfo.ProductName; } }
 
         /// <summary>
+        /// 获取程序全称
+        /// </summary>
+        public static string FullName { get { return ExecutionInfo.ProductName + " Ver:" + ExecutionInfo.ProductVersion; } }
+
+        /// <summary>
         /// 获取程序版本
         /// </summary>
         public static string ExecutionFilePath

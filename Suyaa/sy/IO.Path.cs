@@ -119,6 +119,20 @@ namespace sy
             return GetClosedPath(System.IO.Path.GetDirectoryName(path));
         }
 
+        /// <summary>
+        /// 获取完整路径
+        /// ./为程序路径
+        /// ~/为工作路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string GetFullPath(string path)
+        {
+            if (path.StartsWith("./")) return GetExecutionPath(path.Substring(2));
+            if (path.StartsWith("~/")) return GetWorkPath(path.Substring(2));
+            return GetOSPathFormat(path);
+        }
+
     }
 
 }
