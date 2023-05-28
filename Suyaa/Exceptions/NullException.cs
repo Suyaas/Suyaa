@@ -24,4 +24,15 @@ namespace Suyaa.Exceptions
         /// </summary>
         public NullException(string message) : base(message) { }
     }
+
+    /// <summary>
+    /// 为空错误
+    /// </summary>
+    public class NullException<T> : NullException
+    {
+        /// <summary>
+        /// 为空错误
+        /// </summary>
+        public NullException() : base(typeof(T)) { }
+    }
 }

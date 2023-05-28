@@ -1,6 +1,7 @@
 ﻿using Suyaa.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -31,8 +32,8 @@ namespace Suyaa
         /// <returns></returns>
         public static T Fixed<T>(this T? obj) where T : class
         {
-            if (obj is null) throw new NullException();
-            return (T)obj;
+            if (obj is null) throw new NullException<T>();
+            return obj;
         }
 
         /// <summary>
@@ -110,6 +111,56 @@ namespace Suyaa
         {
             return (T)obj.ConvertTo(typeof(T));
         }
+
+        /// <summary>
+        /// 克隆对象
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static object Clone(this object obj, Type type)
+        {
+            var typeCode = Type.GetTypeCode(type);
+            switch (typeCode)
+            {
+                // 常规类型
+                case TypeCode.Boolean: return Convert.ToBoolean(obj);
+                case TypeCode.Byte: return Convert.ToByte(obj);
+                case TypeCode.Int16: return Convert.ToInt16(obj);
+                case TypeCode.Int32: return Convert.ToInt32(obj);
+                case TypeCode.Int64: return Convert.ToInt64(obj);
+                case TypeCode.UInt16: return Convert.ToUInt16(obj);
+                case TypeCode.UInt32: return Convert.ToUInt32(obj);
+                case TypeCode.UInt64: return Convert.ToUInt64(obj);
+                case TypeCode.Single: return Convert.ToSingle(obj);
+                case TypeCode.Double: return Convert.ToDouble(obj);
+                case TypeCode.Char: return Convert.ToChar(obj);
+                case TypeCode.Decimal: return Convert.ToDecimal(obj);
+                case TypeCode.DateTime: return Convert.ToDateTime(obj);
+                case TypeCode.String: return Convert.ToString(obj);
+                case TypeCode.Object:
+                    // 创建新对象
+                    var objNew = sy.Assembly.Create(type).Fixed();
+                    var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (var pro in pros)
+                    {
+                        var value = pro.GetValue(obj);
+                        if (value is null) continue;
+                        pro.SetValue(objNew, value.Clone(pro.PropertyType));
+                    }
+                    return objNew;
+                default: throw new TypeNotSupportedException(type);
+            }
+        }
+
+        /// <summary>
+        /// 克隆对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T Clone<T>(this T obj) where T : notnull
+            => (T)obj.Clone(typeof(T));
 
     }
 }

@@ -109,7 +109,7 @@ namespace Suyaa
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(this Type? type, object[]? args = null) where T : class
-            => sy.Assembly.Create<T>(type, args);
+            => (T)sy.Assembly.Create(type, args).Fixed();
 
         /// <summary>
         /// 创建一个实例对象
@@ -118,6 +118,6 @@ namespace Suyaa
         /// <param name="args"></param>
         /// <returns></returns>
         public static object Create(this Type? type, object[]? args = null)
-            => sy.Assembly.CreateInstance(type, args) ?? throw new NullException(type);
+            => sy.Assembly.Create(type, args) ?? throw new NullException(type);
     }
 }

@@ -137,7 +137,6 @@ namespace Suyaa.Sqlite.Tests
                 // ·µ»Ø½á¹û
                 _output.WriteLine($"peoples: {query.Count()}");
             }
-
         }
     }
 }

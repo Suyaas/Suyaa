@@ -29,7 +29,7 @@ namespace Suyaa.EFCore.Helpers
             //指定泛型的具体类型
             Type tpNew = tp.MakeGenericType(new Type[] { entity, key });
             //创建一个list返回
-            var obj = sy.Assembly.CreateInstance(tpNew, new object[] { context });
+            var obj = sy.Assembly.Create(tpNew, new object[] { context });
             if (obj is null) throw new DatabaseException($"类型'{tpNew.FullName}'实例化失败");
             return obj;
         }
@@ -128,7 +128,7 @@ namespace Suyaa.EFCore.Helpers
             IDatabaseConnectionInfo info = context.GetDatabaseConnectionInfo();
             Type? type = Type.GetType(info.ProviderName);
             if (type is null) throw new DatabaseException($"Provider '{info.ProviderName}' not found.");
-            return sy.Assembly.Create<IDatabaseProvider>(type);
+            return type.Create<IDatabaseProvider>();
         }
     }
 }

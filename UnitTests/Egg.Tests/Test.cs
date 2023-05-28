@@ -1,4 +1,7 @@
+using Suyaa.Tests.Datas;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -149,6 +152,29 @@ namespace Suyaa.Tests
 
             _output.WriteLine("int?:" + Type.GetTypeCode(typeof(int?)).ToString());
             _output.WriteLine(typeof(int?).FullName);
+
+        }
+
+        [Fact]
+        public void Clone_Test()
+        {
+            People people1 = new People()
+            {
+                Age = 1,
+                Name = "张三",
+            };
+            var people2 = people1.Clone();
+            people2.Name = "李四";
+            _output.WriteLine(JsonSerializer.Serialize(people1, new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                //WriteIndented = true,
+            }));
+            _output.WriteLine(JsonSerializer.Serialize(people2, new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                //WriteIndented = true,
+            }));
         }
     }
 }
