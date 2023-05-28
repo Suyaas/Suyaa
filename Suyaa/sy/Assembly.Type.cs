@@ -90,7 +90,7 @@ namespace sy
         /// </summary>
         /// <param name="type"></param>
         /// <param name="args"></param>
-        public static object? CreateInstance(Type? type, object[]? args = null)
+        public static object? Create(Type? type, object[]? args = null)
         {
             if (type is null) return null;
             if (args is null) return Activator.CreateInstance(type);
@@ -103,8 +103,8 @@ namespace sy
         /// <param name="name"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static object? CreateInstance(string name, object[]? args = null)
-            => CreateInstance(FindType(name), args);
+        public static object? Create(string name, object[]? args = null)
+            => Create(FindType(name), args);
 
         /// <summary>
         /// 创建一个对象实例
@@ -113,7 +113,7 @@ namespace sy
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(string name, object[]? args = null) where T : class
-            => (T)(CreateInstance(FindType(name), args) ?? throw new NullException($"类型'{name}'创建失败"));
+            => (T)(Create(FindType(name), args) ?? throw new NullException($"类型'{name}'创建失败"));
 
         /// <summary>
         /// 创建一个对象实例
@@ -121,6 +121,6 @@ namespace sy
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(object[]? args = null) where T : class
-            => (T)(CreateInstance(typeof(T), args) ?? throw new NullException(typeof(T)));
+            => (T)(Create(typeof(T), args) ?? throw new NullException(typeof(T)));
     }
 }
