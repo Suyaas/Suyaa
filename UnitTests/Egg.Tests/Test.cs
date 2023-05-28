@@ -145,7 +145,6 @@ namespace Suyaa.Tests
             _output.WriteLine("s2:" + Type.GetTypeCode(s2?.GetType()).ToString());
             string? s3 = nameof(Test);
             _output.WriteLine("s3:" + Type.GetTypeCode(s3?.GetType()).ToString());
-
             _output.WriteLine("TypeCode:" + Type.GetTypeCode(typeof(TypeCode)).ToString());
 
             _output.WriteLine("int?:" + Type.GetTypeCode(typeof(int?)).ToString());

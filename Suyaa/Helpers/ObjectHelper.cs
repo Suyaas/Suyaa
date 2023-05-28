@@ -24,6 +24,18 @@ namespace Suyaa
         }
 
         /// <summary>
+        /// 将可空对象转化为非空对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T Fixed<T>(this T? obj) where T : class
+        {
+            if (obj is null) throw new NullException();
+            return (T)obj;
+        }
+
+        /// <summary>
         /// 获取不为空的对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -41,6 +53,7 @@ namespace Suyaa
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [Obsolete("请使用Fixed函数进行可空对象强制转化为不可空对象")]
         public static T ToNotNull<T>(this object? obj)
         {
             if (obj is null) throw new NullException();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -26,10 +27,22 @@ namespace Suyaa
         }
 
         /// <summary>
+        /// 将可空字符串转化为非空字符串
+        /// </summary>
+        /// <param name="sz"></param>
+        /// <returns></returns>
+        public static string Fixed(this string? sz)
+        {
+            if (sz is null) throw new NullException();
+            return sz;
+        }
+
+        /// <summary>
         /// 获取不为空的字符串
         /// </summary>
         /// <param name="sz"></param>
         /// <returns></returns>
+        [Obsolete("请使用Fixed函数进行可空对象强制转化为不可空对象")]
         public static string ToNotNull(this string? sz)
         {
             return sz ?? string.Empty;
