@@ -1,3 +1,4 @@
+using Suyaa.Ranges;
 using Suyaa.Tests.Datas;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -33,6 +34,16 @@ namespace Suyaa.Tests
             string res = sy.Terminal.Execute("ping", "www.baidu.com", encoding);
             _output.WriteLine(res);
             // ·µ»Ø½á¹û
+            IntegerRange range = new IntegerRange(10, 100, 2);
+            foreach (var num in range)
+            {
+                _output.WriteLine($"{num}");
+            }
+            var dr = new DoubleRange(10, 20, 0.1);
+            foreach (var num in dr)
+            {
+                _output.WriteLine($"{num}");
+            }
         }
 
         [Fact]
