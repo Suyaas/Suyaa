@@ -4,13 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data.Dependency
+namespace Suyaa.Data.Dependency.Attributes
 {
     /// <summary>
     /// 数据字段类型
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DbColumnTypeAttribute : System.Attribute
+    public class DbColumnTypeAttribute : Attribute
     {
 
         /// <summary>
@@ -37,11 +37,11 @@ namespace Suyaa.Data.Dependency
         private void Verify()
         {
             var type = typeof(DbColumnTypes);
-            string columnTypeName = this.ColumnType.ToString();
+            string columnTypeName = ColumnType.ToString();
             var field = type.GetFields().Where(d => d.Name == columnTypeName).FirstOrDefault();
             if (field is null) throw new DatabaseException($"数据类型'{columnTypeName}'不受支持");
             var dbNeedSize = field.GetCustomAttribute<DbNeedSizeAttribute>();
-            if (dbNeedSize != null && this.Size <= 0) throw new DatabaseException($"数据类型'{columnTypeName}'必须设定长度");
+            if (dbNeedSize != null && Size <= 0) throw new DatabaseException($"数据类型'{columnTypeName}'必须设定长度");
         }
 
         /// <summary>
@@ -50,10 +50,10 @@ namespace Suyaa.Data.Dependency
         /// <param name="name">自定义名称</param>
         public DbColumnTypeAttribute(string name)
         {
-            this.Name = name;
-            this.ColumnType = DbColumnTypes.Unknow;
-            this.Size = 0;
-            this.Float = 0;
+            Name = name;
+            ColumnType = DbColumnTypes.Unknow;
+            Size = 0;
+            Float = 0;
         }
 
         /// <summary>
@@ -62,12 +62,12 @@ namespace Suyaa.Data.Dependency
         /// <param name="columnType"></param>
         public DbColumnTypeAttribute(DbColumnTypes columnType)
         {
-            this.Name = string.Empty;
-            this.ColumnType = columnType;
-            this.Size = 0;
-            this.Float = 0;
+            Name = string.Empty;
+            ColumnType = columnType;
+            Size = 0;
+            Float = 0;
             // 进行验证
-            this.Verify();
+            Verify();
         }
 
         /// <summary>
@@ -77,12 +77,12 @@ namespace Suyaa.Data.Dependency
         /// <param name="size"></param>
         public DbColumnTypeAttribute(DbColumnTypes columnType, int size)
         {
-            this.Name = string.Empty;
-            this.ColumnType = columnType;
-            this.Size = size;
-            this.Float = 0;
+            Name = string.Empty;
+            ColumnType = columnType;
+            Size = size;
+            Float = 0;
             // 进行验证
-            this.Verify();
+            Verify();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Dependency.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

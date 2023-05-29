@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Suyaa.Data;
-using Suyaa.EFCore.Dbsets;
 using Suyaa.Sqlite.Tests.Entities;
 using Xunit.Abstractions;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Encodings.Web;
+using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.Sqlite.Tests
 {
@@ -41,8 +43,8 @@ namespace Suyaa.Sqlite.Tests
             using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.Sqlite, connectionString))
             {
                 conn.Open();
-                IRepository<People, string> peopleRepository = new Data.Repository<People, string>(conn);
-                IRepository<Department, string> departmentRepository = new Data.Repository<Department, string>(conn);
+                Data.Dependency.IRepository<People, string> peopleRepository = new Data.Dependency.Repositories.Repository<People, string>(conn);
+                Data.Dependency.IRepository<Department, string> departmentRepository = new Data.Dependency.Repositories.Repository<Department, string>(conn);
                 // 添加大部门
                 Department? bigDepartment = departmentRepository.GetRow(d => d.Name == "大部门");
                 if (bigDepartment is null)
@@ -110,7 +112,7 @@ namespace Suyaa.Sqlite.Tests
             using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.Sqlite, connectionString))
             {
                 conn.Open();
-                IRepository<People, string> repository = new Data.Repository<People, string>(conn);
+                Data.Dependency.IRepository<People, string> repository = new Data.Dependency.Repositories.Repository<People, string>(conn);
                 var peoples = repository.GetRows(d => d.Age > 8);
                 // 返回结果
                 _output.WriteLine($"peoples: {peoples.Count}");
@@ -119,7 +121,7 @@ namespace Suyaa.Sqlite.Tests
         }
 
         [Fact]
-        public void EFQuery()
+        public async void EFQuery()
         {
             // 定义数据
             string connectionString = $"data source={sy.IO.GetExecutionPath("temp.db")}";
@@ -128,14 +130,50 @@ namespace Suyaa.Sqlite.Tests
             // 执行方法
             using (TestDbContext context = new TestDbContext(optionsBuilder.Options, connectionString))
             {
-                IEfRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
-                IEfRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
+                IRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
+                IRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
                 var query = from p in peopleRepository.Query()
                             join d in departmentRepository.Query() on p.DepartmentId equals d.Id
                             where d.Name.Contains("大")
                             select p;
+                var datas = await query.ToListAsync();
                 // 返回结果
-                _output.WriteLine($"peoples: {query.Count()}");
+                _output.WriteLine(JsonSerializer.Serialize(datas, new JsonSerializerOptions()
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                }));
+            }
+        }
+
+        [Fact]
+        public async void EFUpdate()
+        {
+            // 定义随机函数
+            Random random = new Random();
+            // 定义数据
+            string connectionString = $"data source={sy.IO.GetExecutionPath("temp.db")}";
+            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlite(connectionString);
+            // 执行方法
+            using (TestDbContext context = new TestDbContext(optionsBuilder.Options, connectionString))
+            {
+                IRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
+                IRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
+                var query = from p in peopleRepository.Query()
+                            join d in departmentRepository.Query() on p.DepartmentId equals d.Id
+                            where p.Name == "张三"
+                            select p;
+                var data = await query.FirstOrDefaultAsync();
+                if (data is null)
+                {
+                    _output.WriteLine($"not found.");
+                    return;
+                }
+                data.Age = random.Next(100);
+                await peopleRepository.UpdateAsync(data);
+                // 返回结果
+                _output.WriteLine($"OK");
             }
         }
     }

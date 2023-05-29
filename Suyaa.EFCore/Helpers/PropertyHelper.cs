@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Suyaa.Data.Dependency;
 using Suyaa.Data;
+using Suyaa.Data.Dependency.Attributes;
 
 namespace Suyaa.EFCore.Helpers
 {

@@ -15,8 +15,8 @@ namespace Suyaa.Configure.Tests
         [Fact]
         public void ContentSetting()
         {
-            var setting = sy.Configure.LoadJsonSettingFromString<TestSetting>("{\"Name\":\"qwer\"}");
-            _output.WriteLine(setting?.Name);
+            var setting = sy.Configure.LoadJsonSetting<TestSetting>("{\"Name\":\"qwer\"}");
+            _output.WriteLine(setting?.Config.Name);
             Assert.NotNull(setting);
         }
     }

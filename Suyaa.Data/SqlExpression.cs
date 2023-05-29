@@ -35,6 +35,27 @@ namespace Suyaa.Data
             _properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
         }
 
+        // 从对象中获取子项
+        private object? GetValueInObject(object obj, string name)
+        {
+            Type type = obj.GetType();
+            // 尝试从字段获取
+            var field = type.GetField(name);
+            if (field != null) return field.GetValue(obj);
+            // 尝试从属性获取
+            var pro = type.GetProperty(name);
+            if (pro != null) return pro.GetValue(obj);
+            return null;
+        }
+
+        // 获取列名称
+        private string GetColumnName(string propertyName)
+        {
+            var pro = _properties.Where(d => d.Name == propertyName).FirstOrDefault();
+            if (pro != null) return _provider.GetNameString(pro.GetColumnName());
+            return _provider.GetNameString(propertyName);
+        }
+
         // 获取Contains函数兼容的sql语句
         private string GetContainsSql(MethodCallExpression call)
         {
@@ -58,6 +79,27 @@ namespace Suyaa.Data
             return $"{arg} IN {sbList.ToString()}";
         }
 
+        // 获取Contains函数兼容的sql语句
+        private string GetEqualsSqlString(MethodCallExpression call)
+        {
+            var callObj = (MemberExpression)call.Object;
+            string name = string.Empty;
+            object? value = null;
+            switch (callObj.Expression)
+            {
+                case ParameterExpression _:
+                    name = GetColumnName(callObj.Member.Name);
+                    value = GetSqlExpressionValue(call.Arguments[0]);
+                    break;
+                default:
+                    value = GetSqlExpressionValue(callObj.Expression);
+                    name = call.Arguments[0].NodeType.ToString();
+                    break;
+            }
+            if (value is null) return $"{name} IS NULL";
+            return $"{name} = {value}";
+        }
+
         // 获取Convert函数兼容的sql语句
         private string GetConvertSql(UnaryExpression unary)
         {
@@ -69,8 +111,7 @@ namespace Suyaa.Data
                 var operand = (MemberExpression)unary.Operand;
                 var operandValues = GetSqlExpressionValue(operand.Expression);
                 if (operandValues is null) throw new Exception($"容器无数据");
-                var valueInfo = operandValues.GetType().GetField(operand.Member.Name);
-                value = valueInfo.GetValue(operandValues);
+                value = GetValueInObject(operandValues, operand.Member.Name);
             }
             switch (value)
             {
@@ -80,18 +121,42 @@ namespace Suyaa.Data
             }
         }
 
+        // 获取函数调用处理sql语句
+        private string GetMethodCallSqlString(MethodCallExpression methodCall)
+        {
+            var callMethod = methodCall.Method;
+            switch (callMethod.Name)
+            {
+                case "Contains": return GetContainsSql(methodCall);
+                case "Equals": return GetEqualsSqlString(methodCall);
+                default: throw new Exception($"SqlExpressionValue不支持的Call类型'{callMethod.Name}'");
+            }
+        }
+
         // 获取sql语句值
         private object? GetSqlExpressionValue(Expression exp)
         {
-            if (exp is BinaryExpression)
-                return "(" + GetSqlString((BinaryExpression)exp) + ")";
+            switch (exp)
+            {
+                // 表达式
+                case BinaryExpression binaryExpression:
+                    return "(" + GetBinarySqlString(binaryExpression) + ")";
+                // Call函数
+                case MethodCallExpression methodCallExpression:
+                    return GetMethodCallSqlString(methodCallExpression);
+                // 变量
+                case MemberExpression member:
+                    switch (member.Expression)
+                    {
+                        // 如果包含表达式，则先解析表达式
+                        case ConstantExpression constant:
+                            var parent = GetSqlExpressionValue(constant).Fixed();
+                            return GetValueInObject(parent, member.Member.Name);
+                        default: return GetColumnName(member.Member.Name);
+                    }
+            }
             switch (exp.NodeType)
             {
-                case ExpressionType.MemberAccess: // 获取变量
-                    var member = (MemberExpression)exp;
-                    var pro = _properties.Where(d => d.Name == member.Member.Name).FirstOrDefault();
-                    if (pro != null) return _provider.GetNameString(pro.GetColumnName());
-                    return _provider.GetNameString(member.Member.Name);
                 case ExpressionType.Constant: // 获取Constant函数
                     var constant = (ConstantExpression)exp;
                     if (constant.Value is null) return "NULL";
@@ -116,8 +181,7 @@ namespace Suyaa.Data
         /// </summary>
         /// <param name="exp"></param>
         /// <returns></returns>
-        /// <exception cref="DatabaseException"></exception>
-        public string GetSqlString(BinaryExpression exp)
+        public string GetBinarySqlString(BinaryExpression exp)
         {
             StringBuilder sb = new StringBuilder();
             string expLeft = (string)(GetSqlExpressionValue(exp.Left) ?? "");
@@ -169,6 +233,23 @@ namespace Suyaa.Data
             }
             sb.Append(expRight);
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 获取sql语句
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        public string GetSqlString(Expression exp)
+        {
+            switch (exp)
+            {
+                case BinaryExpression binaryExpression:
+                    return GetBinarySqlString(binaryExpression);
+                case MethodCallExpression methodCallExpression:
+                    return GetMethodCallSqlString(methodCallExpression);
+                default: throw new DatabaseException($"SqlExpression不支持的'{exp.NodeType}'节点类型");
+            }
         }
 
         /// <summary>

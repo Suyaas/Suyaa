@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.EFCore.Dbsets
+namespace Suyaa.EFCore.Dependency
 {
     /// <summary>
     /// 标准仓库接口

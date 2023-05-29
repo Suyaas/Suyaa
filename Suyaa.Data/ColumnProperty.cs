@@ -1,4 +1,5 @@
 ﻿using Suyaa;
+using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -74,12 +75,12 @@ namespace Suyaa.Data
             _provider = provider;
             this.PropertyInfo = property;
             this.VarName = property.Name;
-            this.ColumnName = property.Name;
-            var column = property.GetCustomAttribute<ColumnAttribute>();
-            if (column != null)
-            {
-                if (!string.IsNullOrWhiteSpace(column.Name)) this.ColumnName = column.Name;
-            }
+            this.ColumnName = property.GetColumnName();
+            //var column = property.GetCustomAttribute<ColumnAttribute>();
+            //if (column != null)
+            //{
+            //    if (!string.IsNullOrWhiteSpace(column.Name)) this.ColumnName = column.Name;
+            //}
             this.IsModified = false;
             this.IsNumeric = property.PropertyType.IsNumeric();
             string typeFullName = GetTypeName(property.PropertyType);

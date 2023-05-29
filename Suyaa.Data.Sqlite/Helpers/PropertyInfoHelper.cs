@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Suyaa.Data.Dependency.Attributes;
 
 namespace Suyaa.Data.Sqlite.Helpers
 {

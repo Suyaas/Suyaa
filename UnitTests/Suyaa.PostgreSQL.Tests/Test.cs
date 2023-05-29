@@ -1,4 +1,6 @@
 using Suyaa.Data;
+using Suyaa.Data.Dependency;
+using Suyaa.Data.Dependency.Repositories;
 using Suyaa.Sqlite.Tests.Entities;
 using Xunit.Abstractions;
 

@@ -560,7 +560,8 @@ namespace Suyaa.Data
         public DatabaseConnection(IDatabaseConnectionInfo info)
         {
             // 设置数据库供应商
-            var type = sy.Assembly.FindType(info.ProviderName);
+            var type = sy.Assembly.FindType(info.ProviderName, sy.Assembly.ExecutionDirectory);
+            if (type is null) throw new DatabaseException($"Database provider '{info.ProviderName}' type not found.");
             Provider = (IDatabaseProvider)Activator.CreateInstance(type);
             // 设置连接字符串
             ConnectionString = info.ToConnectionString();

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Data.Dependency
+namespace Suyaa.Data.Dependency.Attributes
 {
     /// <summary>
     /// 数据表特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class DbTableAttribute : System.Attribute
+    public class DbTableAttribute : Attribute
     {
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Suyaa.Data.Dependency
         /// <param name="name"></param>
         public DbTableAttribute(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Suyaa.Data.Dependency
         /// </summary>
         public DbTableAttribute()
         {
-            this.Name = string.Empty;
+            Name = string.Empty;
         }
     }
 }

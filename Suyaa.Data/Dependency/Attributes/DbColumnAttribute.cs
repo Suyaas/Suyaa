@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Data.Dependency
+namespace Suyaa.Data.Dependency.Attributes
 {
     /// <summary>
     /// 数据字段特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DbColumnAttribute : System.Attribute
+    public class DbColumnAttribute : Attribute
     {
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Suyaa.Data.Dependency
         /// <param name="name"></param>
         public DbColumnAttribute(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Suyaa.Data.Dependency
         /// </summary>
         public DbColumnAttribute()
         {
-            this.Name = string.Empty;
+            Name = string.Empty;
         }
     }
 }

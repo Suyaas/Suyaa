@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.Data
+namespace Suyaa.Data.Dependency
 {
     /// <summary>
     /// 数据仓库
@@ -84,6 +84,19 @@ namespace Suyaa.Data
         #endregion
 
         #region [=====更新数据=====]
+
+        /// <summary>
+        /// 新建一个更新器
+        /// </summary>
+        /// <returns></returns>
+        Updater<TClass, TId> Update();
+
+        /// <summary>
+        /// 新建一个更新器
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        Updater<TClass, TId> Update(Expression<Func<TClass, object?>> selector);
 
         #endregion
 

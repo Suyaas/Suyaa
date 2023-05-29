@@ -79,7 +79,9 @@ namespace Suyaa.Data.Sqlite
         public async Task<int> ExecuteNonQueryAsync(string sql)
         {
             using (var sqlCommand = GetCommand(sql))
+            {
                 return await sqlCommand.ExecuteNonQueryAsync();
+            }    
         }
 
         #endregion

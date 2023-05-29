@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.EFCore.Dbsets
+namespace Suyaa.EFCore.Dependency
 {
     /// <summary>
     /// 仓库接口
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public interface IRepository<TClass, TId> : Data.IRepository<TClass, TId>
+    public interface IRepository<TClass, TId> : Data.Dependency.IRepository<TClass, TId>
         where TClass : class, IEntity<TId>
         where TId : notnull
     {

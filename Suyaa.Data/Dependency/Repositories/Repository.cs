@@ -1,5 +1,4 @@
-﻿using Suyaa.Data;
-using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Entities;
 using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Suyaa.Data
+namespace Suyaa.Data.Dependency.Repositories
 {
     /// <summary>
     /// 数据仓库
@@ -36,8 +35,8 @@ namespace Suyaa.Data
         public Repository(IDatabaseConnection connection)
         {
             _connection = connection;
-            if (_connection.IsOpened)
-                _provider = connection.Provider;
+            if (!_connection.IsOpened) _connection.Open();
+            _provider = connection.Provider;
             if (_provider is null) throw new DatabaseException($"数据库供应商获取失败");
             _updater = new Updater<TClass, TId>(connection);
         }
@@ -229,6 +228,21 @@ namespace Suyaa.Data
 
         #region [=====更新数据=====]
 
+        // 获取一个新的更新器
+        private Updater<TClass, TId> GetUpdater(Expression<Func<TClass, object?>>? selector = null)
+        {
+            var updater = new Updater<TClass, TId>(_connection);
+            if (selector is null)
+            {
+                updater.UseAll();
+            }
+            else
+            {
+                updater.Use(selector);
+            }
+            return updater;
+        }
+
         /// <summary>
         /// 获取更新器
         /// </summary>
@@ -253,16 +267,34 @@ namespace Suyaa.Data
         /// <returns></returns>
         public async Task UpdateAsync(TClass entity, Expression<Func<TClass, bool>> predicate, Expression<Func<TClass, object?>>? selector = null)
         {
-            var updater = new Updater<TClass, TId>(_connection);
-            if (selector is null)
+            using (var updater = GetUpdater(selector))
             {
-                updater.UseAll();
+                await updater.SetAsync(entity, predicate);
             }
-            else
+        }
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="entity"></param>
+        public async Task UpdateAsync(TClass entity)
+        {
+            await UpdateAsync(entity, d => d.Id.Equals(entity.Id));
+        }
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="predicate"></param>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public void Update(TClass entity, Expression<Func<TClass, bool>> predicate, Expression<Func<TClass, object?>>? selector = null)
+        {
+            using (var updater = GetUpdater(selector))
             {
-                updater.Use(selector);
+                updater.Set(entity, predicate);
             }
-            await updater.SetAsync(entity, predicate);
         }
 
         /// <summary>
@@ -272,19 +304,7 @@ namespace Suyaa.Data
         /// <exception cref="NotImplementedException"></exception>
         public void Update(TClass entity)
         {
-            UpdateAsync(entity).Wait();
-        }
-
-        /// <summary>
-        /// 更新数据
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task UpdateAsync(TClass entity)
-        {
-            //Context.Entry(entity).State = EntityState.Modified;
-            //await Task.CompletedTask;
-            await Task.CompletedTask;
+            Update(entity, d => d.Id.Equals(entity.Id));
         }
 
         #endregion
@@ -379,6 +399,7 @@ namespace Suyaa.Data
         /// </summary>
         public void Dispose()
         {
+            _updater.Dispose();
             GC.SuppressFinalize(this);
         }
     }

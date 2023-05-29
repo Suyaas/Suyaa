@@ -23,7 +23,9 @@ namespace Suyaa.Data
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public class Updater<TClass, TId> where TClass : IEntity<TId> where TId : notnull
+    public class Updater<TClass, TId> : IDisposable
+        where TClass : class, IEntity<TId>
+        where TId : notnull
     {
         /// <summary>
         /// 获取类型名称
@@ -60,13 +62,13 @@ namespace Suyaa.Data
             // 解析并添加所有的属性定义
             var tp = typeof(TClass);
             this.TypeName = tp.GetTopName();
-            this.TableName = tp.Name;
-            var table = tp.GetCustomAttribute<TableAttribute>();
-            if (table != null)
-            {
-                if (!table.Name.IsNullOrWhiteSpace()) this.TableName = table.Name;
-                this.SchemaName = table.Schema;
-            }
+            this.TableName = tp.GetTableName();
+            //var table = tp.GetCustomAttribute<TableAttribute>();
+            //if (table != null)
+            //{
+            //    if (!table.Name.IsNullOrWhiteSpace()) this.TableName = table.Name;
+            //    this.SchemaName = table.Schema;
+            //}
             var pros = tp.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             for (int i = 0; i < pros.Length; i++)
             {
@@ -155,12 +157,12 @@ namespace Suyaa.Data
             }
             sb.Append(sbSet.ToString());
             // 处理条件
-            var body = (BinaryExpression)predicate.Body;
+            //var body = (BinaryExpression)predicate.Body;
             sb.Append(" WHERE ");
             // 获取表达式SQL
             using (var sqlExpression = new SqlExpression<TClass>(provider))
             {
-                sb.Append(sqlExpression.GetSqlString(body));
+                sb.Append(sqlExpression.GetSqlString(predicate.Body));
             }
             sb.Append(";");
             return sb.ToString();
@@ -205,5 +207,13 @@ namespace Suyaa.Data
         public Updater<TClass, TId> Set(TClass entity)
             => Set(entity, d => Equals(d.Id, entity.Id));
 
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            this.Properties.Clear();
+            GC.SuppressFinalize(this);
+        }
     }
 }
