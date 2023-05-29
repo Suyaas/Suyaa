@@ -167,14 +167,14 @@ namespace Suyaa.Data
             string? schemaName = type.GetSchemaName();
             if (!schemaName.IsNullOrWhiteSpace())
             {
-                bool schemaExists = await AnyAsync(this.Provider.GetSchemaExistsSqlString(schemaName.ToNotNull()));
+                bool schemaExists = await AnyAsync(this.Provider.GetSchemaExistsSqlString(schemaName.Fixed()));
                 if (!schemaExists)
                 {
                     // 建立工作单元
                     using (var uow = BeginUnitOfWork())
                     {
                         // 执行表创建语句
-                        await ExecuteNonQueryAsync(this.Provider.GetSchemaCreateSqlString(schemaName.ToNotNull()));
+                        await ExecuteNonQueryAsync(this.Provider.GetSchemaCreateSqlString(schemaName.Fixed()));
                         // 保存数据
                         await uow.CompleteAsync();
                     }
@@ -225,7 +225,7 @@ namespace Suyaa.Data
         /// </summary>
         /// <returns></returns>
         public async Task<List<string>> GetSchemasAsync(string dbName)
-            => await GetValuesAsync<string>(this.Provider.GetSchemasQuerySqlString(dbName, GetConnectionUserName().ToNotNull()));
+            => await GetValuesAsync<string>(this.Provider.GetSchemasQuerySqlString(dbName, GetConnectionUserName().Fixed()));
 
         /// <summary>
         /// 获取所有表
@@ -260,7 +260,7 @@ namespace Suyaa.Data
         /// </summary>
         /// <returns></returns>
         public List<string> GetSchemas(string dbName)
-            => GetValues<string>(this.Provider.GetSchemasQuerySqlString(dbName, GetConnectionUserName().ToNotNull()));
+            => GetValues<string>(this.Provider.GetSchemasQuerySqlString(dbName, GetConnectionUserName().Fixed()));
 
         /// <summary>
         /// 获取所有表

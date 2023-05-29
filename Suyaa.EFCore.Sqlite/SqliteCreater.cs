@@ -45,7 +45,7 @@ namespace Suyaa.EFCore
                         foreach (var entity in entities)
                         {
                             // 创建表
-                            string tableName = entity.GetTableName().ToNotNull();
+                            string tableName = entity.GetTableName().Fixed();
                             string createTableSql = GetCreateTableSql(entity);
                             comm.CommandText = createTableSql;
                             await comm.ExecuteNonQueryAsync();
@@ -99,7 +99,7 @@ namespace Suyaa.EFCore
         /// <returns></returns>
         public string GetAddColumnSql(IEntityType table, IProperty column)
         {
-            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().ToNotNull())} ADD COLUMN {GetColumnSql(table, column)};";
+            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().Fixed())} ADD COLUMN {GetColumnSql(table, column)};";
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Suyaa.EFCore
         /// <returns></returns>
         public string GetAlterColumnSql(IEntityType table, IProperty column)
         {
-            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().ToNotNull())} ALTER COLUMN {GetColumnSql(table, column)};";
+            return $"ALTER TABLE {_provider.GetNameString(table.GetTableName().Fixed())} ALTER COLUMN {GetColumnSql(table, column)};";
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Suyaa.EFCore
         public string GetCreateTableSql(IEntityType table)
         {
             StringBuilder sb = new StringBuilder();
-            string tableName = table.GetTableName().ToNotNull();
+            string tableName = table.GetTableName().Fixed();
             bool isFirst = true;
             // 拼接语句
             sb.Append($"CREATE TABLE IF NOT EXISTS {_provider.GetNameString(tableName)}(\n");
@@ -178,7 +178,7 @@ namespace Suyaa.EFCore
             foreach (var entity in entities)
             {
                 // 创建表
-                string tableName = entity.GetTableName().ToNotNull();
+                string tableName = entity.GetTableName().Fixed();
                 sb.Append(GetCreateTableSql(entity));
                 // 获取所有字段
                 foreach (IProperty property in entity.GetProperties())

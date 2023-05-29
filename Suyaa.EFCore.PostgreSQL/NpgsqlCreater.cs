@@ -92,9 +92,9 @@ namespace Suyaa.EFCore
         public string GetCreateTableSql(IEntityType table)
         {
             StringBuilder sb = new StringBuilder();
-            string schema = table.GetSchema().ToNotNull();
-            string tableName = table.GetTableName().ToNotNull();
-            string tableFullName = table.GetSchemaQualifiedTableName().ToNotNull();
+            string schema = table.GetSchema().Fixed();
+            string tableName = table.GetTableName().Fixed();
+            string tableFullName = table.GetSchemaQualifiedTableName().Fixed();
             string? primaryKey = null;
             bool isFirst = true;
             // 拼接构架
@@ -131,9 +131,9 @@ namespace Suyaa.EFCore
         {
             StringBuilder sb = new StringBuilder();
             // 添加表
-            string schmaName = table.GetSchema().ToNotNull();
+            string schmaName = table.GetSchema().Fixed();
             if (string.IsNullOrWhiteSpace(schmaName)) schmaName = "public";
-            string tableName = table.GetTableName().ToNotNull();
+            string tableName = table.GetTableName().Fixed();
             sb.Append(GetCreateTableSql(table));
             // 添加所有字段
             foreach (IProperty property in table.GetProperties())
