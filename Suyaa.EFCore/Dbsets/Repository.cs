@@ -15,7 +15,9 @@ namespace Suyaa.EFCore.Dbsets
     /// <summary>
     /// 数据仓库
     /// </summary>
-    public class EfRepository<TClass, TId> : IEfRepository<TClass, TId> where TClass : class, IEntity<TId> where TId : notnull
+    public class Repository<TClass, TId> : Data.Repository<TClass, TId>, IRepository<TClass, TId>
+        where TClass : class, IEntity<TId>
+        where TId : notnull
     {
         // 私有变量
         private Updater<TClass, TId> _updater;
@@ -34,7 +36,7 @@ namespace Suyaa.EFCore.Dbsets
         /// 对象实例化
         /// </summary>
         /// <param name="context"></param>
-        public EfRepository(DbContextBase context)
+        public Repository(DbContextBase context) : base(context.GetDatabaseConnection())
         {
             Context = context;
             DbSet = context.Set<TClass>();

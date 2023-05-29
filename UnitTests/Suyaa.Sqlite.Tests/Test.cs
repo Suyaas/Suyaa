@@ -41,8 +41,8 @@ namespace Suyaa.Sqlite.Tests
             using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.Sqlite, connectionString))
             {
                 conn.Open();
-                IRepository<People, string> peopleRepository = new Repository<People, string>(conn);
-                IRepository<Department, string> departmentRepository = new Repository<Department, string>(conn);
+                IRepository<People, string> peopleRepository = new Data.Repository<People, string>(conn);
+                IRepository<Department, string> departmentRepository = new Data.Repository<Department, string>(conn);
                 // 添加大部门
                 Department? bigDepartment = departmentRepository.GetRow(d => d.Name == "大部门");
                 if (bigDepartment is null)
@@ -110,7 +110,7 @@ namespace Suyaa.Sqlite.Tests
             using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.Sqlite, connectionString))
             {
                 conn.Open();
-                IRepository<People, string> repository = new Repository<People, string>(conn);
+                IRepository<People, string> repository = new Data.Repository<People, string>(conn);
                 var peoples = repository.GetRows(d => d.Age > 8);
                 // 返回结果
                 _output.WriteLine($"peoples: {peoples.Count}");
@@ -128,8 +128,8 @@ namespace Suyaa.Sqlite.Tests
             // 执行方法
             using (TestDbContext context = new TestDbContext(optionsBuilder.Options, connectionString))
             {
-                IEfRepository<People, string> peopleRepository = new EfRepository<People, string>(context);
-                IEfRepository<Department, string> departmentRepository = new EfRepository<Department, string>(context);
+                IEfRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
+                IEfRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
                 var query = from p in peopleRepository.Query()
                             join d in departmentRepository.Query() on p.DepartmentId equals d.Id
                             where d.Name.Contains("大")

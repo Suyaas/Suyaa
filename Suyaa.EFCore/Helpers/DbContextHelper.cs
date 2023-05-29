@@ -25,7 +25,7 @@ namespace Suyaa.EFCore.Helpers
         /// <returns></returns>
         private static object CreateRepository(DbContextBase context, Type entity, Type key)
         {
-            Type tp = typeof(Dbsets.EfRepository<,>);
+            Type tp = typeof(Dbsets.Repository<,>);
             //指定泛型的具体类型
             Type tpNew = tp.MakeGenericType(new Type[] { entity, key });
             //创建一个list返回
@@ -98,13 +98,13 @@ namespace Suyaa.EFCore.Helpers
             var type = context.GetDbType();
             var infoType = type switch
             {
-                var h when h == DatabaseTypes.PostgreSQL => sy.Assembly.FindType("Suyaa.Data.PostgreSQL.NpgsqlConnectionInfo"),
-                var h when h == DatabaseTypes.Sqlite => sy.Assembly.FindType("Suyaa.Data.Sqlite.SqliteConnectionInfo"),
+                var h when h == DatabaseTypes.PostgreSQL => sy.Assembly.FindType("Suyaa.Data.PostgreSQL.NpgsqlConnectionInfo", sy.Assembly.ExecutionDirectory),
+                var h when h == DatabaseTypes.Sqlite => sy.Assembly.FindType("Suyaa.Data.Sqlite.SqliteConnectionInfo", sy.Assembly.ExecutionDirectory),
                 _ => throw new Exception($"Unsupported database '{type}'.")
             };
             if (infoType is null) throw new DatabaseException($"Database info '{type}' type not found.");
             var info = Activator.CreateInstance(infoType, new object[] { context.ConnectionString });
-            if(info is null) throw new DatabaseException($"Database info '{type}' object create fail.");
+            if (info is null) throw new DatabaseException($"Database info '{type}' object create fail.");
             return (IDatabaseConnectionInfo)info;
         }
 

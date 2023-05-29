@@ -49,10 +49,10 @@ namespace Suyaa.EFCore.Helpers
                 // 获取主键类型
                 var tpEntityKeyType = tpEntityType.GenericTypeArguments[0];
                 // 创建接口类型
-                var interfaceType = typeof(IEfRepository<,>);
+                var interfaceType = typeof(Dbsets.IRepository<,>);
                 interfaceType = interfaceType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
                 // 创建对象类型
-                var objectType = typeof(EfRepository<,>);
+                var objectType = typeof(Dbsets.Repository<,>);
                 objectType = objectType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
                 // 添加到信息列表
                 list.Add(new RepositoryInfo(interfaceType, objectType));
