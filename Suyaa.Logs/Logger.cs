@@ -13,13 +13,13 @@ namespace Suyaa.Logs
         /// <summary>
         /// 日志输出接口
         /// </summary>
-        /// <param name="content"></param>
+        /// <param name="message"></param>
         public delegate void LogMessageHandle(string? message);
 
         /// <summary>
         /// 日志对象输出接口
         /// </summary>
-        /// <param name="content"></param>
+        /// <param name="message"></param>
         public delegate void LogInfoHandle(LogInfo message);
 
         // 所有日志输出接口

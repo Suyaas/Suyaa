@@ -27,7 +27,7 @@ namespace Suyaa.Logs.Loggers
         /// <summary>
         /// 输出内容
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="info"></param>
         public void Log(LogInfo info)
         {
             StringBuilder sb = new StringBuilder();

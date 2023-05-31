@@ -15,6 +15,7 @@ namespace Suyaa.Configure.Exceptions
         /// 配置文件异常
         /// </summary>
         /// <param name="message">消息</param>
+        /// <param name="innerException">内联异常</param>
         public ConfigException(string message, Exception? innerException = null) : base(message, innerException) { }
     }
 }

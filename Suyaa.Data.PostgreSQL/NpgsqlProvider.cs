@@ -135,7 +135,6 @@ namespace Suyaa.Data.PostgreSQL
         /// <summary>
         /// 获取列添加字符串
         /// </summary>
-        /// <param name="tableName"></param>
         /// <param name="column"></param>
         /// <returns></returns>
         public string GetColumnAddSqlString<T>(PropertyInfo column)
@@ -171,9 +170,16 @@ namespace Suyaa.Data.PostgreSQL
         public IDatabaseConnectionBase GetDatabaseConnection(string connectionString)
             => new NpgsqlConnectionBase(connectionString);
 
+        /// <summary>
+        /// 获取函数字符串
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public string GetFuncString(string name, object[]? args)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return string.Empty;
         }
 
         /// <summary>
@@ -232,6 +238,7 @@ namespace Suyaa.Data.PostgreSQL
         /// 获取分库查询脚本
         /// </summary>
         /// <param name="dbName"></param>
+        /// <param name="userName"></param>
         /// <returns></returns>
         public string GetSchemasQuerySqlString(string dbName, string userName)
             => $"select s.schema_name from information_schema.schemata s WHERE s.schema_owner = {GetValueString(userName)} order by s.schema_name;";

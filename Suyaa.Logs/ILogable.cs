@@ -14,7 +14,7 @@ namespace Suyaa.Logs
         /// <summary>
         /// 记录日志
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="entity"></param>
         void Log(LogInfo entity);
 
     }
