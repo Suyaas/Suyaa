@@ -113,6 +113,25 @@ namespace Suyaa
         }
 
         /// <summary>
+        /// 数据填充
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="objSource"></param>
+        public static void Fill(this object obj, object objSource)
+        {
+            var type = obj.GetType();
+            var typeCode = Type.GetTypeCode(type);
+            if (typeCode != TypeCode.Object) throw new TypeNotSupportedException(type);
+            var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var pro in pros)
+            {
+                var value = pro.GetValue(obj);
+                if (value is null) continue;
+                pro.SetValue(obj, value.Clone(pro.PropertyType));
+            }
+        }
+
+        /// <summary>
         /// 克隆对象
         /// </summary>
         /// <param name="obj"></param>
