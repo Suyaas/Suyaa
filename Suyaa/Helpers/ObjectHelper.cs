@@ -113,21 +113,58 @@ namespace Suyaa
         }
 
         /// <summary>
-        /// 数据填充
+        /// 从源数据复制填充
         /// </summary>
         /// <param name="obj"></param>
-        /// <param name="objSource"></param>
-        public static void Fill(this object obj, object objSource)
+        /// <param name="objSource">源对象</param>
+        public static void CopyFrom(this object obj, object objSource)
         {
             var type = obj.GetType();
             var typeCode = Type.GetTypeCode(type);
             if (typeCode != TypeCode.Object) throw new TypeNotSupportedException(type);
+            // 填充属性
+            var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var pro in pros)
+            {
+                var value = pro.GetValue(objSource);
+                if (value is null) continue;
+                pro.SetValue(obj, value.Clone(pro.PropertyType));
+            }
+            // 填充字段
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                var value = field.GetValue(objSource);
+                if (value is null) continue;
+                field.SetValue(obj, value.Clone(field.FieldType));
+            }
+        }
+
+        /// <summary>
+        /// 向目标对象复制填充数据
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="objTarget">目标对象</param>
+        public static void CopyTo(this object obj, object objTarget)
+        {
+            var type = obj.GetType();
+            var typeCode = Type.GetTypeCode(type);
+            if (typeCode != TypeCode.Object) throw new TypeNotSupportedException(type);
+            // 填充属性
             var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var pro in pros)
             {
                 var value = pro.GetValue(obj);
                 if (value is null) continue;
-                pro.SetValue(obj, value.Clone(pro.PropertyType));
+                pro.SetValue(objTarget, value.Clone(pro.PropertyType));
+            }
+            // 填充字段
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                var value = field.GetValue(obj);
+                if (value is null) continue;
+                field.SetValue(objTarget, value.Clone(field.FieldType));
             }
         }
 
@@ -160,12 +197,21 @@ namespace Suyaa
                 case TypeCode.Object:
                     // 创建新对象
                     var objNew = sy.Assembly.Create(type).Fixed();
+                    // 复制所有的属性
                     var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (var pro in pros)
                     {
                         var value = pro.GetValue(obj);
                         if (value is null) continue;
                         pro.SetValue(objNew, value.Clone(pro.PropertyType));
+                    }
+                    // 复制所有的字段
+                    var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (var field in fields)
+                    {
+                        var value = field.GetValue(obj);
+                        if (value is null) continue;
+                        field.SetValue(objNew, value.Clone(field.FieldType));
                     }
                     return objNew;
                 default: throw new TypeNotSupportedException(type);

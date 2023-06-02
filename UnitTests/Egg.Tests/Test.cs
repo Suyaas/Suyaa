@@ -187,5 +187,36 @@ namespace Suyaa.Tests
                 //WriteIndented = true,
             }));
         }
+
+        [Fact]
+        public void Fill_Test()
+        {
+            People people1 = new People()
+            {
+                Age = 1,
+                Name = "张三",
+                IsMan = false,
+            };
+            People people2 = new();
+            people2.CopyFrom(people1);
+            people2.Name = "李四";
+            People people3 = people1.Clone();
+            _output.WriteLine(JsonSerializer.Serialize(people1, new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                //WriteIndented = true,
+            }));
+            _output.WriteLine(JsonSerializer.Serialize(people2, new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                //WriteIndented = true,
+            }));
+            _output.WriteLine(JsonSerializer.Serialize(people3, new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                //WriteIndented = true,
+            }));
+            _output.WriteLine("IsMan:" + people2.IsMan);
+        }
     }
 }

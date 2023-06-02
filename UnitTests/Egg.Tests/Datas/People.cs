@@ -10,7 +10,7 @@ namespace Suyaa.Tests.Datas
     /// <summary>
     /// 人员
     /// </summary>
-    public class People 
+    public class People
     {
         /// <summary>
         /// 名称
@@ -21,5 +21,10 @@ namespace Suyaa.Tests.Datas
         /// 年龄
         /// </summary>
         public virtual int Age { get; set; } = 0;
+
+        /// <summary>
+        /// 是否男性
+        /// </summary>
+        public bool IsMan = true;
     }
 }
