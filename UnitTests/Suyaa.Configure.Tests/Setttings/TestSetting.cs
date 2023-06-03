@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Tests.Setttings
 {
-    [Description("测试配置")]
+    //[Description("测试配置")]
     public class TestSetting : IConfig
     {
-        [Description("姓名")]
-        public string Name { get; set; } = string.Empty;
+        //[Description("姓名")]
+        //public string Name { get; set; } = string.Empty;
 
-        [Description("年龄")]
-        public int Age { get; set; } = 0;
+        //[Description("年龄")]
+        //public int Age { get; set; } = 0;
 
         [Description("小球")]
         public TestGood Ball { get; set; } = new TestGood();

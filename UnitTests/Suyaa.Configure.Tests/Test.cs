@@ -18,7 +18,7 @@ namespace Suyaa.Configure.Tests
         public void ContentSetting()
         {
             var setting = sy.Configure.LoadJsonSetting<TestSetting>("{\"Name\":\"qwer\"}");
-            _output.WriteLine(setting?.Config.Name);
+            //_output.WriteLine(setting?.Config.Name);
             Assert.NotNull(setting);
         }
 
@@ -33,8 +33,8 @@ namespace Suyaa.Configure.Tests
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                 WriteIndented = true,
             }));
-            setting.Config.Name = "张三";
-            setting.Config.Age = random.Next(1, 100);
+            //setting.Config.Name = "张三";
+            //setting.Config.Age = random.Next(1, 100);
             setting.Config.Ball.Name = "小球";
             setting.Config.Ball.Params.Length = random.Next(10, 20);
             setting.Config.Ball.Params.Size = random.Next(10, 20);

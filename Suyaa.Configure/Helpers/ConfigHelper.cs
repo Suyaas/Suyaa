@@ -68,7 +68,7 @@ namespace Suyaa.Configure.Helpers
                     var proObject = pro.GetValue(obj);
                     if (proObject != null)
                     {
-                        sb.AppendLine();
+                        if (sb.Length > 0) sb.AppendLine();
                         // 输出描述
                         var proDescription = pro.GetCustomAttribute<DescriptionAttribute>();
                         if (proDescription != null)
