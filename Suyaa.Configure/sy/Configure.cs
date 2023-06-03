@@ -18,11 +18,19 @@ namespace sy
     public static class Configure
     {
         /// <summary>
-        /// 从字符串中加载Json配置
+        /// 从文件中加载Json配置
         /// </summary>
         /// <param name="path">文件地址</param>
         /// <returns></returns>
         public static JsonConfigManager<T> LoadJsonSetting<T>(string path) where T : IConfig, new()
             => new JsonConfigManager<T>(path);
+
+        /// <summary>
+        /// 从文件中加载ini/conf配置
+        /// </summary>
+        /// <param name="path">文件地址</param>
+        /// <returns></returns>
+        public static ProfileConfigManager<T> LoadProfileSetting<T>(string path) where T : IConfig, new()
+            => new ProfileConfigManager<T>(path);
     }
 }
