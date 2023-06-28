@@ -1,6 +1,9 @@
-﻿using Suyaa.Logs;
+﻿using Suyaa;
+using Suyaa.Logs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 
 namespace sy
@@ -13,6 +16,41 @@ namespace sy
     {
 
         private static Suyaa.Logs.Logger? _loggers;
+
+        /// <summary>
+        /// 获取默认来源
+        /// </summary>
+        /// <returns></returns>
+        internal static string GetDefaultSoucre()
+        {
+            var trace = new StackTrace();
+            StackFrame? frame = null;
+            MethodBase? method = null;
+            int index = 0;
+            while (index < trace.FrameCount)
+            {
+                frame = trace.GetFrame(index);
+                method = frame.GetMethod();
+                if (method.DeclaringType.Equals(typeof(sy.Logger)))
+                {
+                    index++;
+                    continue;
+                }
+                if (method.DeclaringType.HasInterface<ILogger>())
+                {
+                    index++;
+                    continue;
+                }
+                if (method.DeclaringType.HasInterface<ILogable>())
+                {
+                    index++;
+                    continue;
+                }
+                break;
+            }
+            if (method is null) return string.Empty;
+            return method.DeclaringType.FullName + "." + method.Name;
+        }
 
         /// <summary>
         /// 获取当前日志记录器

@@ -17,6 +17,11 @@ namespace Suyaa.Logs
         public virtual LogLevel Level { get; set; }
 
         /// <summary>
+        /// 来源
+        /// </summary>
+        public virtual string? Source { get; set; }
+
+        /// <summary>
         /// 事件
         /// </summary>
         public virtual string? Event { get; set; }

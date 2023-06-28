@@ -25,19 +25,31 @@ namespace Suyaa.Logs.Loggers
         }
 
         /// <summary>
+        /// 获取日志字符串
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static string GetLogString(LogInfo info)
+        {
+            if (info.Source.IsNullOrWhiteSpace()) info.Source = sy.Logger.GetDefaultSoucre();
+            StringBuilder sb = new StringBuilder();
+            sb.Append('[');
+            sb.Append(info.Level.ToString().ToUpper());
+            sb.Append(']');
+            sb.Append('[');
+            sb.Append(sy.Time.Now.ToFullDateTimeString());
+            sb.Append(']');
+            sb.Append($" {info.Event}@{info.Source} - {info.Message}");
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// 输出内容
         /// </summary>
         /// <param name="info"></param>
         public void Log(LogInfo info)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"*");
-            sb.Append($"{sy.Time.Now.ToFullDateTimeString()}");
-            sb.Append($"*");
-            sb.Append($" [{info.Level.ToString().ToUpper()}]");
-            sb.Append($" {info.Event} {info.Message}");
-            sb.AppendLine();
-            _action(sb.ToString());
+            _action(GetLogString(info));
         }
     }
 }

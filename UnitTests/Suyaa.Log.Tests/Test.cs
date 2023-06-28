@@ -17,10 +17,13 @@ namespace Suyaa.Logs.Tests
         [Fact]
         public void Log()
         {
-            sy.Logger.GetCurrentLogger().Use((string mesage) =>
-            {
-                Debug.WriteLine(mesage);
-            }).Use(new FileLogger(sy.IO.GetExecutionPath("log")));
+            sy.Logger.GetCurrentLogger()
+                .Use((string mesage) =>
+                    {
+                        Debug.WriteLine(mesage);
+                    })
+                .Use(new FileLogger(sy.IO.GetExecutionPath("log")))
+                .Use(msg => Debug.WriteLine(msg));
             sy.Logger.Info("≤‚ ‘");
         }
     }

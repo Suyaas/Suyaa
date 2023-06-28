@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Logs.Loggers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -75,7 +76,7 @@ namespace Suyaa.Logs
         /// </summary>
         /// <param name="logger"></param>
         /// <returns></returns>
-        public Logger Use(Action<LogInfo> logger)
+        public Logger UseInfo(Action<LogInfo> logger)
         {
             _logInfos.Add(logger);
             return this;
@@ -87,7 +88,7 @@ namespace Suyaa.Logs
         /// <param name="info"></param>
         public void Log(LogInfo info)
         {
-            string content = $"*{sy.Time.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}* [{info.Level.ToString().ToUpper()}] {info.Event} {info.Message}";
+            string content = ActionLogger.GetLogString(info);
             // 输出到委托
             for (int i = 0; i < _logMessages.Count; i++)
             {

@@ -29,6 +29,7 @@ namespace Suyaa.Logs.Loggers
         /// <param name="info"></param>
         public void Log(LogInfo info)
         {
+            if (info.Source.IsNullOrWhiteSpace()) info.Source = sy.Logger.GetDefaultSoucre();
             _action(info);
         }
     }

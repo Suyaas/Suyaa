@@ -19,6 +19,8 @@ namespace Suyaa.Logs.Loggers
         /// <param name="entity"></param>
         public void Log(LogInfo entity)
         {
+            // 获取默认
+            //if (entity.Source.IsNullOrWhiteSpace()) entity.Source = sy.Logger.GetDefaultSoucre();
             var color = Console.ForegroundColor;
             //Console.ForegroundColor = ConsoleColor.Blue;
             switch (entity.Level)
@@ -29,15 +31,12 @@ namespace Suyaa.Logs.Loggers
                 case LogLevel.Info: Console.ForegroundColor = ConsoleColor.Green; break;
                 default: Console.ForegroundColor = color; break;
             }
-            Console.Write($"*");
-            Console.Write($"{sy.Time.Now.ToFullDateTimeString()}");
-            Console.Write($"*");
-            Console.Write($" [{entity.Level.ToString().ToUpper()}]");
+            // 输出内容
+            Console.Write(ActionLogger.GetLogString(entity));
             if (entity.Level == LogLevel.Info)
             {
                 Console.ForegroundColor = color;
             }
-            Console.Write($" {entity.Event} {entity.Message}");
             Console.WriteLine();
             Console.ForegroundColor = color;
         }

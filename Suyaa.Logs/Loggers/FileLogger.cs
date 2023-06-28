@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 
 namespace Suyaa.Logs.Loggers
@@ -31,7 +32,8 @@ namespace Suyaa.Logs.Loggers
         /// <param name="entity"></param>
         public void Log(LogInfo entity)
         {
-            string content = $"*{sy.Time.Now.ToFullDateTimeString()}* [{entity.Level.ToString().ToUpper()}] ({entity.Event}) {entity.Message}";
+            if (entity.Source.IsNullOrWhiteSpace()) entity.Source = sy.Logger.GetDefaultSoucre();
+            string content = $"{sy.Time.Now.ToFullDateTimeString()}, {entity.Level.ToString().ToUpper()}, {entity.Source}, {entity.Event} - {entity.Message}";
             var t = sy.Time.Now;
             string path = sy.IO.GetClosedPath($"{_path}{t.Year}-{t.Month.ToString().PadLeft(2, '0')}");
             sy.IO.CreateFolder(path);
