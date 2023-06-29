@@ -4,13 +4,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.2.2306.9</Version>
+    <Version>1.2.2306.10</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Description>舒雅套件中服务于EFCore数据库框架的辅助开发组件</Description>
     <PackageIcon>suyaa_128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
     <RepositoryUrl>https://github.com/suyaas/suyaa</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageTags>orm,efcore</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
-		<Version>1.2.2306.9</Version>
+		<Version>1.2.2306.10</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
 		<Description>舒雅套件中服务于PostgreSql数据库的辅助开发组件</Description>
 		<RepositoryUrl>https://github.com/suyaas/suyaa</RepositoryUrl>
@@ -11,6 +11,10 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>suyaa_128.png</PackageIcon>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+		<PackageTags>orm,postgresql</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>
