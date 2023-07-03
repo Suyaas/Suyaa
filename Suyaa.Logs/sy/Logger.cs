@@ -1,5 +1,6 @@
 ﻿using Suyaa;
 using Suyaa.Logs;
+using Suyaa.Logs.Loggers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,6 +25,7 @@ namespace sy
         internal static string GetDefaultSoucre()
         {
             var trace = new StackTrace();
+            if (trace is null) return string.Empty;
             StackFrame? frame = null;
             MethodBase? method = null;
             int index = 0;
@@ -32,6 +34,11 @@ namespace sy
                 frame = trace.GetFrame(index);
                 method = frame.GetMethod();
                 if (method.DeclaringType.Equals(typeof(sy.Logger)))
+                {
+                    index++;
+                    continue;
+                }
+                if (method.DeclaringType.Equals(typeof(ActionLogger)))
                 {
                     index++;
                     continue;
