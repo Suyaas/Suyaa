@@ -1,5 +1,7 @@
 # 舒雅开发套件（Suyaa）
 
+多语言: [English](https://github.com/Suyaas/Suyaa) | 简体中文
+
 基于.Net Standard 2.1的综合开发工具包，包括基本类型处理、ORM框架、日志管理等
 
 ![license](https://img.shields.io/github/license/suyaas/suyaa)

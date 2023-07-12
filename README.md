@@ -1,5 +1,7 @@
 # Suyaa SDK
 
+Language: English | [简体中文](https://github.com/Suyaas/Suyaa/blob/main/MultiLanguage/README.zh_CN.md)
+
 Comprehensive development kit based on .Net Standard 2.1, including basic type processing, ORM framework, log management, etc
 
 ![license](https://img.shields.io/github/license/suyaas/suyaa)
