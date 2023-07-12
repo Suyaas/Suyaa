@@ -6,10 +6,20 @@ namespace Suyaa.Logs
 {
 
     /// <summary>
-    /// 记录实体
+    /// 日志信息
     /// </summary>
     public class LogInfo
     {
+        // 记录索引
+        private static long _recordIndexer = 0;
+
+        // 获取新的记录索引
+        internal static long GetNewRecordId() => ++_recordIndexer;
+
+        /// <summary>
+        /// 索引号
+        /// </summary>
+        public virtual long RecordId { get; internal set; }
 
         /// <summary>
         /// 级别
@@ -30,6 +40,5 @@ namespace Suyaa.Logs
         /// 消息
         /// </summary>
         public virtual string? Message { get; set; }
-
     }
 }

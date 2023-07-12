@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Suyaa.Logs
 {
@@ -9,7 +12,7 @@ namespace Suyaa.Logs
     /// <summary>
     /// 日志器集合
     /// </summary>
-    public class Logger : ILogger
+    public class Logger : ILogger, IDisposable
     {
         /// <summary>
         /// 日志输出接口
@@ -28,6 +31,45 @@ namespace Suyaa.Logs
         private readonly IList<Action<LogInfo>> _logInfos;
         private readonly IList<ILogable> _loggers;
 
+        // 支持多线程写入
+        private static readonly object _lock = new object();
+        private Queue<LogInfo> _logQueue;
+        private Task _logTask;
+        //private ManualResetEvent _manualReset;
+        private CancellationTokenSource _tokenSource;
+        private CancellationToken _token;
+
+        private void LogWrite()
+        {
+            while (!_token.IsCancellationRequested)
+            {
+                // 判断队列是否为空
+                if (!_logQueue.Any())
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
+                var info = _logQueue.Dequeue();
+                string content = ActionLogger.GetLogString(info);
+                // 输出到委托
+                for (int i = 0; i < _logMessages.Count; i++)
+                {
+                    try { _logMessages[i](content); } catch { }
+                }
+                // 输出到委托
+                for (int i = 0; i < _logInfos.Count; i++)
+                {
+                    try { _logInfos[i](info); } catch { }
+                }
+                // 输出到所有记录器
+                for (int i = 0; i < _loggers.Count; i++)
+                {
+                    try { _loggers[i].Log(info); } catch { }
+                }
+                //Thread.Sleep(1);
+            }
+        }
+
         /// <summary>
         /// 对象实例化
         /// </summary>
@@ -36,6 +78,11 @@ namespace Suyaa.Logs
             _logMessages = new List<Action<string>>();
             _logInfos = new List<Action<LogInfo>>();
             _loggers = new List<ILogable>();
+            _logQueue = new Queue<LogInfo>();
+            // 建立日志线程
+            _tokenSource = new CancellationTokenSource();
+            _token = _tokenSource.Token;
+            _logTask = Task.Run(LogWrite, _token);
         }
 
         /// <summary>
@@ -88,22 +135,16 @@ namespace Suyaa.Logs
         /// <param name="info"></param>
         public void Log(LogInfo info)
         {
-            string content = ActionLogger.GetLogString(info);
-            // 输出到委托
-            for (int i = 0; i < _logMessages.Count; i++)
+            if (info.Source.IsNullOrWhiteSpace()) info.Source = sy.Logger.GetDefaultSoucre();
+            var task = new Task(() =>
             {
-                try { _logMessages[i](content); } catch { }
-            }
-            // 输出到委托
-            for (int i = 0; i < _logInfos.Count; i++)
-            {
-                try { _logInfos[i](info); } catch { }
-            }
-            // 输出到所有记录器
-            for (int i = 0; i < _loggers.Count; i++)
-            {
-                try { _loggers[i].Log(info); } catch { }
-            }
+                lock (_lock)
+                {
+                    info.RecordId = LogInfo.GetNewRecordId();
+                    _logQueue.Enqueue(info);
+                }
+            });
+            task.Start();
         }
 
         /// <summary>
@@ -145,5 +186,53 @@ namespace Suyaa.Logs
         /// <param name="evt"></param>
         public void Fatal(string message, string? evt = null)
             => Log(new LogInfo() { Event = evt, Level = LogLevel.Fatal, Message = message });
+
+        #region 释放资源
+
+        // 是否释放
+        private bool _disposed;
+
+        /// <summary>
+        /// 释放事件
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void OnDispose(bool disposing)
+        {
+            if (_disposed) return;
+            #region 托管释放
+            if (disposing)
+            {
+                _loggers.Clear();
+                _logInfos.Clear();
+                _logMessages.Clear();
+                _logQueue.Clear();
+                // 线程取消
+                _tokenSource.Cancel();
+                //_logTask.Dispose();
+            }
+            #endregion
+            #region 非托管释放
+            #endregion
+            _disposed = true;
+        }
+
+        /// <summary>
+        /// GC释放
+        /// </summary>
+        public void Dispose()
+        {
+            this.OnDispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// 构析函数
+        /// </summary>
+        ~Logger()
+        {
+            this.OnDispose(false);
+        }
+
+        #endregion
     }
 }

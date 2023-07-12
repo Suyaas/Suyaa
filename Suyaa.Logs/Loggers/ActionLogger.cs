@@ -31,7 +31,6 @@ namespace Suyaa.Logs.Loggers
         /// <returns></returns>
         public static string GetLogString(LogInfo info)
         {
-            if (info.Source.IsNullOrWhiteSpace()) info.Source = sy.Logger.GetDefaultSoucre();
             StringBuilder sb = new StringBuilder();
             sb.Append('[');
             sb.Append(info.Level.ToString().ToUpper());
