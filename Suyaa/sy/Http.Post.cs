@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using Suyaa.Net.Http;
+using Suyaa;
+
+namespace sy
+{
+    /// <summary>
+    /// Http
+    /// </summary>
+    public static partial class Http
+    {
+        /// <summary>
+        /// 获取Post方式的应答结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> PostResponseAsync(string url, string data, HttpOption option)
+        {
+            var client = GetClient();
+            // 建立传输内容
+            HttpContent content = new StringContent(data);
+            // 设置头
+            content.SetHeaders(option.Headers);
+            return await client.PostAsync(url, content);
+        }
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, string data, Action<HttpOption>? action = null)
+        {
+            using HttpOption option = new HttpOption();
+            if (action != null) action(option);
+            // 应答器
+            using HttpResponseMessage response = await PostResponseAsync(url, data, option);
+            // 判断状态并抛出异常
+            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
+            // 返回数据结果
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static string Post(string url, string data, Action<HttpOption>? action = null)
+            => PostAsync(url, data, action).GetAwaiter().GetResult();
+    }
+}
