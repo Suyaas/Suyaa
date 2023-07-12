@@ -28,7 +28,7 @@ namespace Suyaa.Net.Http
         /// <returns></returns>
         public string Get(string name)
         {
-            return string.Join(";", base.GetValues(name));
+            return string.Join(";", GetValues(name));
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace Suyaa.Net.Http
         public HttpHeaders Set(string name, string value)
         {
             // 清理已有的值
-            if (this.Contains(name)) this.Remove(name);
+            if (Contains(name)) Remove(name);
             // 添加新的值
-            base.Add(name, value);
+            Add(name, value);
             return this;
         }
 
@@ -64,7 +64,7 @@ namespace Suyaa.Net.Http
         {
             get
             {
-                if (!this.Contains(CONTENT_TYPE)) return X_WWW_FORM_URLENCODED;
+                if (!Contains(CONTENT_TYPE)) return X_WWW_FORM_URLENCODED;
                 return Get(CONTENT_TYPE);
             }
             set => Set(CONTENT_TYPE, value);
@@ -75,7 +75,7 @@ namespace Suyaa.Net.Http
         /// </summary>
         public void Dispose()
         {
-            this.Clear();
+            Clear();
             GC.SuppressFinalize(this);
         }
     }

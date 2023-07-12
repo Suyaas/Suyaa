@@ -16,33 +16,29 @@ namespace sy
     public static partial class Http
     {
         /// <summary>
-        /// 获取Put方式的应答结果
+        /// 获取DELETE方式的应答结果
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> PutResponseAsync(string url, string data, HttpOption option)
+        public static async Task<HttpResponseMessage> DeleteResponseAsync(string url, HttpOption option)
         {
             using var client = GetClient();
-            // 建立传输内容
-            HttpContent content = new StringContent(data);
             // 设置头
-            content.SetHeaders(option.Headers);
-            return await client.PutAsync(url, content);
+            client.SetHeaders(option.Headers);
+            return await client.DeleteAsync(url);
         }
 
         /// <summary>
-        /// 以Put方式获取数据
+        /// 以DELETE方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<string> PutAsync(string url, string data, HttpOption option)
+        public static async Task<string> DeleteAsync(string url, HttpOption option)
         {
             // 应答器
-            using HttpResponseMessage response = await PutResponseAsync(url, data, option);
+            using HttpResponseMessage response = await DeleteResponseAsync(url, option);
             // 触发应答事件
             if (!option.RaiseResponseEvent(response)) return string.Empty;
             // 判断状态并抛出异常
@@ -52,28 +48,26 @@ namespace sy
         }
 
         /// <summary>
-        /// 以Put方式获取数据
+        /// 以DELETE方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static async Task<string> PutAsync(string url, string data, Action<HttpOption>? action = null)
+        public static async Task<string> DeleteAsync(string url, Action<HttpOption>? action = null)
         {
             using HttpOption option = new HttpOption();
             action?.Invoke(option);
-            // 执行并返回数据结果
-            return await PutAsync(url, data, option);
+            // 返回数据结果
+            return await DeleteAsync(url, option);
         }
 
         /// <summary>
-        /// 以Put方式获取数据
+        /// 以DELETE方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static string Put(string url, string data, Action<HttpOption>? action = null)
-            => PutAsync(url, data, action).GetAwaiter().GetResult();
+        public static string Delete(string url, Action<HttpOption>? action = null)
+            => DeleteAsync(url, action).GetAwaiter().GetResult();
     }
 }

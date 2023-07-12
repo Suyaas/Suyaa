@@ -30,10 +30,10 @@ namespace Suyaa
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T Fixed<T>(this T? obj) where T : class
+        public static T Fixed<T>(this object? obj) where T : notnull
         {
             if (obj is null) throw new NullException<T>();
-            return obj;
+            return (T)obj;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Suyaa
         /// <returns></returns>
         public static T? ConvertOrNull<T>(this object? obj) where T : class
         {
-            if (obj is null) return default(T);
+            if (obj is null) return default;
             return obj.ConvertTo<T>();
         }
 
@@ -82,23 +82,23 @@ namespace Suyaa
         public static object ConvertTo(this object obj, Type type)
         {
             var typeCode = Type.GetTypeCode(type);
-            switch (typeCode)
+            return typeCode switch
             {
-                case TypeCode.Boolean: return Convert.ToBoolean(obj);
-                case TypeCode.Byte: return Convert.ToByte(obj);
-                case TypeCode.Int16: return Convert.ToInt16(obj);
-                case TypeCode.Int32: return Convert.ToInt32(obj);
-                case TypeCode.Int64: return Convert.ToInt64(obj);
-                case TypeCode.UInt16: return Convert.ToUInt16(obj);
-                case TypeCode.UInt32: return Convert.ToUInt32(obj);
-                case TypeCode.UInt64: return Convert.ToUInt64(obj);
-                case TypeCode.Single: return Convert.ToSingle(obj);
-                case TypeCode.Double: return Convert.ToDouble(obj);
-                case TypeCode.Char: return Convert.ToChar(obj);
-                case TypeCode.Decimal: return Convert.ToDecimal(obj);
-                case TypeCode.DateTime: return Convert.ToDateTime(obj);
-                default: return obj;
-            }
+                TypeCode.Boolean => Convert.ToBoolean(obj),
+                TypeCode.Byte => Convert.ToByte(obj),
+                TypeCode.Int16 => Convert.ToInt16(obj),
+                TypeCode.Int32 => Convert.ToInt32(obj),
+                TypeCode.Int64 => Convert.ToInt64(obj),
+                TypeCode.UInt16 => Convert.ToUInt16(obj),
+                TypeCode.UInt32 => Convert.ToUInt32(obj),
+                TypeCode.UInt64 => Convert.ToUInt64(obj),
+                TypeCode.Single => Convert.ToSingle(obj),
+                TypeCode.Double => Convert.ToDouble(obj),
+                TypeCode.Char => Convert.ToChar(obj),
+                TypeCode.Decimal => Convert.ToDecimal(obj),
+                TypeCode.DateTime => Convert.ToDateTime(obj),
+                _ => obj,
+            };
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Suyaa
                 case TypeCode.String: return Convert.ToString(obj);
                 case TypeCode.Object:
                     // 创建新对象
-                    var objNew = sy.Assembly.Create(type).Fixed();
+                    var objNew = sy.Assembly.Create(type) ?? throw new NullException(type);
                     // 复制所有的属性
                     var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (var pro in pros)

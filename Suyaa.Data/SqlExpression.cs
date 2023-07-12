@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Suyaa.Data.Helpers;
 using Suyaa;
+using Suyaa.Exceptions;
 
 namespace Suyaa.Data
 {
@@ -60,8 +61,7 @@ namespace Suyaa.Data
         private string GetContainsSql(MethodCallExpression call)
         {
             var callObj = (MemberExpression)call.Object;
-            var callObjValues = GetSqlExpressionValue(callObj.Expression);
-            if (callObjValues is null) throw new Exception($"容器无数据");
+            var callObjValues = GetSqlExpressionValue(callObj.Expression) ?? throw new Exception($"容器无数据");
             var listInfo = callObjValues.GetType().GetField(callObj.Member.Name);
             ICollection list = (ICollection)listInfo.GetValue(callObjValues);
             StringBuilder sbList = new StringBuilder();
@@ -71,20 +71,20 @@ namespace Suyaa.Data
                 if (sbList.Length > 1) sbList.Append(", ");
                 if (item is null) { sbList.Append("NULL"); continue; }
                 if (item.GetType().IsNumeric()) { sbList.Append(item); continue; }
-                if (item is string) { sbList.Append(_provider.GetValueString((string)item)); continue; }
+                if (item is string str) { sbList.Append(_provider.GetValueString(str)); continue; }
                 throw new Exception($"不支持的数据类型'{item.GetType().FullName}'");
             }
             sbList.Append(')');
             var arg = GetSqlExpressionValue(call.Arguments[0]);
-            return $"{arg} IN {sbList.ToString()}";
+            return $"{arg} IN {sbList}";
         }
 
         // 获取Contains函数兼容的sql语句
         private string GetEqualsSqlString(MethodCallExpression call)
         {
             var callObj = (MemberExpression)call.Object;
-            string name = string.Empty;
-            object? value = null;
+            object? value;
+            string name;
             switch (callObj.Expression)
             {
                 case ParameterExpression _:
@@ -109,28 +109,28 @@ namespace Suyaa.Data
             if (value is null)
             {
                 var operand = (MemberExpression)unary.Operand;
-                var operandValues = GetSqlExpressionValue(operand.Expression);
-                if (operandValues is null) throw new Exception($"容器无数据");
+                var operandValues = GetSqlExpressionValue(operand.Expression) ?? throw new Exception($"容器无数据");
                 value = GetValueInObject(operandValues, operand.Member.Name);
             }
-            switch (value)
+
+            return value switch
             {
-                case null: return "NULL";
-                case string sz: return _provider.GetValueString((string)value);
-                default: return Convert.ToString(value);
-            }
+                null => "NULL",
+                string _ => _provider.GetValueString((string)value),
+                _ => Convert.ToString(value),
+            };
         }
 
         // 获取函数调用处理sql语句
         private string GetMethodCallSqlString(MethodCallExpression methodCall)
         {
             var callMethod = methodCall.Method;
-            switch (callMethod.Name)
+            return callMethod.Name switch
             {
-                case "Contains": return GetContainsSql(methodCall);
-                case "Equals": return GetEqualsSqlString(methodCall);
-                default: throw new Exception($"SqlExpressionValue不支持的Call类型'{callMethod.Name}'");
-            }
+                "Contains" => GetContainsSql(methodCall),
+                "Equals" => GetEqualsSqlString(methodCall),
+                _ => throw new Exception($"SqlExpressionValue不支持的Call类型'{callMethod.Name}'"),
+            };
         }
 
         // 获取sql语句值
@@ -150,7 +150,7 @@ namespace Suyaa.Data
                     {
                         // 如果包含表达式，则先解析表达式
                         case ConstantExpression constant:
-                            var parent = GetSqlExpressionValue(constant).Fixed();
+                            var parent = GetSqlExpressionValue(constant) ?? throw new NullException(typeof(ConstantExpression));
                             return GetValueInObject(parent, member.Member.Name);
                         default: return GetColumnName(member.Member.Name);
                     }
@@ -160,7 +160,7 @@ namespace Suyaa.Data
                 case ExpressionType.Constant: // 获取Constant函数
                     var constant = (ConstantExpression)exp;
                     if (constant.Value is null) return "NULL";
-                    if (constant.Value is string) return _provider.GetValueString((string)constant.Value);
+                    if (constant.Value is string str) return _provider.GetValueString(str);
                     var valueType = constant.Value.GetType();
                     if (valueType.IsNumeric()) return constant.Value.ToString();
                     return constant.Value;
@@ -242,14 +242,12 @@ namespace Suyaa.Data
         /// <returns></returns>
         public string GetSqlString(Expression exp)
         {
-            switch (exp)
+            return exp switch
             {
-                case BinaryExpression binaryExpression:
-                    return GetBinarySqlString(binaryExpression);
-                case MethodCallExpression methodCallExpression:
-                    return GetMethodCallSqlString(methodCallExpression);
-                default: throw new DatabaseException($"SqlExpression不支持的'{exp.NodeType}'节点类型");
-            }
+                BinaryExpression binaryExpression => GetBinarySqlString(binaryExpression),
+                MethodCallExpression methodCallExpression => GetMethodCallSqlString(methodCallExpression),
+                _ => throw new DatabaseException($"SqlExpression不支持的'{exp.NodeType}'节点类型"),
+            };
         }
 
         /// <summary>

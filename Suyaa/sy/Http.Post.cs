@@ -37,20 +37,33 @@ namespace sy
         /// </summary>
         /// <param name="url"></param>
         /// <param name="data"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, string data, HttpOption option)
+        {
+            // 应答器
+            using HttpResponseMessage response = await PostResponseAsync(url, data, option);
+            // 触发应答事件
+            if (!option.RaiseResponseEvent(response)) return string.Empty;
+            // 判断状态并抛出异常
+            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
+            // 返回数据结果
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
         /// <param name="action"></param>
         /// <returns></returns>
         public static async Task<string> PostAsync(string url, string data, Action<HttpOption>? action = null)
         {
             using HttpOption option = new HttpOption();
             action?.Invoke(option);
-            // 应答器
-            using HttpResponseMessage response = await PostResponseAsync(url, data, option);
-            // 触发应答事件
-            option.RaiseResponseEvent(response);
-            // 判断状态并抛出异常
-            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
-            // 返回数据结果
-            return await response.Content.ReadAsStringAsync();
+            // 执行并返回数据结果
+            return await PostAsync(url, data, option);
         }
 
         /// <summary>

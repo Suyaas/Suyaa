@@ -20,17 +20,14 @@ namespace sy
         /// </summary>
         /// <param name="url"></param>
         /// <param name="path"></param>
-        /// <param name="action"></param>
+        /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task DownloadAsync(string url, string path, Action<HttpOption>? action = null)
+        public static async Task DownloadAsync(string url, string path, HttpOption option)
         {
-            // 新建选项并
-            using HttpOption option = new HttpOption();
-            action?.Invoke(option);
             // 应答器
             using HttpResponseMessage response = await GetResponseAsync(url, option);
             // 触发应答事件
-            option.RaiseResponseEvent(response);
+            if (!option.RaiseResponseEvent(response)) return;
             // 判断状态并抛出异常
             if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
             // 建立缓冲区
@@ -59,6 +56,22 @@ namespace sy
             // 清理数据
             fs.Close();
             buffer = new byte[0];
+        }
+
+        /// <summary>
+        /// 以Get方式下载文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="path"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task DownloadAsync(string url, string path, Action<HttpOption>? action = null)
+        {
+            // 新建选项并
+            using HttpOption option = new HttpOption();
+            action?.Invoke(option);
+            // 下载
+            await DownloadAsync(url, path, option);
         }
 
 

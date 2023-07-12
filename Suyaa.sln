@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa", "Suyaa\Suyaa.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{BE93F3E5-E556-4225-B51F-1DDF84B4600F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Tests", "UnitTests\Egg.Tests\Suyaa.Tests.csproj", "{32B6EC94-BB19-4887-8A63-89C27F54A472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest", "UnitTests\Egg.Tests\SuyaaTest.csproj", "{32B6EC94-BB19-4887-8A63-89C27F54A472}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure", "Suyaa.Configure\Suyaa.Configure.csproj", "{85E664CB-6E53-47C4-9833-07B11AE7B093}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Tests", "UnitTests\Suyaa.Configure.Tests\Suyaa.Configure.Tests.csproj", "{80FD68BB-C9B6-435C-AFDB-E0BFD6D168D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.Configure", "UnitTests\Suyaa.Configure.Tests\SuyaaTest.Configure.csproj", "{80FD68BB-C9B6-435C-AFDB-E0BFD6D168D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Logs.Tests", "UnitTests\Suyaa.Log.Tests\Suyaa.Logs.Tests.csproj", "{71E21DBF-34E3-4C4C-8577-7AD47BA88467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.Logs", "UnitTests\Suyaa.Log.Tests\SuyaaTest.Logs.csproj", "{71E21DBF-34E3-4C4C-8577-7AD47BA88467}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Logs", "Suyaa.Logs\Suyaa.Logs.csproj", "{D5BAF6AE-ED6C-4631-AD4E-D99DFB310D7F}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.Sqlite", "Suyaa.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Data.PostgreSQL", "Suyaa.Data.PostgreSQL\Suyaa.Data.PostgreSQL.csproj", "{A7DE8B1B-D312-4659-8345-C7C90497BEC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Sqlite.Tests", "UnitTests\Suyaa.Sqlite.Tests\Suyaa.Sqlite.Tests.csproj", "{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.Sqlite", "UnitTests\Suyaa.Sqlite.Tests\SuyaaTest.Sqlite.csproj", "{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore", "Suyaa.EFCore\Suyaa.EFCore.csproj", "{E9F1FDEB-D7E0-4856-B876-03376C1C15C8}"
 EndProject
@@ -31,9 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore.Sqlite", "Suya
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.EFCore.PostgreSQL", "Suyaa.EFCore.PostgreSQL\Suyaa.EFCore.PostgreSQL.csproj", "{EB2C4D22-73AC-4FB1-AD8D-3DEE0583CC52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.PostgreSQL.Tests", "UnitTests\Suyaa.PostgreSQL.Tests\Suyaa.PostgreSQL.Tests.csproj", "{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.PostgreSQL", "UnitTests\Suyaa.PostgreSQL.Tests\SuyaaTest.PostgreSQL.csproj", "{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Windows", "Suyaa.Windows\Suyaa.Windows.csproj", "{B6636793-C7F2-4D74-84BC-6AE8156F841C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Windows", "Suyaa.Windows\Suyaa.Windows.csproj", "{B6636793-C7F2-4D74-84BC-6AE8156F841C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.RestfulApi", "Suyaa.RestfulApi\Suyaa.RestfulApi.csproj", "{C5147897-E703-4E65-977B-3010872FCD1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuyaaTest.Api", "UnitTests\SuyaaTest.Api\SuyaaTest.Api.csproj", "{426C6F02-27E6-4ADD-A4EF-26B9745451E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +105,14 @@ Global
 		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6636793-C7F2-4D74-84BC-6AE8156F841C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5147897-E703-4E65-977B-3010872FCD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5147897-E703-4E65-977B-3010872FCD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5147897-E703-4E65-977B-3010872FCD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5147897-E703-4E65-977B-3010872FCD1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{426C6F02-27E6-4ADD-A4EF-26B9745451E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{426C6F02-27E6-4ADD-A4EF-26B9745451E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{426C6F02-27E6-4ADD-A4EF-26B9745451E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{426C6F02-27E6-4ADD-A4EF-26B9745451E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +123,7 @@ Global
 		{71E21DBF-34E3-4C4C-8577-7AD47BA88467} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 		{FDCD1197-A3C9-4AD3-BE1A-BCFEAD2D1F3B} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 		{7AC0B20C-F4C9-4CD5-9B99-E20D52E46058} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
+		{426C6F02-27E6-4ADD-A4EF-26B9745451E5} = {BE93F3E5-E556-4225-B51F-1DDF84B4600F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89808027-9D7E-4CCD-819C-186060D5B287}

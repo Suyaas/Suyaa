@@ -109,7 +109,7 @@ namespace Suyaa
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(this Type? type, object[]? args = null) where T : class
-            => (T)sy.Assembly.Create(type, args).Fixed();
+            => sy.Assembly.Create(type, args).Fixed<T>();
 
         /// <summary>
         /// 创建一个实例对象

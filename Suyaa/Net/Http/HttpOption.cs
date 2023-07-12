@@ -15,7 +15,7 @@ namespace Suyaa.Net.Http
     {
         // 下载
         private Action<HttpDownloadInfo>? _download;
-        private Action<HttpResponseMessage>? _response;
+        private Func<HttpResponseMessage, bool>? _response;
 
         /// <summary>
         /// 头信息
@@ -33,22 +33,18 @@ namespace Suyaa.Net.Http
         /// <param name="info"></param>
         internal void RaiseDownloadEvent(HttpDownloadInfo info)
         {
-            // 判断是否已经注册事件
-            if (_download is null) return;
             // 执行事件
-            _download(info);
+            _download?.Invoke(info);
         }
 
         /// <summary>
         /// 触发下载事件
         /// </summary>
         /// <param name="response"></param>
-        internal void RaiseResponseEvent(HttpResponseMessage response)
+        internal bool RaiseResponseEvent(HttpResponseMessage response)
         {
-            // 判断是否已经注册事件
-            if (_response is null) return;
             // 执行事件
-            _response(response);
+            return _response?.Invoke(response) ?? true;
         }
 
         /// <summary>
@@ -63,10 +59,10 @@ namespace Suyaa.Net.Http
         /// <summary>
         /// 注册应答事件
         /// </summary>
-        /// <param name="action"></param>
-        public void OnResponse(Action<HttpResponseMessage> action)
+        /// <param name="func"></param>
+        public void OnResponse(Func<HttpResponseMessage, bool> func)
         {
-            _response = action;
+            _response = func;
         }
 
         /// <summary>
@@ -74,8 +70,8 @@ namespace Suyaa.Net.Http
         /// </summary>
         public HttpOption()
         {
-            this.Headers = new HttpHeaders();
-            this.IsEnsureStatus = true;
+            Headers = new HttpHeaders();
+            IsEnsureStatus = true;
         }
 
         #region 释放资源
@@ -93,7 +89,7 @@ namespace Suyaa.Net.Http
             #region 托管释放
             if (disposing)
             {
-                this.Headers.Dispose();
+                Headers.Dispose();
             }
             #endregion
             #region 非托管释放
@@ -108,7 +104,7 @@ namespace Suyaa.Net.Http
         /// </summary>
         public void Dispose()
         {
-            this.OnDispose(true);
+            OnDispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -117,7 +113,7 @@ namespace Suyaa.Net.Http
         /// </summary>
         ~HttpOption()
         {
-            this.OnDispose(false);
+            OnDispose(false);
         }
 
         #endregion
