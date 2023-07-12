@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Suyaa.RestfulApi\Suyaa.RestfulApi.csproj" />
+    <ProjectReference Include="..\..\Suyaa.RestfulApi\Suyaa.RESTfulApi.csproj" />
     <ProjectReference Include="..\..\Suyaa\Suyaa.csproj" />
   </ItemGroup>
 

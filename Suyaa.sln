@@ -35,9 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.PostgreSQL", "Uni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Windows", "Suyaa.Windows\Suyaa.Windows.csproj", "{B6636793-C7F2-4D74-84BC-6AE8156F841C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.RestfulApi", "Suyaa.RestfulApi\Suyaa.RestfulApi.csproj", "{C5147897-E703-4E65-977B-3010872FCD1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.RESTfulApi", "Suyaa.RestfulApi\Suyaa.RESTfulApi.csproj", "{C5147897-E703-4E65-977B-3010872FCD1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuyaaTest.Api", "UnitTests\SuyaaTest.Api\SuyaaTest.Api.csproj", "{426C6F02-27E6-4ADD-A4EF-26B9745451E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuyaaTest.Api", "UnitTests\SuyaaTest.Api\SuyaaTest.Api.csproj", "{426C6F02-27E6-4ADD-A4EF-26B9745451E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
