@@ -20,20 +20,15 @@ namespace sy
         /// </summary>
         /// <param name="url"></param>
         /// <param name="data"></param>
-        /// <param name="action"></param>
+        /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> PutResponseAsync(string url, string data, Action<HttpOption>? action = null)
+        public static async Task<HttpResponseMessage> PutResponseAsync(string url, string data, HttpOption option)
         {
             using var client = GetClient();
             // 建立传输内容
             HttpContent content = new StringContent(data);
-            if (action != null)
-            {
-                using HttpOption option = new HttpOption();
-                action(option);
-                // 设置头
-                content.SetHeaders(option.Headers);
-            }
+            // 设置头
+            content.SetHeaders(option.Headers);
             return await client.PutAsync(url, content);
         }
 
@@ -46,14 +41,16 @@ namespace sy
         /// <returns></returns>
         public static async Task<string> PutAsync(string url, string data, Action<HttpOption>? action = null)
         {
+            using HttpOption option = new HttpOption();
+            if (action != null) action(option);
             // 应答器
-            using (HttpResponseMessage response = await PutResponseAsync(url, data, action))
-            {
-                // 判断状态并抛出异常
-                response.EnsureSuccessStatusCode();
-                // 返回数据结果
-                return await response.Content.ReadAsStringAsync();
-            }
+            using HttpResponseMessage response = await PutResponseAsync(url, data, option);
+            // 触发应答事件
+            option.RaiseResponseEvent(response);
+            // 判断状态并抛出异常
+            response.EnsureSuccessStatusCode();
+            // 返回数据结果
+            return await response.Content.ReadAsStringAsync();
         }
 
         /// <summary>

@@ -19,21 +19,13 @@ namespace sy
         /// 获取Get方式的应答结果
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="action"></param>
+        /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> GetResponseAsync(string url, Action<HttpOption>? action = null)
+        public static async Task<HttpResponseMessage> GetResponseAsync(string url, HttpOption option)
         {
-            //using (var client = GetClient())
-            //{
             var client = GetClient();
-            if (action != null)
-            {
-                using HttpOption option = new HttpOption();
-                action(option);
-                client.SetHeaders(option.Headers);
-            }
+            client.SetHeaders(option.Headers);
             return await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-            //}
         }
 
         /// <summary>
@@ -44,11 +36,15 @@ namespace sy
         /// <returns></returns>
         public static async Task<string> GetAsync(string url, Action<HttpOption>? action = null)
         {
+            using HttpOption option = new HttpOption();
+            if (action != null) action(option);
             // 应答器
-            using (HttpResponseMessage response = await GetResponseAsync(url, action))
+            using (HttpResponseMessage response = await GetResponseAsync(url, option))
             {
+                // 触发应答事件
+                option.RaiseResponseEvent(response);
                 // 判断状态并抛出异常
-                response.EnsureSuccessStatusCode();
+                if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
                 // 返回数据结果
                 return await response.Content.ReadAsStringAsync();
             }

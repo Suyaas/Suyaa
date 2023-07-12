@@ -217,7 +217,7 @@ namespace Suyaa.Logs
         }
 
         /// <summary>
-        /// GC释放
+        /// 释放托管资源
         /// </summary>
         public void Dispose()
         {

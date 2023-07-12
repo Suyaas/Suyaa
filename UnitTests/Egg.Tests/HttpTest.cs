@@ -6,6 +6,7 @@ using System.Text.Json;
 using Xunit;
 using Xunit.Abstractions;
 using Suyaa;
+using System.Diagnostics;
 
 namespace Suyaa.Tests
 {
@@ -55,6 +56,20 @@ namespace Suyaa.Tests
             }
         }
 
-
+        [Fact]
+        public void Download()
+        {
+            var folder = sy.IO.GetFullPath("./down");
+            sy.IO.CreateFolder(folder);
+            var file = sy.IO.CombinePath(folder, $"icon-{sy.Time.Now.ToString("yyyyMMddHHmmssfff")}.png");
+            //if (sy.IO.FileExists(file)) sy.IO.DeleteFile(file);
+            sy.Http.Download("https://nuget.org/Content/gallery/img/default-package-icon-256x256.png", file, opt =>
+            {
+                opt.OnDownload(info =>
+                {
+                    Debug.WriteLine(info.ReceiveSize);
+                });
+            });
+        }
     }
 }

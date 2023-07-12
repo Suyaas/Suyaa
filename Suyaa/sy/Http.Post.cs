@@ -45,6 +45,8 @@ namespace sy
             if (action != null) action(option);
             // 应答器
             using HttpResponseMessage response = await PostResponseAsync(url, data, option);
+            // 触发应答事件
+            option.RaiseResponseEvent(response);
             // 判断状态并抛出异常
             if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
             // 返回数据结果
