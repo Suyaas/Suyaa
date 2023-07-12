@@ -61,7 +61,7 @@ namespace Suyaa.Tests
         {
             var folder = sy.IO.GetFullPath("./down");
             sy.IO.CreateFolder(folder);
-            var file = sy.IO.CombinePath(folder, $"icon-{sy.Time.Now.ToString("yyyyMMddHHmmssfff")}.png");
+            var file = sy.IO.CombinePath(folder, $"icon-{sy.Time.Now:yyyyMMddHHmmssfff}.png");
             //if (sy.IO.FileExists(file)) sy.IO.DeleteFile(file);
             sy.Http.Download("https://nuget.org/Content/gallery/img/default-package-icon-256x256.png", file, opt =>
             {

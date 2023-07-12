@@ -25,6 +25,7 @@ namespace Suyaa.Logs.Tests
                 .Use(new FileLogger(sy.IO.GetExecutionPath("log")))
                 .Use(msg => Debug.WriteLine(msg));
             sy.Logger.Info("≤‚ ‘");
+            _output.WriteLine("OK");
             //Thread.Sleep(1000);
         }
     }

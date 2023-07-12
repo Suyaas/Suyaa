@@ -33,11 +33,10 @@ namespace Suyaa.Logs
 
         // 支持多线程写入
         private static readonly object _lock = new object();
-        private Queue<LogInfo> _logQueue;
-        private Task _logTask;
+        private readonly Queue<LogInfo> _logQueue;
         //private ManualResetEvent _manualReset;
-        private CancellationTokenSource _tokenSource;
-        private CancellationToken _token;
+        private readonly CancellationTokenSource _tokenSource;
+        private readonly CancellationToken _token;
 
         private void LogWrite()
         {
@@ -82,7 +81,7 @@ namespace Suyaa.Logs
             // 建立日志线程
             _tokenSource = new CancellationTokenSource();
             _token = _tokenSource.Token;
-            _logTask = Task.Run(LogWrite, _token);
+            Task.Run(LogWrite, _token);
         }
 
         /// <summary>

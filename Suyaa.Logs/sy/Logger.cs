@@ -27,12 +27,11 @@ namespace sy
         {
             var trace = new StackTrace();
             if (trace is null) return string.Empty;
-            StackFrame? frame = null;
             MethodBase? method = null;
             int index = 0;
             while (index < trace.FrameCount)
             {
-                frame = trace.GetFrame(index);
+                StackFrame? frame = trace.GetFrame(index);
                 method = frame.GetMethod();
                 if (method.DeclaringType.Equals(typeof(sy.Logger)))
                 {
@@ -66,7 +65,7 @@ namespace sy
         /// <returns></returns>
         public static Suyaa.Logs.Logger GetCurrentLogger()
         {
-            if (_loggers is null) _loggers = new Suyaa.Logs.Logger();
+            _loggers ??= new Suyaa.Logs.Logger();
             return _loggers;
         }
 

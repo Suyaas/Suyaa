@@ -24,8 +24,9 @@ namespace sy
         /// <returns></returns>
         public static async Task DownloadAsync(string url, string path, Action<HttpOption>? action = null)
         {
+            // 新建选项并
             using HttpOption option = new HttpOption();
-            if (action != null) action(option);
+            action?.Invoke(option);
             // 应答器
             using HttpResponseMessage response = await GetResponseAsync(url, option);
             // 触发应答事件
