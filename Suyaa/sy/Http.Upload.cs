@@ -30,6 +30,7 @@ namespace sy
                 content.Add(new ByteArrayContent(System.IO.File.ReadAllBytes(path)), "file", System.IO.Path.GetFileName(path));
             }
             // 设置头
+            option.Headers.SetCookies(option.Cookies);
             content.SetHeaders(option.Headers);
             return await client.PostAsync(url, content);
         }

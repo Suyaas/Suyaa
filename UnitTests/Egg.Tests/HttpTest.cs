@@ -23,9 +23,17 @@ namespace Suyaa.Tests
         [Fact]
         public void Get()
         {
-            var content = sy.Http.Get("https://www.baidu.com", o =>
+            var content = sy.Http.Get("https://www.baidu.com", opt =>
             {
-                o.Headers.Set("aaa", "sss");
+                opt.Headers.Set("aaa", "sss");
+                opt.OnResponse(resp =>
+                {
+                    foreach (var cookie in resp.GetCookies())
+                    {
+                        _output.WriteLine(cookie.Key + "=" + cookie.Value);
+                    }
+                    return true;
+                });
             });
             _output.WriteLine(content);
         }

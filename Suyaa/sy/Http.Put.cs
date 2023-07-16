@@ -24,10 +24,11 @@ namespace sy
         /// <returns></returns>
         public static async Task<HttpResponseMessage> PutResponseAsync(string url, string data, HttpOption option)
         {
-            using var client = GetClient();
+            var client = GetClient();
             // 建立传输内容
             HttpContent content = new StringContent(data);
             // 设置头
+            option.Headers.SetCookies(option.Cookies);
             content.SetHeaders(option.Headers);
             return await client.PutAsync(url, content);
         }

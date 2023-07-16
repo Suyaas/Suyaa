@@ -23,6 +23,11 @@ namespace Suyaa.Net.Http
         public HttpHeaders Headers { get; }
 
         /// <summary>
+        /// Cookies 信息
+        /// </summary>
+        public HttpCookies Cookies { get; }
+
+        /// <summary>
         /// 是否响应异常
         /// </summary>
         public bool IsEnsureStatus { get; set; }
@@ -71,6 +76,7 @@ namespace Suyaa.Net.Http
         public HttpOption()
         {
             Headers = new HttpHeaders();
+            Cookies = new HttpCookies();
             IsEnsureStatus = true;
         }
 
@@ -90,11 +96,12 @@ namespace Suyaa.Net.Http
             if (disposing)
             {
                 Headers.Dispose();
+                Cookies.Dispose();
             }
             #endregion
             #region 非托管释放
             _download = null;
-            _download = null;
+            _response = null;
             #endregion
             _disposed = true;
         }

@@ -24,6 +24,7 @@ namespace sy
         public static async Task<HttpResponseMessage> GetResponseAsync(string url, HttpOption option)
         {
             var client = GetClient();
+            option.Headers.SetCookies(option.Cookies);
             client.SetHeaders(option.Headers);
             return await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
         }

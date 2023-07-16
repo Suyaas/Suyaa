@@ -23,8 +23,9 @@ namespace sy
         /// <returns></returns>
         public static async Task<HttpResponseMessage> DeleteResponseAsync(string url, HttpOption option)
         {
-            using var client = GetClient();
+            var client = GetClient();
             // 设置头
+            option.Headers.SetCookies(option.Cookies);
             client.SetHeaders(option.Headers);
             return await client.DeleteAsync(url);
         }

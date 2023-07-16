@@ -47,6 +47,17 @@ namespace Suyaa.Net.Http
         }
 
         /// <summary>
+        /// 设置 Cookies
+        /// </summary>
+        /// <param name="cookies"></param>
+        /// <returns></returns>
+        public HttpHeaders SetCookies(HttpCookies cookies)
+        {
+            this["Cookie"] = cookies.ToString();
+            return this;
+        }
+
+        /// <summary>
         /// 获取或设置头信息
         /// </summary>
         /// <param name="name"></param>
