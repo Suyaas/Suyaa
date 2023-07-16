@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.3.2307.16</Version>
+    <Version>1.3.2307.18</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Description>舒雅套件中服务于PostgreSql数据库EFCore框架的辅助开发组件</Description>
     <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
