@@ -19,14 +19,14 @@ namespace sy
         /// 获取Post方式的应答结果
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> PostResponseAsync(string url, string data, HttpOption option)
+        public static async Task<HttpResponseMessage> PostResponseAsync(string url, byte[] bytes, HttpOption option)
         {
             var client = GetClient();
             // 建立传输内容
-            HttpContent content = new StringContent(data);
+            HttpContent content = new ByteArrayContent(bytes);
             // 设置头
             option.Headers.SetCookies(option.Cookies);
             client.SetHeaders(option.Headers);
@@ -38,13 +38,13 @@ namespace sy
         /// 以Post方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<string> PostAsync(string url, string data, HttpOption option)
+        public static async Task<string> PostAsync(string url, byte[] bytes, HttpOption option)
         {
             // 应答器
-            using HttpResponseMessage response = await PostResponseAsync(url, data, option);
+            using HttpResponseMessage response = await PostResponseAsync(url, bytes, option);
             // 触发应答事件
             if (!option.RaiseResponseEvent(response)) return string.Empty;
             // 判断状态并抛出异常
@@ -57,25 +57,25 @@ namespace sy
         /// 以Post方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static async Task<string> PostAsync(string url, string data, Action<HttpOption>? action = null)
+        public static async Task<string> PostAsync(string url, byte[] bytes, Action<HttpOption>? action = null)
         {
             using HttpOption option = new HttpOption();
             action?.Invoke(option);
             // 执行并返回数据结果
-            return await PostAsync(url, data, option);
+            return await PostAsync(url, bytes, option);
         }
 
         /// <summary>
         /// 以Post方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static string Post(string url, string data, Action<HttpOption>? action = null)
-            => PostAsync(url, data, action).GetAwaiter().GetResult();
+        public static string Post(string url, byte[] bytes, Action<HttpOption>? action = null)
+            => PostAsync(url, bytes, action).GetAwaiter().GetResult();
     }
 }

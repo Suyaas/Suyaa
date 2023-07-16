@@ -25,7 +25,7 @@ namespace sy
             using var option = new HttpOption();
             option.Headers.ContentType = CONTENT_TYPE_JSON;
             action?.Invoke(option);
-            var content = await sy.Http.PostAsync(url, JsonSerializer.Serialize(data), option);
+            var content = await sy.Http.PostAsync(url, Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data)), option);
             return JsonSerializer.Deserialize<T>(content).Fixed<T>();
         }
 

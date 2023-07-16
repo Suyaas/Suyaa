@@ -21,7 +21,12 @@ namespace Suyaa
         public static HttpContent SetHeaders(this HttpContent content, HttpHeaders headers)
         {
             // 设置内容类型
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(headers.ContentType);
+            //content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(headers.ContentType);
+            if (content.Headers.Contains(HttpHeaders.CONTENT_TYPE))
+            {
+                content.Headers.Remove(HttpHeaders.CONTENT_TYPE);
+                content.Headers.Add(HttpHeaders.CONTENT_TYPE, headers.ContentType);
+            }
             // 设置字符类型
             if (headers.ContainsKey(HttpHeaders.CONTENT_ENCODING))
             {
