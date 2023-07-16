@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Suyaa.Net.Http;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace Suyaa
@@ -37,7 +37,7 @@ namespace Suyaa
         {
             foreach (var header in headers)
             {
-                client.SetHeader(header.Key, string.Join(";", header.Value));
+                client.SetHeader(header.Key, header.Value);
             }
             return client;
         }

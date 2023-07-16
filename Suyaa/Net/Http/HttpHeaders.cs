@@ -9,7 +9,7 @@ namespace Suyaa.Net.Http
     /// <summary>
     /// Http头
     /// </summary>
-    public class HttpHeaders : System.Net.Http.Headers.HttpHeaders, IDisposable
+    public class HttpHeaders : Dictionary<string, string>, IDisposable
     {
         /// <summary>
         /// application/x-www-form-urlencoded
@@ -28,7 +28,8 @@ namespace Suyaa.Net.Http
         /// <returns></returns>
         public string Get(string name)
         {
-            return string.Join(";", GetValues(name));
+            if (this.ContainsKey(name)) return this[name];
+            return string.Empty;
         }
 
         /// <summary>
@@ -39,10 +40,7 @@ namespace Suyaa.Net.Http
         /// <returns></returns>
         public HttpHeaders Set(string name, string value)
         {
-            // 清理已有的值
-            if (Contains(name)) Remove(name);
-            // 添加新的值
-            Add(name, value);
+            this[name] = value;
             return this;
         }
 
@@ -58,24 +56,13 @@ namespace Suyaa.Net.Http
         }
 
         /// <summary>
-        /// 获取或设置头信息
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public string this[string name]
-        {
-            get => Get(name);
-            set => Set(name, value);
-        }
-
-        /// <summary>
         /// ContentType
         /// </summary>
         public string ContentType
         {
             get
             {
-                if (!Contains(CONTENT_TYPE)) return X_WWW_FORM_URLENCODED;
+                if (!this.ContainsKey(CONTENT_TYPE)) return X_WWW_FORM_URLENCODED;
                 return Get(CONTENT_TYPE);
             }
             set => Set(CONTENT_TYPE, value);
