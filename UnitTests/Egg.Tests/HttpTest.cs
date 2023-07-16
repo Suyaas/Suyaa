@@ -26,6 +26,7 @@ namespace Suyaa.Tests
             var content = sy.Http.Get("https://www.baidu.com", opt =>
             {
                 opt.Headers.Set("aaa", "sss");
+                opt.Cookies.Set("BDUSS", "5mdkR6QnJDajIwZWpoS1dFbHY5Nzd1SEVNRzdZcm9zVXBLc3JXbkhUaXM0WHBqSVFBQUFBJCQAAAAAAAAAAAEAAAB1kz0Fd2lucmVud2luAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKxUU2OsVFNjZ3");
                 opt.OnResponse(resp =>
                 {
                     foreach (var cookie in resp.GetCookies())
