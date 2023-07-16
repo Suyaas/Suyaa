@@ -29,6 +29,7 @@ namespace sy
             HttpContent content = new StringContent(data);
             // 设置头
             option.Headers.SetCookies(option.Cookies);
+            client.SetHeaders(option.Headers);
             content.SetHeaders(option.Headers);
             return await client.PostAsync(url, content);
         }

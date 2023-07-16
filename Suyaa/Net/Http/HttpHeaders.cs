@@ -17,9 +17,19 @@ namespace Suyaa.Net.Http
         public const string X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
 
         /// <summary>
-        /// content_type
+        /// 内容类型
         /// </summary>
-        private const string CONTENT_TYPE = "content-type";
+        internal const string CONTENT_TYPE = "Content-Type";
+
+        /// <summary>
+        /// 内容字符集
+        /// </summary>
+        internal const string CONTENT_ENCODING = "Content-Encoding";
+
+        /// <summary>
+        /// 内容长度
+        /// </summary>
+        internal const string CONTENT_LENGTH = "Content-Length";
 
         /// <summary>
         /// 获取值
@@ -56,7 +66,7 @@ namespace Suyaa.Net.Http
         }
 
         /// <summary>
-        /// ContentType
+        /// 内容类型
         /// </summary>
         public string ContentType
         {
@@ -66,6 +76,32 @@ namespace Suyaa.Net.Http
                 return Get(CONTENT_TYPE);
             }
             set => Set(CONTENT_TYPE, value);
+        }
+
+        /// <summary>
+        /// 内容字符集
+        /// </summary>
+        public string ContentEncoding
+        {
+            get
+            {
+                if (!this.ContainsKey(CONTENT_ENCODING)) return string.Empty;
+                return Get(CONTENT_ENCODING);
+            }
+            set => Set(CONTENT_ENCODING, value);
+        }
+
+        /// <summary>
+        /// 内容字符集
+        /// </summary>
+        public long ContentLength
+        {
+            get
+            {
+                if (!this.ContainsKey(CONTENT_LENGTH)) return 0;
+                return Get(CONTENT_LENGTH).ToLong();
+            }
+            set => Set(CONTENT_LENGTH, value.ToString());
         }
 
         /// <summary>

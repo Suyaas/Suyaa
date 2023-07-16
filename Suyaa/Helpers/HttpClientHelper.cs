@@ -37,6 +37,9 @@ namespace Suyaa
         {
             foreach (var header in headers)
             {
+                if (header.Key == HttpHeaders.CONTENT_TYPE) continue;
+                if (header.Key == HttpHeaders.CONTENT_ENCODING) continue;
+                if (header.Key == HttpHeaders.CONTENT_LENGTH) continue;
                 client.SetHeader(header.Key, header.Value);
             }
             return client;
