@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Net.Http;
 using Suyaa;
+using System.IO;
 
 namespace sy
 {
@@ -26,11 +27,11 @@ namespace sy
         {
             var client = GetClient();
             // 建立传输内容
-            HttpContent content = new ByteArrayContent(bytes);
+            var content = new ByteArrayContent(bytes);
             // 设置头
             option.Headers.SetCookies(option.Cookies);
-            client.SetHeaders(option.Headers);
             content.SetHeaders(option.Headers);
+            client.SetHeaders(option.Headers);
             return await client.PostAsync(url, content);
         }
 
@@ -77,5 +78,47 @@ namespace sy
         /// <returns></returns>
         public static string Post(string url, byte[] bytes, Action<HttpOption>? action = null)
             => PostAsync(url, bytes, action).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, string data, Action<HttpOption>? action = null)
+            => await PostAsync(url, Encoding.UTF8.GetBytes(data), action);
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static string Post(string url, string data, Action<HttpOption>? action = null)
+            => PostAsync(url, Encoding.UTF8.GetBytes(data), action).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="encoding"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, string data, Encoding encoding, Action<HttpOption>? action = null)
+            => await PostAsync(url, encoding.GetBytes(data), action);
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="encoding"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static string Post(string url, string data, Encoding encoding, Action<HttpOption>? action = null)
+            => PostAsync(url, encoding.GetBytes(data), action).GetAwaiter().GetResult();
     }
 }

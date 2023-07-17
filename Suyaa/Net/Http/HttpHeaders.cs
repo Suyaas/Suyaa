@@ -19,17 +19,22 @@ namespace Suyaa.Net.Http
         /// <summary>
         /// 内容类型
         /// </summary>
-        internal const string CONTENT_TYPE = "Content-Type";
+        public const string CONTENT_TYPE = "Content-Type";
 
         /// <summary>
         /// 内容字符集
         /// </summary>
-        internal const string CONTENT_ENCODING = "Content-Encoding";
+        public const string CONTENT_ENCODING = "Content-Encoding";
 
         /// <summary>
         /// 内容长度
         /// </summary>
-        internal const string CONTENT_LENGTH = "Content-Length";
+        public const string CONTENT_LENGTH = "Content-Length";
+
+        /// <summary>
+        /// 内容处置方式
+        /// </summary>
+        public const string CONTENT_DISPOSITION = "Content-Disposition";
 
         /// <summary>
         /// 获取值
@@ -102,6 +107,19 @@ namespace Suyaa.Net.Http
                 return Get(CONTENT_LENGTH).ToLong();
             }
             set => Set(CONTENT_LENGTH, value.ToString());
+        }
+
+        /// <summary>
+        /// 内容处置方式
+        /// </summary>
+        public string ContentDisposition
+        {
+            get
+            {
+                if (!this.ContainsKey(CONTENT_DISPOSITION)) return string.Empty;
+                return Get(CONTENT_DISPOSITION);
+            }
+            set => Set(CONTENT_DISPOSITION, value);
         }
 
         /// <summary>

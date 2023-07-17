@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Net.Http;
 using Suyaa;
+using static System.Collections.Specialized.BitVector32;
 
 namespace sy
 {
@@ -19,14 +20,14 @@ namespace sy
         /// 获取Put方式的应答结果
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> PutResponseAsync(string url, string data, HttpOption option)
+        public static async Task<HttpResponseMessage> PutResponseAsync(string url, byte[] bytes, HttpOption option)
         {
             var client = GetClient();
             // 建立传输内容
-            HttpContent content = new StringContent(data);
+            var content = new ByteArrayContent(bytes);
             // 设置头
             option.Headers.SetCookies(option.Cookies);
             client.SetHeaders(option.Headers);
@@ -35,23 +36,48 @@ namespace sy
         }
 
         /// <summary>
-        /// 以Put方式获取数据
+        /// 以Post方式获取数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="bytes"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task<string> PutAsync(string url, string data, HttpOption option)
+        public static async Task<string> PutAsync(string url, byte[] bytes, HttpOption option)
         {
             // 应答器
-            using HttpResponseMessage response = await PutResponseAsync(url, data, option);
+            using HttpResponseMessage response = await PutResponseAsync(url, bytes, option);
             // 触发应答事件
             if (!option.RaiseResponseEvent(response)) return string.Empty;
             // 判断状态并抛出异常
-            response.EnsureSuccessStatusCode();
+            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
             // 返回数据结果
             return await response.Content.ReadAsStringAsync();
         }
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="bytes"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task<string> PutAsync(string url, byte[] bytes, Action<HttpOption>? action = null)
+        {
+            using HttpOption option = new HttpOption();
+            action?.Invoke(option);
+            // 执行并返回数据结果
+            return await PutAsync(url, bytes, option);
+        }
+
+        /// <summary>
+        /// 以Post方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="bytes"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static string Put(string url, byte[] bytes, Action<HttpOption>? action = null)
+            => PutAsync(url, bytes, action).GetAwaiter().GetResult();
 
         /// <summary>
         /// 以Put方式获取数据
@@ -61,12 +87,7 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static async Task<string> PutAsync(string url, string data, Action<HttpOption>? action = null)
-        {
-            using HttpOption option = new HttpOption();
-            action?.Invoke(option);
-            // 执行并返回数据结果
-            return await PutAsync(url, data, option);
-        }
+            => await PutAsync(url, Encoding.UTF8.GetBytes(data), action);
 
         /// <summary>
         /// 以Put方式获取数据
@@ -76,6 +97,28 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static string Put(string url, string data, Action<HttpOption>? action = null)
-            => PutAsync(url, data, action).GetAwaiter().GetResult();
+            => PutAsync(url, Encoding.UTF8.GetBytes(data), action).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// 以Put方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="encoding"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static async Task<string> PutAsync(string url, string data, Encoding encoding, Action<HttpOption>? action = null)
+            => await PutAsync(url, encoding.GetBytes(data), action);
+
+        /// <summary>
+        /// 以Put方式获取数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="encoding"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static string Put(string url, string data, Encoding encoding, Action<HttpOption>? action = null)
+            => PutAsync(url, encoding.GetBytes(data), action).GetAwaiter().GetResult();
     }
 }

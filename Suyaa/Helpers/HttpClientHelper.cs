@@ -40,6 +40,7 @@ namespace Suyaa
                 if (header.Key == HttpHeaders.CONTENT_TYPE) continue;
                 if (header.Key == HttpHeaders.CONTENT_ENCODING) continue;
                 if (header.Key == HttpHeaders.CONTENT_LENGTH) continue;
+                if (header.Key == HttpHeaders.CONTENT_DISPOSITION) continue;
                 client.SetHeader(header.Key, header.Value);
             }
             return client;
