@@ -171,7 +171,7 @@ namespace Suyaa.Tests
                 Age = 1,
                 Name = "张三",
             };
-            var people2 = people1.Clone();
+            var people2 = sy.Typer.Clone(people1);
             people2.Name = "李四";
             _output.WriteLine(JsonSerializer.Serialize(people1, new JsonSerializerOptions()
             {
@@ -195,9 +195,9 @@ namespace Suyaa.Tests
                 IsMan = false,
             };
             People people2 = new();
-            people2.CopyFrom(people1);
+            sy.Typer.Copy(people1, people2);
             people2.Name = "李四";
-            People people3 = people1.Clone();
+            People people3 = sy.Typer.Clone(people1);
             _output.WriteLine(JsonSerializer.Serialize(people1, new JsonSerializerOptions()
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
