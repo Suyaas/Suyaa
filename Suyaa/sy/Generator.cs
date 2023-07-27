@@ -9,37 +9,33 @@ namespace sy
     /// <summary>
     /// 生成器
     /// </summary>
-    public static class Generator
+    public static partial class Generator
     {
         /// <summary>
         /// 开始时间
         /// </summary>
-        public static DateTime SnowflakeStartTime { get; set; } = new DateTime(2020, 1, 1);
+        public static DateTime StartTime { get; set; } = new DateTime(2020, 1, 1);
 
         /// <summary>
-        /// 机器ID
+        /// 全局机器ID
         /// </summary>
-        public static int SnowflakeMachineId { get; set; } = 0;
-
-        // 定义懒加载对象
-        private static Lazy<Suyaa.Snowflake> _snowflake = new Lazy<Snowflake>(() => { return new Snowflake(SnowflakeStartTime, SnowflakeMachineId); });
+        public static int MachineId { get; set; } = 0;
 
         /// <summary>
-        /// 雪花算法
+        /// 全局应用ID
         /// </summary>
-        public static Snowflake Snowflake => _snowflake.Value;
+        public static int AppId { get; set; } = 0;
 
         /// <summary>
-        /// 获取一个新的雪花算法Id
+        /// 获取一个新的带'-'的Guid
         /// </summary>
         /// <returns></returns>
-        public static long GetSnowflakeId() => _snowflake.Value.Next();
+        public static string GetNewGuid() => Guid.NewGuid().ToString();
 
         /// <summary>
-        /// 获取一个新的Guid
+        /// 获取一个新的不带'-'的Guid
         /// </summary>
         /// <returns></returns>
-        public static string GetGuid() => Guid.NewGuid().ToString().Replace("-", "");
-
+        public static string GetNewNGuid() => Guid.NewGuid().ToString("N");
     }
 }

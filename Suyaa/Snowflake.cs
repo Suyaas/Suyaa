@@ -65,6 +65,7 @@ namespace Suyaa
         {
             this.StartTime = new DateTime(2020, 1, 1);
             this.MachineId = 0;
+            this.Initialize();
         }
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace Suyaa
             if (machineId > maxMachineId) throw new Exception($"机器ID范围为0~{maxMachineId}");
             this.StartTime = new DateTime(2020, 1, 1);
             this.MachineId = machineId;
+            this.Initialize();
         }
 
         /// <summary>
@@ -92,6 +94,7 @@ namespace Suyaa
             if (machineId > maxMachineId) throw new Exception($"机器ID范围为0~{maxMachineId}");
             this.StartTime = startTime;
             this.MachineId = machineId;
+            this.Initialize();
         }
 
         #region 核心方法
@@ -109,7 +112,6 @@ namespace Suyaa
                 if (timestamp != LastTimestamp) // 时间戳改变，毫秒内序列重置
                 {
                     Sequence = 0;
-
                 }
                 else if (timestamp == LastTimestamp) // 如果是同一时间生成的，则进行毫秒内序列
                 {

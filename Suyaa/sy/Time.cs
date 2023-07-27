@@ -36,5 +36,23 @@ namespace sy
         /// <param name="timestamp"></param>
         /// <returns></returns>
         public static DateTimeOffset Parse(long timestamp) { return DateTimeOffset.FromUnixTimeSeconds(timestamp).ToLocalTime(); }
+
+        /// <summary>
+        /// 从时间戳加载时间
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <param name="hasMilliseconds">是否包含毫秒</param>
+        /// <returns></returns>
+        public static DateTimeOffset Parse(long timestamp, bool hasMilliseconds)
+        {
+            if (hasMilliseconds)
+            {
+                return DateTimeOffset.FromUnixTimeMilliseconds(timestamp).ToLocalTime();
+            }
+            else
+            {
+                return DateTimeOffset.FromUnixTimeSeconds(timestamp).ToLocalTime();
+            }
+        }
     }
 }
