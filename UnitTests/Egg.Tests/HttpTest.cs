@@ -92,9 +92,9 @@ Content-Disposition: form-data; name=""submit""
         {
             var folder = sy.IO.GetFullPath("./down");
             sy.IO.CreateFolder(folder);
-            var file = sy.IO.CombinePath(folder, $"icon-{sy.Time.Now:yyyyMMddHHmmssfff}.png");
+            var file = sy.IO.CombinePath(folder, $"Suyaas_Suyaa_main.zip");
             //if (sy.IO.FileExists(file)) sy.IO.DeleteFile(file);
-            sy.Http.Download("https://nuget.org/Content/gallery/img/default-package-icon-256x256.png", file, opt =>
+            sy.Http.Download("https://github.com/Suyaas/Suyaa/archive/refs/heads/main.zip", file, opt =>
             {
                 opt.OnDownload(info =>
                 {
