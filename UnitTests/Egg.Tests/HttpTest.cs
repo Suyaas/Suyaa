@@ -102,5 +102,17 @@ Content-Disposition: form-data; name=""submit""
                 });
             });
         }
+
+        [Fact]
+        public async Task AliyunApiTest()
+        {
+            var content =await sy.Http.PostAsync("https://aliv18.data.moji.com/whapi/json/alicityweather/forecast15days", "token=f9f212e1996e79e0e602b08ea297ffb0&cityId=285123", opt =>
+            {
+                opt.Headers.ContentType = "application/x-www-form-urlencoded";
+                opt.Headers.Add("Authorization", "APPCODE 14783501a95c40e9849d6b35401471e5");
+            });
+            _output.WriteLine(content);
+            Thread.Sleep(10);
+        }
     }
 }

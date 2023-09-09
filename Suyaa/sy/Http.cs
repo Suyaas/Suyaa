@@ -29,7 +29,8 @@ namespace sy
                 AllowAutoRedirect = true,
                 UseProxy = false,
                 //Proxy = null,
-                ClientCertificateOptions = ClientCertificateOption.Automatic
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
             };
 
         #region 创建客户端

@@ -66,6 +66,7 @@ namespace Suyaa.Net.Http
         /// <returns></returns>
         public HttpHeaders SetCookies(HttpCookies cookies)
         {
+            if (!cookies.Any()) return this;
             this["Cookie"] = cookies.ToString();
             return this;
         }
