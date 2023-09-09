@@ -60,6 +60,32 @@ namespace sy
             }
         }
 
+        /// <summary>
+        /// 删除文件夹及子文件夹和文件
+        /// </summary>
+        /// <param name="path"></param>
+        public static void DeleteFolder(string path)
+        {
+            // 跳过不存在的目录
+            if (!sy.IO.FolderExists(path)) return;
+            // 获取所有文件
+            var files = sy.IO.GetFiles(path);
+            // 删除所有文件
+            foreach (var file in files)
+            {
+                sy.IO.DeleteFile(file);
+            }
+            // 获取所有子目录
+            var folders = sy.IO.GetFolders(path);
+            // 删除所有子目录
+            foreach (var folder in folders)
+            {
+                DeleteFolder(folder);
+            }
+            // 删除本级目录
+            System.IO.Directory.Delete(path);
+        }
+
     }
 
 }
