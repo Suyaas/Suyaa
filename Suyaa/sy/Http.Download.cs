@@ -14,22 +14,15 @@ namespace sy
     /* Http Download */
     public static partial class Http
     {
-
         /// <summary>
-        /// 以Get方式下载文件
+        /// 下载保存
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="response"></param>
         /// <param name="path"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static async Task DownloadAsync(string url, string path, HttpOption option)
+        private static async Task DownloadSaveAsync(HttpResponseMessage response, string path, HttpOption option)
         {
-            // 应答器
-            using HttpResponseMessage response = await GetResponseAsync(url, option);
-            // 触发应答事件
-            if (!option.RaiseResponseEvent(response)) return;
-            // 判断状态并抛出异常
-            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
             // 建立缓冲区
             byte[] buffer = new byte[4096];
             long receiveLen = 0;
@@ -58,6 +51,27 @@ namespace sy
             buffer = new byte[0];
         }
 
+        #region 异步接口
+
+        /// <summary>
+        /// 以Get方式下载文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="path"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static async Task DownloadAsync(string url, string path, HttpOption option)
+        {
+            // 应答器
+            using HttpResponseMessage response = await GetResponseAsync(url, option);
+            // 触发应答事件
+            if (!option.RaiseResponseEvent(response)) return;
+            // 判断状态并抛出异常
+            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
+            // 下载保存
+            await DownloadSaveAsync(response, path, option);
+        }
+
         /// <summary>
         /// 以Get方式下载文件
         /// </summary>
@@ -74,6 +88,28 @@ namespace sy
             await DownloadAsync(url, path, option);
         }
 
+        #endregion
+
+        #region 同步接口
+
+        /// <summary>
+        /// 以Get方式下载文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="path"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static void Download(string url, string path, HttpOption option)
+        {
+            // 应答器
+            using HttpResponseMessage response = GetResponse(url, option);
+            // 触发应答事件
+            if (!option.RaiseResponseEvent(response)) return;
+            // 判断状态并抛出异常
+            if (option.IsEnsureStatus) response.EnsureSuccessStatusCode();
+            // 下载保存
+            DownloadSaveAsync(response, path, option).GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// 以Post方式上传多个文件并获取结果
@@ -83,6 +119,14 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static void Download(string url, string path, Action<HttpOption>? action = null)
-            => DownloadAsync(url, path, action).GetAwaiter().GetResult();
+        {
+            // 新建选项并
+            using HttpOption option = new HttpOption();
+            action?.Invoke(option);
+            // 下载
+            Download(url, path, option);
+        }
+
+        #endregion
     }
 }
