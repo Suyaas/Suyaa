@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Exceptions
+namespace Suyaa
 {
     /// <summary>
     /// 不规范异常

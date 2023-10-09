@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Exceptions
+namespace Suyaa
 {
     /// <summary>
     /// 不支持异常
@@ -12,12 +12,20 @@ namespace Suyaa.Exceptions
         /// <summary>
         /// 不支持异常
         /// </summary>
-        public TypeNotSupportedException(Type type) : base($"Type '{type.FullName}' is not supported") { }
+        public TypeNotSupportedException(Type type) : base($"Type '{type.FullName}' is not supported")
+        {
+            Type = type;
+        }
 
         /// <summary>
         /// 不支持异常
         /// </summary>
         public TypeNotSupportedException(string message) : base(message) { }
+
+        /// <summary>
+        /// 关联类型
+        /// </summary>
+        public Type? Type { get; }
     }
 
     /// <summary>

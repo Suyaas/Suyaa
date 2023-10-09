@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Exceptions
+namespace Suyaa
 {
     /// <summary>
     /// 为空错误
@@ -12,17 +12,25 @@ namespace Suyaa.Exceptions
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException() : base("对象为空") { }
+        public NullException() : base("Object is null") { }
 
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(Type? type) : base(type is null ? $"对象类型为空" : $"对象'{type.FullName}'为空") { }
+        public NullException(Type type) : base($"Type '{type.FullName}' not instantiated")
+        {
+            Type = type;
+        }
 
         /// <summary>
         /// 为空错误
         /// </summary>
         public NullException(string message) : base(message) { }
+
+        /// <summary>
+        /// 关联类型
+        /// </summary>
+        public Type? Type { get; }
     }
 
     /// <summary>
