@@ -1,9 +1,4 @@
-﻿using Suyaa.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System;
 
 namespace Suyaa
 {
@@ -30,22 +25,22 @@ namespace Suyaa
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T Fixed<T>(this object? obj) where T : notnull
+        public static T Fixed<T>(this T? obj) where T : class
         {
             if (obj is null) throw new NullException<T>();
-            return (T)obj;
+            return obj;
         }
 
         /// <summary>
-        /// 获取不为空的对象
+        /// 将可空对象转化为非空对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <param name="defaultObj"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static T Fixed<T>(this object? obj, T defaultObj) where T : notnull
+        public static T Value<T>(this T? value) where T : struct
         {
-            return (T)(obj ?? defaultObj);
+            if (!value.HasValue) throw new NullException<T>();
+            return value.Value;
         }
 
         /// <summary>

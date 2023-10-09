@@ -1,9 +1,4 @@
-﻿using Suyaa.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System;
 
 namespace Suyaa
 {
@@ -109,7 +104,7 @@ namespace Suyaa
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(this Type? type, object[]? args = null) where T : class
-            => sy.Assembly.Create(type, args).Fixed<T>();
+            => ((T?)sy.Assembly.Create(type, args)).Fixed();
 
         /// <summary>
         /// 创建一个实例对象
