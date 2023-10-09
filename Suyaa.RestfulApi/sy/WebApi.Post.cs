@@ -20,7 +20,7 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static async Task<T> PostAsync<T>(string url, object data, Action<HttpOption>? action = null)
-            where T : notnull
+            where T : class
         {
             using var option = new HttpOption();
             option.Headers.ContentType = CONTENT_TYPE_JSON;
@@ -37,7 +37,13 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static T Post<T>(string url, object data, Action<HttpOption>? action = null)
-            where T : notnull
-            => PostAsync<T>(url, data, action).GetAwaiter().GetResult();
+            where T : class
+        {
+            using var option = new HttpOption();
+            option.Headers.ContentType = CONTENT_TYPE_JSON;
+            action?.Invoke(option);
+            var content = sy.Http.Post(url, Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data)), option);
+            return JsonSerializer.Deserialize<T>(content).Fixed();
+        }
     }
 }

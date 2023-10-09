@@ -20,13 +20,13 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static async Task<T> DeleteAsync<T>(string url, Action<HttpOption>? action = null)
-            where T : notnull
+            where T : class
         {
             using var option = new HttpOption();
             option.Headers.ContentType = CONTENT_TYPE_JSON;
             action?.Invoke(option);
             var content = await sy.Http.DeleteAsync(url, option);
-            return JsonSerializer.Deserialize<T>(content).Fixed<T>();
+            return JsonSerializer.Deserialize<T>(content).Fixed();
         }
 
         /// <summary>
@@ -37,7 +37,13 @@ namespace sy
         /// <param name="action"></param>
         /// <returns></returns>
         public static T Delete<T>(string url, Action<HttpOption>? action = null)
-            where T : notnull
-            => DeleteAsync<T>(url, action).GetAwaiter().GetResult();
+            where T : class
+        {
+            using var option = new HttpOption();
+            option.Headers.ContentType = CONTENT_TYPE_JSON;
+            action?.Invoke(option);
+            var content = sy.Http.Delete(url, option);
+            return JsonSerializer.Deserialize<T>(content).Fixed();
+        }
     }
 }
