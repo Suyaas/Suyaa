@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
-using System.Runtime.CompilerServices;
-using Suyaa.Data.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Collections;
-using System.Data.SqlTypes;
-using Suyaa;
 using Suyaa.Data.Helpers;
 using System.Threading.Tasks;
 

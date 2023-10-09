@@ -17,7 +17,8 @@ namespace Suyaa.EFCore.Sqlite.Helpers
         /// <param name="context"></param>
         public static bool EnsureCreatedSqlite(this DbContextBase context)
         {
-            return context.EnsureCreated<SqliteCreater>();
+            //return context.EnsureCreated<SqliteCreater>();
+            return true;
         }
 
         /// <summary>

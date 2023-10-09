@@ -1,4 +1,5 @@
-﻿using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Entities;
 using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Suyaa.Data.Dependency.Repositories
+namespace Suyaa.Data.Repositories
 {
     /// <summary>
     /// 数据仓库

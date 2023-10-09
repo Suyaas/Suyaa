@@ -1,6 +1,7 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Dependency.Attributes;
-using Suyaa.Data.Entities;
+﻿using Suyaa.Data.Attributes;
+using Suyaa.Data.Dependency;
+using Suyaa.Data.Enums;
+using SuyaaTest.Sqlite.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -1,9 +1,4 @@
-﻿using Suyaa.Data.Entities;
-using Suyaa;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
+﻿using System.Data.Common;
 
 namespace Suyaa.Data.Helpers
 {
@@ -12,18 +7,6 @@ namespace Suyaa.Data.Helpers
     /// </summary>
     public static class DbDataReaderHelper
     {
-
-        /// <summary>
-        /// 从数据库查询结果映射
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="mapper"></param>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        public static T ToEntity<T>(this DbDataReader reader, EntityMapper<T> mapper)
-        {
-            return mapper.MapReaderToEntity(reader);
-        }
 
         /// <summary>
         /// 读取单个数据

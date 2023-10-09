@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Suyaa.Data.Dependency;
 
 namespace Suyaa.Data.PostgreSQL
 {
     /// <summary>
     /// PostgreSQL数据库连接信息
     /// </summary>
-    public class NpgsqlConnectionInfo : IDatabaseConnectionInfo
+    public class NpgsqlConnectionInfo : IDatabase
     {
         // 连接字符串
         private readonly string _connectionString;

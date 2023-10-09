@@ -1,14 +1,10 @@
-﻿using Suyaa.Data.Entities;
-using Suyaa.Data.Helpers;
-using Suyaa;
+﻿using Suyaa.Data.Helpers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Data.Dependency;
 
 namespace Suyaa.Data
 {
@@ -35,35 +31,9 @@ namespace Suyaa.Data
         public string ConnectionString { get; }
 
         /// <summary>
-        /// 事务单元
-        /// </summary>
-        public UnitOfWork? UnitOfWork { get; internal set; }
-
-        /// <summary>
         /// 是否连接
         /// </summary>
         public bool IsOpened => this.DatabaseConnectionBase.IsOpened;
-
-        #endregion
-
-        #region [=====工作单元=====]
-
-        /// <summary>
-        /// 开始一个新的事务单元
-        /// </summary>
-        /// <returns></returns>
-        public UnitOfWork BeginUnitOfWork()
-        {
-            UnitOfWork uow = new UnitOfWork(this);
-            this.UnitOfWork = uow;
-            return uow;
-        }
-
-        /// <summary>
-        /// 结束当前事务单元
-        /// </summary>
-        public void EndUnitOfWork()
-            => this.UnitOfWork?.Dispose();
 
         #endregion
 
@@ -163,53 +133,53 @@ namespace Suyaa.Data
         public async Task<bool> TableCreated<T>()
         {
             Type type = typeof(T);
-            // 处理架构
-            string? schemaName = type.GetSchemaName();
-            if (!schemaName.IsNullOrWhiteSpace())
-            {
-                bool schemaExists = await AnyAsync(this.Provider.GetSchemaExistsSqlString(schemaName.Fixed()));
-                if (!schemaExists)
-                {
-                    // 建立工作单元
-                    using (var uow = BeginUnitOfWork())
-                    {
-                        // 执行表创建语句
-                        await ExecuteNonQueryAsync(this.Provider.GetSchemaCreateSqlString(schemaName.Fixed()));
-                        // 保存数据
-                        await uow.CompleteAsync();
-                    }
-                }
-            }
-            // 创建表
-            string tableName = type.GetTableName();
-            // 判断表是否存在，不存在则执行表创建
-            bool tableExists = false;
-            try { tableExists = await AnyAsync(this.Provider.GetTableExistsSqlString<T>()); } catch { }
-            if (!tableExists)
-            {
-                // 建立工作单元
-                using (var uow = BeginUnitOfWork())
-                {
-                    // 执行表创建语句
-                    await ExecuteNonQueryAsync(this.Provider.GetTableCreateSqlString<T>());
-                    // 保存数据
-                    await uow.CompleteAsync();
-                }
-            }
-            // 建立工作单元
-            using (var uow = BeginUnitOfWork())
-            {
-                // 获取所有字段
-                var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (var property in properties)
-                {
-                    // 判断字段是否存在，不存在则添加
-                    if (!await AnyAsync(this.Provider.GetColumnExistsSqlString<T>(property)))
-                        await ExecuteNonQueryAsync(Provider.GetColumnAddSqlString<T>(property));
-                }
-                // 保存数据
-                await uow.CompleteAsync();
-            }
+            //// 处理架构
+            //string? schemaName = type.GetSchemaName();
+            //if (!schemaName.IsNullOrWhiteSpace())
+            //{
+            //    bool schemaExists = await AnyAsync(this.Provider.GetSchemaExistsSqlString(schemaName.Fixed()));
+            //    if (!schemaExists)
+            //    {
+            //        // 建立工作单元
+            //        using (var uow = BeginUnitOfWork())
+            //        {
+            //            // 执行表创建语句
+            //            await ExecuteNonQueryAsync(this.Provider.GetSchemaCreateSqlString(schemaName.Fixed()));
+            //            // 保存数据
+            //            await uow.CompleteAsync();
+            //        }
+            //    }
+            //}
+            //// 创建表
+            //string tableName = type.GetTableName();
+            //// 判断表是否存在，不存在则执行表创建
+            //bool tableExists = false;
+            //try { tableExists = await AnyAsync(this.Provider.GetTableExistsSqlString<T>()); } catch { }
+            //if (!tableExists)
+            //{
+            //    // 建立工作单元
+            //    using (var uow = BeginUnitOfWork())
+            //    {
+            //        // 执行表创建语句
+            //        await ExecuteNonQueryAsync(this.Provider.GetTableCreateSqlString<T>());
+            //        // 保存数据
+            //        await uow.CompleteAsync();
+            //    }
+            //}
+            //// 建立工作单元
+            //using (var uow = BeginUnitOfWork())
+            //{
+            //    // 获取所有字段
+            //    var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            //    foreach (var property in properties)
+            //    {
+            //        // 判断字段是否存在，不存在则添加
+            //        if (!await AnyAsync(this.Provider.GetColumnExistsSqlString<T>(property)))
+            //            await ExecuteNonQueryAsync(Provider.GetColumnAddSqlString<T>(property));
+            //    }
+            //    // 保存数据
+            //    await uow.CompleteAsync();
+            //}
             return true;
         }
 
@@ -294,9 +264,9 @@ namespace Suyaa.Data
         /// <returns></returns>
         public int ExecuteNonQuery(string sql)
         {
-            // 当前如果没有事务单元，则直接执行，有事务单元，则将代码添加到事务中
-            if (this.UnitOfWork is null) return this.DatabaseConnectionBase.ExecuteNonQuery(sql);
-            this.UnitOfWork.Add(sql);
+            //// 当前如果没有事务单元，则直接执行，有事务单元，则将代码添加到事务中
+            //if (this.UnitOfWork is null) return this.DatabaseConnectionBase.ExecuteNonQuery(sql);
+            //this.UnitOfWork.Add(sql);
             return 0;
         }
 
@@ -307,9 +277,9 @@ namespace Suyaa.Data
         /// <returns></returns>
         public async Task<int> ExecuteNonQueryAsync(string sql)
         {
-            // 当前如果没有事务单元，则直接执行，有事务单元，则将代码添加到事务中
-            if (this.UnitOfWork is null) return await this.DatabaseConnectionBase.ExecuteNonQueryAsync(sql);
-            this.UnitOfWork.Add(sql);
+            //// 当前如果没有事务单元，则直接执行，有事务单元，则将代码添加到事务中
+            //if (this.UnitOfWork is null) return await this.DatabaseConnectionBase.ExecuteNonQueryAsync(sql);
+            //this.UnitOfWork.Add(sql);
             return 0;
         }
 
@@ -473,7 +443,7 @@ namespace Suyaa.Data
             Read(sql, reader =>
             {
                 if (found) return;
-                res = reader.ToEntity(mapper);
+                res = mapper.ToEntity(reader);
                 found = true;
             });
             return res;
@@ -493,7 +463,7 @@ namespace Suyaa.Data
             await ReadAsync(sql, reader =>
              {
                  if (found) return;
-                 res = reader.ToEntity(mapper);
+                 res = mapper.ToEntity(reader);
                  found = true;
              });
             return res;
@@ -511,7 +481,7 @@ namespace Suyaa.Data
             List<T> res = new List<T>();
             Read(sql, reader =>
             {
-                res.Add(reader.ToEntity(mapper));
+                res.Add(mapper.ToEntity(reader));
             });
             return res;
         }
@@ -529,9 +499,14 @@ namespace Suyaa.Data
             List<T> res = new List<T>();
             await ReadAsync(sql, reader =>
              {
-                 res.Add(reader.ToEntity(mapper));
+                 res.Add(mapper.ToEntity(reader));
              });
             return res;
+        }
+
+        public void EndUnitOfWork()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -557,7 +532,7 @@ namespace Suyaa.Data
         /// 数据库链接呢
         /// </summary>
         /// <param name="info"></param>
-        public DatabaseConnection(IDatabaseConnectionInfo info)
+        public DatabaseConnection(IDatabase info)
         {
             // 设置数据库供应商
             var type = sy.Assembly.FindType(info.ProviderName, sy.Assembly.ExecutionDirectory);

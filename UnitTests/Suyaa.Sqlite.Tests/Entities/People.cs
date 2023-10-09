@@ -1,13 +1,7 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Dependency.Attributes;
-using Suyaa.Data.Entities;
-using System;
-using System.Collections.Generic;
+﻿using Suyaa.Data.Attributes;
+using Suyaa.Data.Enums;
+using SuyaaTest.Sqlite.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Sqlite.Tests.Entities
 {
@@ -17,6 +11,7 @@ namespace Suyaa.Sqlite.Tests.Entities
     [DbTable(Convert = DbNameConvertTypes.UnderlineLower)]
     public class People : GuidKeyEntity
     {
+
         /// <summary>
         /// 名称
         /// </summary>

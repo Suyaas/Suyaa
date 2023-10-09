@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Data
+namespace Suyaa.Data.Dependency
 {
     /// <summary>
-    /// 数据库连接信息
+    /// 数据库
     /// </summary>
-    public interface IDatabaseConnectionInfo
+    public interface IDatabase
     {
         /// <summary>
         /// 数据库类型

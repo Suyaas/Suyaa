@@ -11,14 +11,14 @@ namespace Suyaa.Data.PostgreSQL.Helpers
     /// </summary>
     public static class DbContextHelper
     {
-        /// <summary>
-        /// 创建
-        /// </summary>
-        /// <param name="context"></param>
-        public static bool EnsureCreatedPostgreSQL(this DbContextBase context)
-        {
-            return context.EnsureCreated<NpgsqlCreater>();
-        }
+        ///// <summary>
+        ///// 创建
+        ///// </summary>
+        ///// <param name="context"></param>
+        //public static bool EnsureCreatedPostgreSQL(this DbContextBase context)
+        //{
+        //    return context.EnsureCreated<NpgsqlCreater>();
+        //}
 
         /// <summary>
         /// 执行SQL语句

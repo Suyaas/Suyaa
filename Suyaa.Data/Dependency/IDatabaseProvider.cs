@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data
+namespace Suyaa.Data.Dependency
 {
     /// <summary>
     /// 数据库供应器

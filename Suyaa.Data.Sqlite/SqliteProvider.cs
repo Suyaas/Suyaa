@@ -1,16 +1,10 @@
-﻿using Suyaa.Data.Entities;
-using Suyaa.Data.Helpers;
+﻿using Suyaa.Data.Helpers;
 using Suyaa.Data.Sqlite.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using Suyaa.Data.Dependency;
 
 namespace Suyaa.Data.Sqlite
 {
@@ -20,9 +14,17 @@ namespace Suyaa.Data.Sqlite
     public class SqliteProvider : IDatabaseProvider
     {
         /// <summary>
+        /// 查询供应商
+        /// </summary>
+        public IDatabaseQueryProvider QueryProvider { get; }
+
+        /// <summary>
         /// PostgreSQL数据库语法供应器
         /// </summary>
-        public SqliteProvider() { }
+        public SqliteProvider()
+        {
+            this.QueryProvider = new SqliteQueryProvider();
+        }
 
         /// <summary>
         /// 获取数据库基础连接

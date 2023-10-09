@@ -1,17 +1,15 @@
-﻿using Suyaa.Data.Helpers;
-using Suyaa;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Reflection;
 using System.Text;
 
-namespace Suyaa.Data.Entities
+namespace Suyaa.Data
 {
     /// <summary>
-    /// 数据实体映射器
+    /// 实例映射器
     /// </summary>
-    public class EntityMapper<T> : IEntity
+    /// <typeparam name="T"></typeparam>
+    public class EntityMapper<T>
     {
         // 对象类型
         private readonly Type _type;
@@ -69,7 +67,5 @@ namespace Suyaa.Data.Entities
             }
             return (T)obj;
         }
-
-
     }
 }

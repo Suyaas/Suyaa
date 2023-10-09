@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Suyaa.Data.Dependency;
+using Suyaa.Data.Enums;
 
-namespace Suyaa.Data.Dependency.Attributes
+namespace Suyaa.Data.Attributes
 {
     /// <summary>
     /// 数据字段类型

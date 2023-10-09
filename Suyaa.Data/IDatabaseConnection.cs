@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Data.Dependency;
 
 namespace Suyaa.Data
 {
@@ -32,16 +33,16 @@ namespace Suyaa.Data
 
         #region [=====工作单元=====]
 
-        /// <summary>
-        /// 事务单元
-        /// </summary>
-        UnitOfWork? UnitOfWork { get; }
+        ///// <summary>
+        ///// 事务单元
+        ///// </summary>
+        //UnitOfWorkBak? UnitOfWork { get; }
 
-        /// <summary>
-        /// 开始一个新的事务单元
-        /// </summary>
-        /// <returns></returns>
-        UnitOfWork BeginUnitOfWork();
+        ///// <summary>
+        ///// 开始一个新的事务单元
+        ///// </summary>
+        ///// <returns></returns>
+        //UnitOfWorkBak BeginUnitOfWork();
 
         /// <summary>
         /// 结束当前事务单元

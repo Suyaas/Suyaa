@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Data.Dependency.Attributes
+namespace Suyaa.Data.Attributes
 {
     /// <summary>
     /// 自增长字段

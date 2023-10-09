@@ -1,14 +1,10 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Entities;
-using Suyaa;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using Suyaa.Data.Dependency.Attributes;
+using Suyaa.Data.Attributes;
+using Suyaa.Data.Enums;
 
 namespace Suyaa.Data.Helpers
 {
@@ -17,6 +13,15 @@ namespace Suyaa.Data.Helpers
     /// </summary>
     public static class TypeHelper
     {
+        /// <summary>
+        /// 获取所有元数据
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static List<object> GetMetaDatas(this Type type)
+        {
+            return type.GetCustomAttributes(false).ToList();
+        }
 
         /// <summary>
         /// 获取表名称

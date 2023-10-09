@@ -1,13 +1,5 @@
 ﻿using Suyaa.Data;
 using Suyaa.EFCore.Dbsets;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Suyaa.Data.Entities;
-using Suyaa;
-using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.EFCore.Helpers
 {
@@ -49,14 +41,14 @@ namespace Suyaa.EFCore.Helpers
                 if (tpEntityType is null) continue;
                 // 获取主键类型
                 var tpEntityKeyType = tpEntityType.GenericTypeArguments[0];
-                // 创建接口类型
-                var interfaceType = typeof(IRepository<,>);
-                interfaceType = interfaceType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
-                // 创建对象类型
-                var objectType = typeof(Dbsets.Repository<,>);
-                objectType = objectType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
+                //// 创建接口类型
+                //var interfaceType = typeof(IRepository<,>);
+                //interfaceType = interfaceType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
+                //// 创建对象类型
+                //var objectType = typeof(Dbsets.Repository<,>);
+                //objectType = objectType.MakeGenericType(new Type[] { tpEntity, tpEntityKeyType });
                 // 添加到信息列表
-                list.Add(new RepositoryInfo(interfaceType, objectType));
+                //list.Add(new RepositoryInfo(interfaceType, objectType));
             }
             return list;
         }

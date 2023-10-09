@@ -8,7 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Suyaa.Data.Dependency.Attributes;
+using Suyaa.Data.Attributes;
+using Suyaa.Data.Enums;
 
 namespace Suyaa.Data.Helpers
 {
@@ -122,6 +123,16 @@ namespace Suyaa.Data.Helpers
             var descriptionAttr = pro.GetCustomAttribute<DescriptionAttribute>();
             if (descriptionAttr is null) return string.Empty;
             return descriptionAttr.Description;
+        }
+
+        /// <summary>
+        /// 获取所有元数据
+        /// </summary>
+        /// <param name="pro"></param>
+        /// <returns></returns>
+        public static List<object> GetMetaDatas(this PropertyInfo pro)
+        {
+            return pro.GetCustomAttributes(false).ToList();
         }
     }
 }

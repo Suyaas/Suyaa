@@ -30,5 +30,25 @@ namespace SuyaaTest.Api
                 });
             _output.WriteLine($"{res.Success}:{res.Error?.Message}");
         }
+
+        private async Task<string> GetBaidu()
+        {
+            string content = await sy.Http.GetAsync("https://www.baidu.com");
+            return content;
+        }
+
+        [Fact]
+        public async void GetAsync()
+        {
+            try
+            {
+                string content = await GetBaidu();
+                _output.WriteLine(content);
+            }
+            catch (Exception ex)
+            {
+                _output.WriteLine(ex.ToString());
+            }
+        }
     }
 }

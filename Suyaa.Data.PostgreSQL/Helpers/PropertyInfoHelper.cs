@@ -1,12 +1,8 @@
-﻿using Suyaa.Data.Entities;
-using Suyaa.Data.Helpers;
+﻿using Suyaa.Data.Helpers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Suyaa.Data.PostgreSQL.Helpers
 {

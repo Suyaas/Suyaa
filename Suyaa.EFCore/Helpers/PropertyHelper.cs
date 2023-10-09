@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Suyaa.Data;
-using Suyaa.Data.Dependency.Attributes;
+using Suyaa.Data.Attributes;
 
 namespace Suyaa.EFCore.Helpers
 {

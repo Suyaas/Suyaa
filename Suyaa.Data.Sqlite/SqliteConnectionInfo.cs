@@ -1,4 +1,5 @@
 ﻿using Suyaa;
+using Suyaa.Data.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Suyaa.Data.Sqlite
     /// <summary>
     /// Sqlite连接信息
     /// </summary>
-    public class SqliteConnectionInfo : IDatabaseConnectionInfo
+    public class SqliteConnectionInfo : IDatabase
     {
         // 连接字符串
         private readonly string _connectionString;
