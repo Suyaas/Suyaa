@@ -228,7 +228,7 @@ namespace Suyaa.Data
                     break;
                 case ExpressionType.Coalesce:
                     return $"COALESCE({expLeft}, {expRight})";
-                default: throw new DatabaseException($"SqlExpression不支持的'{exp.NodeType}'节点类型");
+                default: throw new DbException($"SqlExpression不支持的'{exp.NodeType}'节点类型");
             }
             sb.Append(expRight);
             return sb.ToString();
@@ -245,7 +245,7 @@ namespace Suyaa.Data
             {
                 BinaryExpression binaryExpression => GetBinarySqlString(binaryExpression),
                 MethodCallExpression methodCallExpression => GetMethodCallSqlString(methodCallExpression),
-                _ => throw new DatabaseException($"SqlExpression不支持的'{exp.NodeType}'节点类型"),
+                _ => throw new DbException($"SqlExpression不支持的'{exp.NodeType}'节点类型"),
             };
         }
 

@@ -44,29 +44,29 @@ namespace Suyaa.Data
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static IDatabaseProvider GetDatabaseProvider(DatabaseTypes type)
+        public static IDatabaseProvider GetDatabaseProvider(DbTypes type)
         {
             string providerName = string.Empty;
             string providerDllPath = string.Empty;
             switch (type)
             {
-                case DatabaseTypes.PostgreSQL:
+                case DbTypes.PostgreSQL:
                     providerName = "Suyaa.Data.PostgreSQL.NpgsqlProvider";
                     providerDllPath = "Suyaa.Data.PostgreSQL";
                     break;
-                case DatabaseTypes.Sqlite:
-                case DatabaseTypes.Sqlite3:
+                case DbTypes.Sqlite:
+                case DbTypes.Sqlite3:
                     providerName = "Suyaa.Data.Sqlite.SqliteProvider";
                     providerDllPath = "Suyaa.Data.Sqlite";
                     break;
-                default: throw new DatabaseException($"不支持的数据库类型\'{type.ToString()}\'");
+                default: throw new DbException($"不支持的数据库类型\'{type.ToString()}\'");
             }
             string dllPath = sy.IO.GetExecutionPath(providerDllPath);
             Type? providerType = sy.Assembly.FindType(providerName, dllPath);
             if (providerType is null)
             {
                 sy.IO.CreateFolder(dllPath);
-                throw new DatabaseException($"未找到供应商\'{providerName}\'");
+                throw new DbException($"未找到供应商\'{providerName}\'");
             }
             //return (IDatabaseProvider)Activator.CreateInstance(providerType);
             return providerType.Create<IDatabaseProvider>();
@@ -373,7 +373,7 @@ namespace Suyaa.Data
                 res = reader.ToValue<T>();
                 found = true;
             });
-            if (res is null) throw new DatabaseException("获取结果失败");
+            if (res is null) throw new DbException("获取结果失败");
             return res;
         }
 
@@ -393,7 +393,7 @@ namespace Suyaa.Data
                  res = reader.ToValue<T>();
                  found = true;
              });
-            if (res is null) throw new DatabaseException("获取结果失败");
+            if (res is null) throw new DbException("获取结果失败");
             return res;
         }
 
@@ -518,7 +518,7 @@ namespace Suyaa.Data
         /// </summary>
         /// <param name="type"></param>
         /// <param name="connectionString"></param>
-        public DatabaseConnection(DatabaseTypes type, string connectionString)
+        public DatabaseConnection(DbTypes type, string connectionString)
         {
             // 设置数据库供应商
             Provider = GetDatabaseProvider(type);
@@ -536,7 +536,7 @@ namespace Suyaa.Data
         {
             // 设置数据库供应商
             var type = sy.Assembly.FindType(info.ProviderName, sy.Assembly.ExecutionDirectory);
-            if (type is null) throw new DatabaseException($"Database provider '{info.ProviderName}' type not found.");
+            if (type is null) throw new DbException($"Database provider '{info.ProviderName}' type not found.");
             Provider = (IDatabaseProvider)Activator.CreateInstance(type);
             // 设置连接字符串
             ConnectionString = info.ToConnectionString();

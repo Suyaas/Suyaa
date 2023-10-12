@@ -121,11 +121,11 @@ namespace Suyaa.Data.PostgreSQL
         /// <summary>
         /// 连接数据库
         /// </summary>
-        /// <exception cref="DatabaseException"></exception>
+        /// <exception cref="DbException"></exception>
         public void Open()
         {
-            if (this.IsOpened) throw new DatabaseException($"数据库已存在连接");
-            if (_dbc != null) throw new DatabaseException($"数据库已存在连接");
+            if (this.IsOpened) throw new DbException($"数据库已存在连接");
+            if (_dbc != null) throw new DbException($"数据库已存在连接");
             _dbc = new NpgsqlConnection(_connectionString);
             _dbc.Open();
             this.IsOpened = true;

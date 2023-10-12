@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Suyaa.Data.Sqlite;
 using Suyaa.EFCore.Helpers;
 using Suyaa;
+using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.EFCore
 {

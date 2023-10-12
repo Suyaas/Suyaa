@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Suyaa.Data.PostgreSQL.Helpers;
 using Suyaa.EFCore.Helpers;
+using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.EFCore
 {

@@ -112,7 +112,7 @@ namespace Suyaa
         /// <param name="type"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static object Create(this Type? type, object[]? args = null)
+        public static object Create(this Type type, object[]? args = null)
             => sy.Assembly.Create(type, args) ?? throw new NullException(type);
     }
 }

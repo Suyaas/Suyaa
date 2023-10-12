@@ -41,9 +41,9 @@ namespace Suyaa.Data.Attributes
             var type = typeof(DbColumnTypes);
             string columnTypeName = ColumnType.ToString();
             var field = type.GetFields().Where(d => d.Name == columnTypeName).FirstOrDefault();
-            if (field is null) throw new DatabaseException($"数据类型'{columnTypeName}'不受支持");
+            if (field is null) throw new DbException($"数据类型'{columnTypeName}'不受支持");
             var dbNeedSize = field.GetCustomAttribute<DbNeedSizeAttribute>();
-            if (dbNeedSize != null && Size <= 0) throw new DatabaseException($"数据类型'{columnTypeName}'必须设定长度");
+            if (dbNeedSize != null && Size <= 0) throw new DbException($"数据类型'{columnTypeName}'必须设定长度");
         }
 
         /// <summary>

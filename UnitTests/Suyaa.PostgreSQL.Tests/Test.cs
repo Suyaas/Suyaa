@@ -21,7 +21,7 @@ namespace Suyaa.PostgreSQL.Tests
         public void Create()
         {
             // 执行方法
-            using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.PostgreSQL, _connString))
+            using (DatabaseConnection conn = new DatabaseConnection(DbTypes.PostgreSQL, _connString))
             {
                 conn.Open();
                 conn.TableCreated<People>().Wait();
@@ -34,7 +34,7 @@ namespace Suyaa.PostgreSQL.Tests
         public void Insert()
         {
             // 执行方法
-            using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.PostgreSQL, _connString))
+            using (DatabaseConnection conn = new DatabaseConnection(DbTypes.PostgreSQL, _connString))
             {
                 conn.Open();
                 People people = new People()
@@ -53,7 +53,7 @@ namespace Suyaa.PostgreSQL.Tests
         public void Query()
         {
             // 执行方法
-            using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.PostgreSQL, _connString))
+            using (DatabaseConnection conn = new DatabaseConnection(DbTypes.PostgreSQL, _connString))
             {
                 conn.Open();
                 IRepository<People, string> repository = new Repository<People, string>(conn);

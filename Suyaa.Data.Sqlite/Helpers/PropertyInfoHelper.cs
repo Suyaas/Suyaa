@@ -70,7 +70,7 @@ namespace Suyaa.Data.Sqlite.Helpers
                 case TypeCode.String:
                     return "TEXT";
                 default:
-                    throw new DatabaseException($"不支持的数据格式'{proTypeCode}'");
+                    throw new DbException($"不支持的数据格式'{proTypeCode}'");
             }
             #endregion
         }

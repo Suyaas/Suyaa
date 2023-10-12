@@ -26,7 +26,7 @@ namespace Suyaa.Sqlite.Tests
             // 定义数据
             string connectionString = $"data source={sy.IO.GetExecutionPath("temp.db")}";
             // 执行方法
-            using (DatabaseConnection conn = new DatabaseConnection(DatabaseTypes.Sqlite, connectionString))
+            using (DatabaseConnection conn = new DatabaseConnection(DbTypes.Sqlite, connectionString))
             {
                 conn.Open();
                 conn.TableCreated<Department>().Wait();

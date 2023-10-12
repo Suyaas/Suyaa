@@ -16,7 +16,7 @@ namespace Suyaa.Data.PostgreSQL
         /// <summary>
         /// 获取数据库类型
         /// </summary>
-        public DatabaseTypes Type => DatabaseTypes.PostgreSQL;
+        public DbTypes Type => DbTypes.PostgreSQL;
 
         /// <summary>
         /// 获取数据库供应类
@@ -47,7 +47,7 @@ namespace Suyaa.Data.PostgreSQL
         /// <param name="password"></param>
         /// <param name="dbName"></param>
         /// <returns></returns>
-        /// <exception cref="DatabaseException"></exception>
+        /// <exception cref="DbException"></exception>
         public static NpgsqlConnectionInfo Create(string server, string userName, string password, string dbName)
         {
             // 动态拼接连接字符串

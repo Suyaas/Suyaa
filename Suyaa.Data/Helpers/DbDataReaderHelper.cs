@@ -14,7 +14,7 @@ namespace Suyaa.Data.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="reader"></param>
         /// <returns></returns>
-        /// <exception cref="DatabaseException"></exception>
+        /// <exception cref="DbException"></exception>
         public static T ToValue<T>(this DbDataReader reader)
         {
             return reader[0].ConvertTo<T>();

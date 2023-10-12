@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.EFCore
+namespace Suyaa.EFCore.Dependency
 {
     /// <summary>
     /// 数据库生成器
