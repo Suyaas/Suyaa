@@ -47,6 +47,21 @@ namespace Suyaa
             => type.GetTypeCode().IsNumeric();
 
         /// <summary>
+        /// 判断是否为泛型实现
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="typeDefinition"></param>
+        /// <returns></returns>
+        public static bool IsGenericImplementation(this Type? type, Type typeDefinition)
+        {
+            if (type is null) return false;
+            if (!typeDefinition.IsGenericTypeDefinition) return false;
+            if (!type.IsGenericType) return false;
+            if (type.GetGenericTypeDefinition().Equals(typeDefinition)) return true;
+            return false;
+        }
+
+        /// <summary>
         /// 判断是否继承类
         /// </summary>
         /// <param name="type"></param>
@@ -58,6 +73,8 @@ namespace Suyaa
             if (type is null) return false;
             if (typeBase is null) return false;
             if (type.Equals(typeBase)) return true;
+            // 兼容泛型实现
+            if (type.IsGenericImplementation(typeBase)) return true;
             if (type.BaseType is null) return false;
             return type.BaseType.IsBased(typeBase);
         }
@@ -85,6 +102,8 @@ namespace Suyaa
             foreach (var ifc in ifs)
             {
                 if (ifc.Equals(typeInterface)) return true;
+                // 兼容泛型实现
+                if (ifc.IsGenericImplementation(typeInterface)) return true;
             }
             return false;
         }

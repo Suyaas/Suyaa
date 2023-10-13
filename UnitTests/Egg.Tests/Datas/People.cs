@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuyaaTest.Datas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Suyaa.Tests.Datas
     /// <summary>
     /// 人员
     /// </summary>
-    public class People
+    public class People : Entity<string>
     {
         /// <summary>
         /// 名称

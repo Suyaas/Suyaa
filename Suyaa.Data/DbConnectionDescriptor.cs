@@ -20,6 +20,7 @@ namespace Suyaa.Data
             string[] strings = connectionString.Split(';');
             foreach (var str in strings)
             {
+                if (str.IsNullOrWhiteSpace()) continue;
                 int idx = str.IndexOf("=");
                 if (idx < 0)
                 {
