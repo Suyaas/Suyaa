@@ -8,7 +8,7 @@ namespace Suyaa.Logs
     /// <summary>
     /// 日志信息
     /// </summary>
-    public class LogInfo
+    public class LogDescriptor
     {
         // 记录索引
         private static long _recordIndexer = 0;

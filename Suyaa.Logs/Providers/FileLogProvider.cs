@@ -1,4 +1,5 @@
 ﻿using Suyaa;
+using Suyaa.Logs.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace Suyaa.Logs.Loggers
     /// <summary>
     /// 文件日志
     /// </summary>
-    public class FileLogger : ILogable
+    public class FileLogProvider : ICommonLogProvider
     {
 
         // 路径
@@ -21,7 +22,7 @@ namespace Suyaa.Logs.Loggers
         /// 对象实例化
         /// </summary>
         /// <param name="path"></param>
-        public FileLogger(string path)
+        public FileLogProvider(string path)
         {
             _path = sy.IO.GetClosedPath(path);
         }
@@ -30,7 +31,7 @@ namespace Suyaa.Logs.Loggers
         /// 输出内容
         /// </summary>
         /// <param name="entity"></param>
-        public void Log(LogInfo entity)
+        public void Log(LogDescriptor entity)
         {
             if (entity.Source.IsNullOrWhiteSpace()) entity.Source = sy.Logger.GetDefaultSoucre();
             string content = $"{sy.Time.Now.ToFullDateTimeString()}, {entity.Level.ToString().ToUpper()}, {entity.Source}, {entity.Event} - {entity.Message}";

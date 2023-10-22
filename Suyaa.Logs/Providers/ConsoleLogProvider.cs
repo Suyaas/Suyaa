@@ -1,23 +1,25 @@
-﻿using Suyaa;
+﻿using Suyaa.Logs.Dependency;
+using Suyaa.Logs.Helpers;
+using Suyaa.Logs.Loggers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Suyaa.Logs.Loggers
+namespace Suyaa.Logs.Providers
 {
 
     /// <summary>
     /// 控制台输出
     /// </summary>
-    public class ConsoleLogger : ILogable
+    public class ConsoleLogProvider : ICommonLogProvider
     {
 
         /// <summary>
         /// 输出内容
         /// </summary>
         /// <param name="entity"></param>
-        public void Log(LogInfo entity)
+        public void Log(LogDescriptor entity)
         {
             // 获取默认
             //if (entity.Source.IsNullOrWhiteSpace()) entity.Source = sy.Logger.GetDefaultSoucre();
@@ -32,7 +34,7 @@ namespace Suyaa.Logs.Loggers
                 default: Console.ForegroundColor = color; break;
             }
             // 输出内容
-            Console.Write(ActionLogger.GetLogString(entity));
+            Console.Write(entity.GetLogString());
             if (entity.Level == LogLevel.Info)
             {
                 Console.ForegroundColor = color;

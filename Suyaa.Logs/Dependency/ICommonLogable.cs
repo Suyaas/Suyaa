@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Logs
+namespace Suyaa.Logs.Dependency
 {
 
     /// <summary>
-    /// 记录器接口
+    /// 通用可日志对象
     /// </summary>
-    public interface ILogable
+    public interface ICommonLogable
     {
 
         /// <summary>
         /// 记录日志
         /// </summary>
-        /// <param name="entity"></param>
-        void Log(LogInfo entity);
+        /// <param name="log"></param>
+        void Log(LogDescriptor log);
 
     }
 }
