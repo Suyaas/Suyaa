@@ -12,7 +12,7 @@ namespace Suyaa.EFCore.SqlServer
     /// <summary>
     /// SqlServer数据库上下文
     /// </summary>
-    public abstract class SqliteContextBase : DbContextBase
+    public abstract class SqliteContextBase : DbContext
     {
         /// <summary>
         /// SqlServer数据库上下文

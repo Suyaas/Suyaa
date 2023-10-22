@@ -26,8 +26,7 @@ namespace Suyaa.EFCore.Helpers
         public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>>? expression)
         {
             if (expression is null) return query;
-            if (condition) query.Where(expression);
-            return query;
+            return query.Where(expression);
         }
     }
 }

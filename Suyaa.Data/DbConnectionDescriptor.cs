@@ -66,23 +66,32 @@ namespace Suyaa.Data
         /// <summary>
         /// 数据库描述
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="databaseType"></param>
-        public DbConnectionDescriptor(DbTypes databaseType)
+        public DbConnectionDescriptor(string name, DbTypes databaseType)
         {
+            Name = name;
             DatabaseType = databaseType;
         }
 
         /// <summary>
         /// 数据库描述
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="databaseType"></param>
         /// <param name="connectionString"></param>
-        public DbConnectionDescriptor(DbTypes databaseType, string connectionString)
+        public DbConnectionDescriptor(string name, DbTypes databaseType, string connectionString)
         {
             // 解析连接字符串
             ParseConnectionString(connectionString);
+            Name = name;
             DatabaseType = databaseType;
         }
+
+        /// <summary>
+        /// 连接名称
+        /// </summary>
+        public string Name { get; }
 
         /// <summary>
         /// 数据库类型

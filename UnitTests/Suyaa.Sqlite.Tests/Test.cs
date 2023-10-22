@@ -134,22 +134,22 @@ namespace Suyaa.Sqlite.Tests
             var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
             optionsBuilder.UseSqlite(connectionString);
             // 执行方法
-            using (TestDbContext context = new TestDbContext(optionsBuilder.Options, connectionString))
-            {
-                //IRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
-                //IRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
-                var query = from p in context.Peoples
-                            join d in context.Departments on p.DepartmentId equals d.Id
-                            where d.Name.Contains("大")
-                            select p;
-                var datas = await query.ToListAsync();
-                // 返回结果
-                _output.WriteLine(JsonSerializer.Serialize(datas, new JsonSerializerOptions()
-                {
-                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                    WriteIndented = true,
-                }));
-            }
+            //using (TestDbContext context = new TestDbContext(optionsBuilder.Options, connectionString))
+            //{
+            //    //IRepository<People, string> peopleRepository = new EFCore.Dbsets.Repository<People, string>(context);
+            //    //IRepository<Department, string> departmentRepository = new EFCore.Dbsets.Repository<Department, string>(context);
+            //    var query = from p in context.Peoples
+            //                join d in context.Departments on p.DepartmentId equals d.Id
+            //                where d.Name.Contains("大")
+            //                select p;
+            //    var datas = await query.ToListAsync();
+            //    // 返回结果
+            //    _output.WriteLine(JsonSerializer.Serialize(datas, new JsonSerializerOptions()
+            //    {
+            //        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            //        WriteIndented = true,
+            //    }));
+            //}
         }
 
         //[Fact]

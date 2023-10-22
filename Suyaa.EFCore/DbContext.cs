@@ -12,7 +12,7 @@ namespace Suyaa.EFCore
     /// <summary>
     /// EFCore重写上下文
     /// </summary>
-    public abstract class DbContextBase : DbContext, IDbContext
+    public abstract class DbContext : Microsoft.EntityFrameworkCore.DbContext, IDbContext
     {
 
         /// <summary>
@@ -20,14 +20,20 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="options"></param>
         /// <param name="connectionString"></param>
-        public DbContextBase(DbConnectionDescriptor descriptor, DbContextOptions options) : base(options)
+        public DbContext(DbConnectionDescriptor descriptor, DbContextOptions options) : base(options)
         {
             ConnectionDescriptor = descriptor;
+            Options = options;
         }
 
         /// <summary>
         /// 数据库连接描述
         /// </summary>
         public DbConnectionDescriptor ConnectionDescriptor { get; }
+
+        /// <summary>
+        /// 数据库上下文配置
+        /// </summary>
+        public DbContextOptions Options { get; }
     }
 }

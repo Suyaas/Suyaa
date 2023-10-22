@@ -18,7 +18,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task<bool> EnsureCreated(DbContextBase context)
+        public async Task<bool> EnsureCreated(DbContext context)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>        
-        public string GetEnsureCreatedSql(DbContextBase context)
+        public string GetEnsureCreatedSql(DbContext context)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("do $$");
