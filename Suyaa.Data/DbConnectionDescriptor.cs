@@ -36,8 +36,9 @@ namespace Suyaa.Data
         /// <summary>
         /// 数据库描述
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="connectionDefine">以[dbtype]connectionString形式定义的连接描述</param>
-        public DbConnectionDescriptor(string connectionDefine)
+        public DbConnectionDescriptor(string name, string connectionDefine)
         {
             if (connectionDefine.IsNullOrWhiteSpace()) throw new DbException("connectionDefine not found.");
             if (connectionDefine[0] != '[') throw new DbException(string.Format("connectionDefine must start with '[dbtype]'."));
@@ -61,6 +62,7 @@ namespace Suyaa.Data
                 "access12" => DbTypes.MicrosoftOfficeAccessV12,
                 _ => throw new DbException(string.Format("Unsupported database type '{0}'.", dbType)),
             };
+            Name = name;
         }
 
         /// <summary>

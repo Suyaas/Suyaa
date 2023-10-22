@@ -12,13 +12,13 @@ namespace Suyaa.EFCore.SqlServer
     /// <summary>
     /// SqlServer数据库上下文
     /// </summary>
-    public abstract class PostgreSqlContextBase : DbContext
+    public abstract class PostgreSqlContext : DbDescriptorContext
     {
         /// <summary>
         /// SqlServer数据库上下文
         /// </summary>
         /// <param name="descriptor"></param>
-        protected PostgreSqlContextBase(DbConnectionDescriptor descriptor) : base(descriptor, descriptor.GetPostgreSqlContextOptions())
+        protected PostgreSqlContext(DbConnectionDescriptor descriptor) : base(descriptor, descriptor.GetPostgreSqlContextOptions())
         {
         }
     }

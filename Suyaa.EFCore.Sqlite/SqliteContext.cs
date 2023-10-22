@@ -12,13 +12,13 @@ namespace Suyaa.EFCore.SqlServer
     /// <summary>
     /// SqlServer数据库上下文
     /// </summary>
-    public abstract class SqlServerContextBase : DbContext
+    public abstract class SqliteContext : DbDescriptorContext
     {
         /// <summary>
         /// SqlServer数据库上下文
         /// </summary>
         /// <param name="descriptor"></param>
-        protected SqlServerContextBase(DbConnectionDescriptor descriptor) : base(descriptor, descriptor.GetSqlServerContextOptions())
+        protected SqliteContext(DbConnectionDescriptor descriptor) : base(descriptor, descriptor.GetSqliteContextOptions())
         {
         }
     }

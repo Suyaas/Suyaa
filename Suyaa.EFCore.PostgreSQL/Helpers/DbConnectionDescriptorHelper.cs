@@ -22,7 +22,7 @@ namespace Suyaa.EFCore.SqlServer.Helpers
         {
             if (descriptor.DatabaseType != DbTypes.MicrosoftSqlServer) throw new DbException($"DatabaseType '{descriptor.DatabaseType}' not supported.");
             // 添加数据库上下文配置
-            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DbDescriptorContext>();
             optionsBuilder.UseNpgsql(descriptor.ToConnectionString());
             return optionsBuilder.Options;
         }

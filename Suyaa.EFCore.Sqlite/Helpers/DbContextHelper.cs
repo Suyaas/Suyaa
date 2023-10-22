@@ -25,7 +25,7 @@ namespace Suyaa.Data.PostgreSQL.Helpers
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<int> ExecuteNonQueryAsync(this EFCore.DbContext context, string sql)
+        public static async Task<int> ExecuteNonQueryAsync(this EFCore.DbDescriptorContext context, string sql)
         {
             int res = 0;
             // 连接数据库
@@ -50,7 +50,7 @@ namespace Suyaa.Data.PostgreSQL.Helpers
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(this EFCore.DbContext context, string sql)
+        public static int ExecuteNonQuery(this EFCore.DbDescriptorContext context, string sql)
         {
             return context.ExecuteNonQueryAsync(sql).Result;
         }

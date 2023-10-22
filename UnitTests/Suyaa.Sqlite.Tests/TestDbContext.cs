@@ -16,7 +16,7 @@ namespace Suyaa.Sqlite.Tests
     /// <summary>
     /// 测试连接
     /// </summary>
-    public class TestDbContext : SqliteContextBase
+    public class TestDbContext : SqlServerContext
     {
 
         public virtual DbSet<Department> Departments { get; set; }

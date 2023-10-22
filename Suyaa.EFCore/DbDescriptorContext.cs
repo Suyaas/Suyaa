@@ -10,9 +10,9 @@ using System.Text;
 namespace Suyaa.EFCore
 {
     /// <summary>
-    /// EFCore重写上下文
+    /// 带描述的数据库上下文
     /// </summary>
-    public abstract class DbContext : Microsoft.EntityFrameworkCore.DbContext, IDbContext
+    public abstract class DbDescriptorContext : DbContext, IDbDescriptorContext
     {
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="options"></param>
         /// <param name="connectionString"></param>
-        public DbContext(DbConnectionDescriptor descriptor, DbContextOptions options) : base(options)
+        public DbDescriptorContext(DbConnectionDescriptor descriptor, DbContextOptions options) : base(options)
         {
             ConnectionDescriptor = descriptor;
             Options = options;

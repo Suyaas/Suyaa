@@ -29,7 +29,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task<bool> EnsureCreated(DbContext context)
+        public async Task<bool> EnsureCreated(DbDescriptorContext context)
         {
             // 获取数据库连接
             System.Data.Common.DbConnection conn = context.Database.GetDbConnection();
@@ -170,7 +170,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>        
-        public string GetEnsureCreatedSql(DbContext context)
+        public string GetEnsureCreatedSql(DbDescriptorContext context)
         {
             StringBuilder sb = new StringBuilder();
             // 获取根类型
