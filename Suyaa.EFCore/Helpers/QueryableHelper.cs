@@ -20,13 +20,26 @@ namespace Suyaa.EFCore.Helpers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
-        /// <param name="condition"></param>
-        /// <param name="expression"></param>
+        /// <param name="condition">判断条件</param>
+        /// <param name="predicate">查询条件</param>
         /// <returns></returns>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>>? expression)
+        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>> predicate)
         {
-            if (expression is null) return query;
-            return query.Where(expression);
+            if (!condition) return query;
+            return query.Where(predicate);
+        }
+
+        /// <summary>
+        /// 设置分页
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="page">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <returns></returns>
+        public static IQueryable<T> Paged<T>(this IQueryable<T> query, int page, int pageSize)
+        {
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
     }
 }
