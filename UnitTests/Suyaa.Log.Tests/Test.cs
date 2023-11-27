@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Suyaa.Logs;
 using Suyaa.Logs.Loggers;
 using System.Diagnostics;
@@ -17,13 +18,17 @@ namespace Suyaa.Logs.Tests
         [Fact]
         public void Log()
         {
-            sy.Logger.GetCurrentLogger()
-                .Use((string mesage) =>
-                    {
-                        Debug.WriteLine(mesage);
-                    })
-                .Use(new FileLogger(sy.IO.GetExecutionPath("log")))
-                .Use(msg => Debug.WriteLine(msg));
+            sy.Logger.Factory
+                .UseStringAction(msg => {
+                    Debug.WriteLine(msg);
+                });
+            //sy.Logger.GetCurrentLogger()
+            //    .Use((string mesage) =>
+            //        {
+            //            Debug.WriteLine(mesage);
+            //        })
+            //    .Use(new FileLogger(sy.IO.GetExecutionPath("log")))
+            //    .Use(msg => Debug.WriteLine(msg));
             sy.Logger.Info("≤‚ ‘");
             _output.WriteLine("OK");
             //Thread.Sleep(1000);

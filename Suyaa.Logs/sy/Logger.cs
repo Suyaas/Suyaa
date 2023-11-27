@@ -1,5 +1,6 @@
 ﻿using Suyaa;
 using Suyaa.Logs;
+using Suyaa.Logs.Dependency;
 using Suyaa.Logs.Loggers;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace sy
     /// </summary>
     public static class Logger
     {
-
+        // 全局变量
+        private static Suyaa.Logs.LoggerFactory? _loggerFactory;
         private static Suyaa.Logs.Logger? _loggers;
 
         /// <summary>
@@ -32,23 +34,33 @@ namespace sy
             while (index < trace.FrameCount)
             {
                 StackFrame? frame = trace.GetFrame(index);
+                if (frame is null)
+                {
+                    index++;
+                    continue;
+                }
                 method = frame.GetMethod();
+                if (method is null)
+                {
+                    index++;
+                    continue;
+                }
                 if (method.DeclaringType.Equals(typeof(sy.Logger)))
                 {
                     index++;
                     continue;
                 }
-                if (method.DeclaringType.Equals(typeof(ActionLogger)))
-                {
-                    index++;
-                    continue;
-                }
+                //if (method.DeclaringType.Equals(typeof(ActionLogger)))
+                //{
+                //    index++;
+                //    continue;
+                //}
                 if (method.DeclaringType.HasInterface<ILogger>())
                 {
                     index++;
                     continue;
                 }
-                if (method.DeclaringType.HasInterface<ILogable>())
+                if (method.DeclaringType.HasInterface<ICommonLogable>())
                 {
                     index++;
                     continue;
@@ -60,12 +72,18 @@ namespace sy
         }
 
         /// <summary>
+        /// 记录器工厂
+        /// </summary>
+        public static Suyaa.Logs.LoggerFactory Factory
+            => _loggerFactory ??= new Suyaa.Logs.LoggerFactory();
+
+        /// <summary>
         /// 获取当前日志记录器
         /// </summary>
         /// <returns></returns>
         public static Suyaa.Logs.Logger GetCurrentLogger()
         {
-            _loggers ??= new Suyaa.Logs.Logger();
+            _loggers ??= Create();
             return _loggers;
         }
 
@@ -75,7 +93,17 @@ namespace sy
         /// <returns></returns>
         public static Suyaa.Logs.Logger Create()
         {
-            _loggers = new Suyaa.Logs.Logger();
+            _loggers = new Suyaa.Logs.Logger(Factory);
+            return _loggers;
+        }
+
+        /// <summary>
+        /// 使用一个新的日志记录器
+        /// </summary>
+        /// <returns></returns>
+        public static Suyaa.Logs.Logger Create(ILoggerFactory factory)
+        {
+            _loggers = new Suyaa.Logs.Logger(factory);
             return _loggers;
         }
 
@@ -86,7 +114,7 @@ namespace sy
         /// <param name="evt"></param>
         public static void Debug(string message, string evt = "default")
         {
-            _loggers?.Log(new LogInfo()
+            GetCurrentLogger().Log(new LogDescriptor()
             {
                 Event = evt,
                 Level = LogLevel.Debug,
@@ -101,7 +129,7 @@ namespace sy
         /// <param name="evt"></param>
         public static void Info(string message, string evt = "default")
         {
-            _loggers?.Log(new LogInfo()
+            GetCurrentLogger().Log(new LogDescriptor()
             {
                 Event = evt,
                 Level = LogLevel.Info,
@@ -116,7 +144,7 @@ namespace sy
         /// <param name="evt"></param>
         public static void Warn(string message, string evt = "default")
         {
-            _loggers?.Log(new LogInfo()
+            GetCurrentLogger().Log(new LogDescriptor()
             {
                 Event = evt,
                 Level = LogLevel.Warn,
@@ -131,7 +159,7 @@ namespace sy
         /// <param name="evt"></param>
         public static void Error(string message, string evt = "default")
         {
-            _loggers?.Log(new LogInfo()
+            GetCurrentLogger().Log(new LogDescriptor()
             {
                 Event = evt,
                 Level = LogLevel.Error,
@@ -146,7 +174,7 @@ namespace sy
         /// <param name="evt"></param>
         public static void Fatal(string message, string evt = "default")
         {
-            _loggers?.Log(new LogInfo()
+            GetCurrentLogger().Log(new LogDescriptor()
             {
                 Event = evt,
                 Level = LogLevel.Fatal,

@@ -10,7 +10,7 @@ namespace Suyaa.EFCore.Helpers
     /// </summary>
     public static class ModelBuilderHelper
     {
-        public static void BuildToLowerName<T>(this ModelBuilder modelBuilder) where T : DbContextBase
+        public static void BuildToLowerName<T>(this ModelBuilder modelBuilder) where T : DbDescriptorContext
         {
             var list = typeof(T).GetRepositoryInfos();
             foreach (var item in list)

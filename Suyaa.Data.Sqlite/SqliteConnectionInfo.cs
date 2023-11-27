@@ -17,7 +17,7 @@ namespace Suyaa.Data.Sqlite
         /// <summary>
         /// 获取数据库类型
         /// </summary>
-        public DatabaseTypes Type => DatabaseTypes.PostgreSQL;
+        public DbTypes Type => DbTypes.PostgreSQL;
 
         /// <summary>
         /// 获取数据库供应类
@@ -39,13 +39,13 @@ namespace Suyaa.Data.Sqlite
         /// <param name="path">路径</param>
         /// <param name="password">密码</param>
         /// <returns></returns>
-        /// <exception cref="DatabaseException"></exception>
+        /// <exception cref="DbException"></exception>
         public static SqliteConnectionInfo Create(string path, string? password = null)
         {
             // 动态拼接连接字符串
             StringBuilder sb = new StringBuilder();
             // 设置存储路径
-            if (path.IsNullOrWhiteSpace()) throw new DatabaseException($"缺少必要的存储路径配置");
+            if (path.IsNullOrWhiteSpace()) throw new DbException($"缺少必要的存储路径配置");
             sb.Append($"Data Source={path};");
             if (!password.IsNullOrWhiteSpace())
                 sb.Append($"Password={password};");

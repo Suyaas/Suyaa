@@ -26,10 +26,9 @@ namespace Suyaa
         protected virtual void OnManagedDispose() { }
 
         /// <summary>
-        /// 托管资源释放
+        /// 非托管资源释放
         /// </summary>
         protected virtual void OnUnmanagedDispose() { }
-
 
         /// <summary>
         /// 释放资源

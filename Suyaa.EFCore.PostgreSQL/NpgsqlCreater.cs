@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Suyaa.Data.PostgreSQL.Helpers;
 using Suyaa.EFCore.Helpers;
+using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.EFCore
 {
@@ -17,7 +18,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task<bool> EnsureCreated(DbContextBase context)
+        public async Task<bool> EnsureCreated(DbDescriptorContext context)
         {
             try
             {
@@ -156,7 +157,7 @@ namespace Suyaa.EFCore
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>        
-        public string GetEnsureCreatedSql(DbContextBase context)
+        public string GetEnsureCreatedSql(DbDescriptorContext context)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("do $$");

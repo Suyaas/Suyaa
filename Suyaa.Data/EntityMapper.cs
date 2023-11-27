@@ -56,7 +56,7 @@ namespace Suyaa.Data
         /// <returns></returns>
         public T Map(Func<PropertyInfo, object?> getValue)
         {
-            if (this.IsValue) throw new DatabaseException("不支持值类型自由映射");
+            if (this.IsValue) throw new DbException("不支持值类型自由映射");
             var obj = Activator.CreateInstance(_type);
             for (int i = 0; i < _properties.Length; i++)
             {

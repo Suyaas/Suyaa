@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Version>1.6.2311.32</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>舒雅套件中服务于SqlServer数据库EFCore框架的辅助开发组件</Description>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageIcon>suyaa_128.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageTags>orm,efcore,sqlserver</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon\suyaa_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Suyaa.EFCore\Suyaa.EFCore.csproj" />
+  </ItemGroup>
+
+</Project>
