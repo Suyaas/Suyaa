@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.7.2312.33</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
