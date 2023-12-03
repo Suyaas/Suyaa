@@ -1,27 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.6.2311.32</Version>
+    <Version>1.7.2312.33</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Description>舒雅套件中的WebApi开发组件</Description>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
     <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
-    <PackageIcon>suyaa_128.png</PackageIcon>
+    <PackageIcon>Suyaa_red_128.png</PackageIcon>
     <RepositoryUrl>https://github.com/suyaas/suyaa</RepositoryUrl>
     <PackageTags>RESTful,Api,http,web</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\icon\suyaa_128.png">
+    <None Include="..\icon\Suyaa_red_128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
