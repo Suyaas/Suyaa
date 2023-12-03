@@ -7,11 +7,11 @@ namespace Suyaa
     /// <summary>
     /// 不规范异常
     /// </summary>
-    public sealed class NonStandardException : Exception
+    public sealed class NonStandardException : KeyException
     {
         /// <summary>
         /// 不规范异常
         /// </summary>
-        public NonStandardException(string message) : base("Non Standard: " + message) { }
+        public NonStandardException(string key, string message, params string[] parameters) : base("Exception.NonStandard." + key, message, parameters) { }
     }
 }

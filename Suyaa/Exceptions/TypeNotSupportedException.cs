@@ -7,12 +7,12 @@ namespace Suyaa
     /// <summary>
     /// 不支持异常
     /// </summary>
-    public class TypeNotSupportedException : Exception
+    public class TypeNotSupportedException : KeyException
     {
         /// <summary>
         /// 不支持异常
         /// </summary>
-        public TypeNotSupportedException(Type type) : base($"Type '{type.FullName}' is not supported")
+        public TypeNotSupportedException(Type type) : base("Exception.TypeNotSupported", "Type '{0}' is not supported", type.FullName)
         {
             Type = type;
         }
@@ -20,7 +20,7 @@ namespace Suyaa
         /// <summary>
         /// 不支持异常
         /// </summary>
-        public TypeNotSupportedException(string message) : base(message) { }
+        public TypeNotSupportedException(string key, string message, params string[] parameters) : base("Exception.TypeNotSupported." + key, message, parameters) { }
 
         /// <summary>
         /// 关联类型

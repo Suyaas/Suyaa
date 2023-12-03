@@ -7,17 +7,18 @@ namespace Suyaa
     /// <summary>
     /// 为空错误
     /// </summary>
-    public class NullException : Exception
+    public class NullException : KeyException
+
     {
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException() : base("Object is null") { }
+        public NullException() : base("Exception.Null", "Object is null") { }
 
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(Type type) : base($"Type '{type.FullName}' not instantiated")
+        public NullException(Type type) : base("Exception.Null.Type", $"Type '{0}' not instantiated", type.FullName)
         {
             Type = type;
         }
@@ -25,7 +26,10 @@ namespace Suyaa
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(string message) : base(message) { }
+        public NullException(string key, string message, params string[] parameters) : base("Exception.Null." + key, message, parameters)
+        {
+            Type = null;
+        }
 
         /// <summary>
         /// 关联类型
