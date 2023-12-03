@@ -199,6 +199,18 @@ namespace Suyaa
             this.Initialize();
         }
 
+        // 获取MachineId范围异常
+        private NonStandardException GetMachineIdRangeException(int machineId)
+        {
+            return new NonStandardException("UUID.MachineId.Range", $"The range of machine ID is 0-{MAX_MACHINE_ID}, now {0}.", machineId.ToString());
+        }
+
+        // 获取AppId范围异常
+        private NonStandardException GetAppIdRangeException(int appId)
+        {
+            return new NonStandardException("UUID.AppId.Range", $"The range of app id is 0-{MAX_APP_ID}, now {0}.", appId.ToString());
+        }
+
         /// <summary>
         /// 自定义32位UUID算法，可分布式唯一并支持排序,AppId均为0
         /// </summary>
@@ -206,7 +218,7 @@ namespace Suyaa
         /// <exception cref="Exception"></exception>
         public UUIDGenerator(int machineId)
         {
-            if (machineId < 0 || machineId > MAX_MACHINE_ID) throw new NonStandardException($"The range of machine ID is 0-{MAX_MACHINE_ID}, now {machineId}.");
+            if (machineId < 0 || machineId > MAX_MACHINE_ID) throw GetMachineIdRangeException(machineId);
             this.MachineId = machineId;
             this.AppId = 0;
             this.Initialize();
@@ -219,8 +231,8 @@ namespace Suyaa
         /// <param name="appId">应用ID(0~1023)</param>
         public UUIDGenerator(int machineId, int appId)
         {
-            if (machineId < 0 || machineId > MAX_MACHINE_ID) throw new NonStandardException($"The range of machine id is 0-{MAX_MACHINE_ID}, now {machineId}.");
-            if (appId < 0 || appId > MAX_APP_ID) throw new NonStandardException($"The range of app id is 0-{MAX_APP_ID}, now {appId}.");
+            if (machineId < 0 || machineId > MAX_MACHINE_ID) throw GetMachineIdRangeException(machineId);
+            if (appId < 0 || appId > MAX_APP_ID) throw GetAppIdRangeException(appId);
             this.MachineId = machineId;
             this.AppId = appId;
             this.Initialize();

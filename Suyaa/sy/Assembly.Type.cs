@@ -107,7 +107,7 @@ namespace sy
         /// <param name="args"></param>
         /// <returns></returns>
         public static T Create<T>(string name, object[]? args = null) where T : class
-            => (T)(Create(FindType(name), args) ?? throw new NullException($"类型'{name}'创建失败"));
+            => (T)(Create(FindType(name), args) ?? throw new KeyException("Exception.Type.Create.Fail", "Type '{0}' create fail.", name));
 
         /// <summary>
         /// 创建一个对象实例
