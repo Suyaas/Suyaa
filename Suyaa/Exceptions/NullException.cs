@@ -13,7 +13,7 @@ namespace Suyaa
         /// <summary>
         /// 为空
         /// </summary>
-        public const string KEY_NULL = "NonStandard";
+        public const string KEY_NULL = "Null";
         /// <summary>
         /// 为空错误
         /// </summary>
@@ -22,9 +22,18 @@ namespace Suyaa
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(Type type) : base(KEY_NULL + ".Type", $"Type '{0}' not instantiated", type.FullName)
+        public NullException(Type type) : base(KEY_NULL + ".Type", "Type '{0}' does not instantiated", type.FullName)
         {
             Type = type;
+            Name = type.FullName;
+        }
+
+        /// <summary>
+        /// 为空错误
+        /// </summary>
+        public NullException(string name) : base(KEY_NULL + ".Name", "{0} is null", name)
+        {
+            Name = name;
         }
 
         /// <summary>
@@ -39,6 +48,10 @@ namespace Suyaa
         /// 关联类型
         /// </summary>
         public Type? Type { get; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; } = string.Empty;
     }
 
     /// <summary>
