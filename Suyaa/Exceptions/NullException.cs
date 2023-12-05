@@ -11,14 +11,18 @@ namespace Suyaa
 
     {
         /// <summary>
+        /// 为空
+        /// </summary>
+        public const string KEY_NULL = "NonStandard";
+        /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException() : base("Exception.Null", "Object is null") { }
+        public NullException() : base(KEY_NULL, "Object is null") { }
 
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(Type type) : base("Exception.Null.Type", $"Type '{0}' not instantiated", type.FullName)
+        public NullException(Type type) : base(KEY_NULL + ".Type", $"Type '{0}' not instantiated", type.FullName)
         {
             Type = type;
         }
@@ -26,7 +30,7 @@ namespace Suyaa
         /// <summary>
         /// 为空错误
         /// </summary>
-        public NullException(string key, string message, params string[] parameters) : base("Exception.Null." + key, message, parameters)
+        public NullException(string key, string message, params string[] parameters) : base(KEY_NULL + "." + key, message, parameters)
         {
             Type = null;
         }

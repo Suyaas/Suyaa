@@ -10,8 +10,12 @@ namespace Suyaa
     public sealed class NonStandardException : KeyException
     {
         /// <summary>
+        /// 不规范
+        /// </summary>
+        public const string KEY_NON_STANDARD = "NonStandard";
+        /// <summary>
         /// 不规范异常
         /// </summary>
-        public NonStandardException(string key, string message, params string[] parameters) : base("Exception.NonStandard." + key, message, parameters) { }
+        public NonStandardException(string key, string message, params string[] parameters) : base(KEY_NON_STANDARD + "." + key, message, parameters) { }
     }
 }

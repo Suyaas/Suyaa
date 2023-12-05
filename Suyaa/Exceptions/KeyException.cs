@@ -10,11 +10,16 @@ namespace Suyaa
     public class KeyException : Exception
     {
         /// <summary>
+        /// 基础关键字
+        /// </summary>
+        public const string KEY_EXCEPTION = "Exception";
+
+        /// <summary>
         /// 带关键字的异常
         /// </summary>
-        public KeyException(string key, string message, params string[] parameters) : base(key + " occurred: " + string.Format(message, parameters))
+        public KeyException(string key, string message, params string[] parameters) : base(KEY_EXCEPTION + "." + key + " occurred: " + string.Format(message, parameters))
         {
-            Key = key;
+            Key = KEY_EXCEPTION + "." + key;
             OriginalMessage = message;
             OriginalParameters = parameters;
         }
@@ -22,9 +27,9 @@ namespace Suyaa
         /// <summary>
         /// 带关键字的异常
         /// </summary>
-        public KeyException(string key, Exception innerException, string message, params string[] parameters) : base(key + " occurred: " + string.Format(message, parameters), innerException)
+        public KeyException(string key, Exception innerException, string message, params string[] parameters) : base(KEY_EXCEPTION + "." + key + " occurred: " + string.Format(message, parameters), innerException)
         {
-            Key = key;
+            Key = KEY_EXCEPTION + "." + key;
             OriginalMessage = message;
             OriginalParameters = parameters;
         }
