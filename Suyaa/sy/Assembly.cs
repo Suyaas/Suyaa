@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.IO;
+using Suyaa;
 
 namespace sy
 {
@@ -60,7 +61,7 @@ namespace sy
             {
                 if (string.IsNullOrEmpty(_executionFilePath))
                 {
-                    _executionFilePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                    _executionFilePath = Process.GetCurrentProcess().MainModule.FileName;
                 }
                 return _executionFilePath;
             }
@@ -75,7 +76,7 @@ namespace sy
             {
                 if (string.IsNullOrEmpty(_executionDirectory))
                 {
-                    _executionDirectory = IO.GetClosedPath(System.IO.Path.GetDirectoryName(ExecutionFilePath));
+                    _executionDirectory = IO.GetClosedPath(Path.GetDirectoryName(ExecutionFilePath));
                 }
                 return _executionDirectory;
             }
@@ -95,6 +96,38 @@ namespace sy
                 return _workingDirectory;
             }
             set { _workingDirectory = value; }
+        }
+
+        /// <summary>
+        /// 获取模块基目录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static string GetModulePath<T>()
+            where T : class
+        {
+            return GetModulePath(typeof(T));
+        }
+
+        /// <summary>
+        /// 获取模块基目录
+        /// </summary>
+        /// <returns></returns>
+        public static string GetModulePath(Type type)
+        {
+            using var processModule = Process.GetCurrentProcess().MainModule;
+            var filePath = type.Assembly.Location;
+            var folder = sy.IO.GetFolderPath(filePath);
+            return folder;
+        }
+
+        /// <summary>
+        /// 获取模块基目录
+        /// </summary>
+        /// <returns></returns>
+        public static string GetModulePath()
+        {
+            return GetModulePath<Disposable>();
         }
 
         /// <summary>

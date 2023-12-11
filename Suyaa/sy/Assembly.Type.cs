@@ -56,6 +56,10 @@ namespace sy
             {
                 // 重新加载程序目录下的所有dll文件
                 LoadAssemblyFromFolder(ExecutionDirectory);
+                // 重新加载工作目录下的所有dll文件
+                LoadAssemblyFromFolder(WorkingDirectory);
+                // 重新加载Suyaa.dll所在目录下的所有dll文件
+                LoadAssemblyFromFolder(GetModulePath());
                 // 重新查找类型
                 type = FindType(name);
             }
