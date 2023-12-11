@@ -13,9 +13,9 @@ Comprehensive development kit based on .Net Standard 2.1, including basic type p
 | Component               | .Net Version      | Description                   | Nuget Package                                                                                                              |
 | ----------------------- | ----------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | Suyaa                   | .Net Standard 2.1 | Basic Component               | [![NuGet version](https://badge.fury.io/nu/Suyaa.svg)](https://badge.fury.io/nu/Suyaa)                                     |
-| Suyaa.Configure         | .Net 6            | Configure Component           | [![NuGet version](https://badge.fury.io/nu/Suyaa.Configure.svg)](https://badge.fury.io/nu/Suyaa.Configure)                 |
+| Suyaa.Configure         | .Net Standard 2.1            | Configure Component           | [![NuGet version](https://badge.fury.io/nu/Suyaa.Configure.svg)](https://badge.fury.io/nu/Suyaa.Configure)                 |
 | Suyaa.Logs              | .Net Standard 2.1 | Log Component                 | [![NuGet version](https://badge.fury.io/nu/Suyaa.Logs.svg)](https://badge.fury.io/nu/Suyaa.Logs)                           |
-| Suyaa.RESTfulApi        | .Net Standard 6   | Web Api Component             | [![NuGet version](https://badge.fury.io/nu/Suyaa.RESTfulApi.svg)](https://badge.fury.io/nu/Suyaa.RESTfulApi)               |
+| Suyaa.RESTfulApi        | .Net Standard 2.1   | Web Api Component             | [![NuGet version](https://badge.fury.io/nu/Suyaa.RESTfulApi.svg)](https://badge.fury.io/nu/Suyaa.RESTfulApi)               |
 | Suyaa.Windows           | .Net Standard 2.1 | Windows Helper Component      | [![NuGet version](https://badge.fury.io/nu/Suyaa.Windows.svg)](https://badge.fury.io/nu/Suyaa.Windows)                     |
 
 ## Nuget Package Download
