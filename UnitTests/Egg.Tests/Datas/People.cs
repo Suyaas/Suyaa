@@ -27,5 +27,10 @@ namespace Suyaa.Tests.Datas
         /// 是否男性
         /// </summary>
         public bool IsMan = true;
+
+        /// <summary>
+        /// 人员
+        /// </summary>
+        public People() : base(string.Empty) { }
     }
 }
