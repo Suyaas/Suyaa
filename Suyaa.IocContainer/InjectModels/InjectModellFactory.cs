@@ -58,14 +58,14 @@ namespace Suyaa.IocContainer.InjectModels
         /// 移除
         /// </summary>
         /// <param name="type"></param>
-        public void Remove(Type type)
+        public void Remove(Type serviceType, Type implementationType)
         {
             lock (_locker)
             {
                 for (int i = _models.Count - 1; i >= 0; i++)
                 {
                     var model = _models[i];
-                    if (model.ServiceType == type || model.ImplementationType == type)
+                    if (model.ServiceType == serviceType && model.ImplementationType == implementationType)
                     {
                         _models.RemoveAt(i);
                     }

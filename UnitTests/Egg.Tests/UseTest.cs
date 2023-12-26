@@ -9,6 +9,9 @@ using Xunit.Abstractions;
 using Suyaa.Usables.Helpers;
 using Suyaa;
 using System.Diagnostics;
+using Suyaa.IocContainer;
+using SuyaaTest.Iocs;
+using Suyaa.IocContainer.Kernel;
 
 namespace SuyaaTest
 {
@@ -30,6 +33,15 @@ namespace SuyaaTest
             _output.WriteLine(toy.GetProductFullName());
             var info = toy.GetFileVersionInfo(toy.GetModuleFile());
             _output.WriteLine(info.GetProductVersion());
+        }
+
+        [Fact]
+        public void IocTest()
+        {
+            Ioc<TestCore>.Include(Lifetime.Transient);
+            Ioc<TestApp>.Include(Lifetime.Transient);
+            var testApp = Ioc<TestApp>.ResolveRequired();
+            _output.WriteLine(testApp.GetCoreName());
         }
 
     }

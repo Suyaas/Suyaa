@@ -1,8 +1,10 @@
 ﻿using Suyaa.IocContainer.InjectModels.Dependency;
 using Suyaa.IocContainer.Kernel;
+using Suyaa.IocContainer.Kernel.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Suyaa.IocContainer.InjectModels
@@ -12,7 +14,10 @@ namespace Suyaa.IocContainer.InjectModels
     /// </summary>
     public sealed class InjectModel
     {
+        // 供应商集合
         private readonly IEnumerable<IInjectModellProvider> _providers;
+        // 构建依赖
+        private readonly List<Type> _constructorTypes;
 
         /// <summary>
         /// 注入模型
@@ -23,6 +28,7 @@ namespace Suyaa.IocContainer.InjectModels
             ServiceType = serviceType;
             ImplementationType = implementationType;
             Lifetime = lifetime;
+            _constructorTypes = GetConstructorTypes();
         }
 
         /// <summary>
@@ -34,7 +40,31 @@ namespace Suyaa.IocContainer.InjectModels
             ServiceType = serviceType;
             ImplementationType = implementationType;
             Lifetime = lifetime;
+            _constructorTypes = GetConstructorTypes();
         }
+
+        /// <summary>
+        /// 构建依赖
+        /// </summary>
+        /// <returns></returns>
+        private List<Type> GetConstructorTypes()
+        {
+            var constructors = ImplementationType.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
+            if (constructors.Length > 1) throw new IocConstructorException(ImplementationType);
+            var constructor = constructors.First()!;
+            var parameters = constructor.GetParameters();
+            List<Type> types = new List<Type>();
+            foreach (var parameter in parameters)
+            {
+                types.Add(parameter.ParameterType);
+            }
+            return types;
+        }
+
+        /// <summary>
+        /// 构造依赖类型集合
+        /// </summary>
+        public IEnumerable<Type> ConstructorTypes => _constructorTypes;
 
         /// <summary>
         /// 服务类型
