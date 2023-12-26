@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.7.2312.35</Version>
+    <Version>1.8.2312.36</Version>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-    <Description>舒雅套件中的WebApi开发组件</Description>
+    <Description>RESTful api component in Suyaa development kit.</Description>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
     <PackageProjectUrl>https://github.com/suyaas/suyaa</PackageProjectUrl>
     <PackageIcon>Suyaa_red_128.png</PackageIcon>
