@@ -38,10 +38,14 @@ namespace SuyaaTest
         [Fact]
         public void IocTest()
         {
-            Ioc<TestCore>.Include(Lifetime.Transient);
-            Ioc<TestApp>.Include(Lifetime.Transient);
+            Ioc<ITestCore>.Registers(Lifetime.Transient);
+            Ioc<TestApp>.Register(Lifetime.Transient);
+            Ioc.Container.Add(typeof(ITestGeneric<>), typeof(TestGeneric<>), Lifetime.Transient);
+            //Ioc.Container.re
+            Ioc<ITestProperty>.Register(typeof(TestProperty), Lifetime.Transient);
             var testApp = Ioc<TestApp>.ResolveRequired();
             _output.WriteLine(testApp.GetCoreName());
+            _output.WriteLine(testApp.TestProperty.Name);
         }
 
     }

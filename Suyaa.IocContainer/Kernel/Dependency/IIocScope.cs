@@ -10,6 +10,10 @@ namespace Suyaa.IocContainer.Kernel.Dependency
     public interface IIocScope
     {
         /// <summary>
+        /// Ioc容器
+        /// </summary>
+        IIocContainer IocContainer { get; }
+        /// <summary>
         /// 决议对象
         /// </summary>
         /// <param name="serviceType">服务类型</param>

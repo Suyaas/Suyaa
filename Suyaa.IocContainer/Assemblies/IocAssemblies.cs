@@ -29,6 +29,7 @@ namespace Suyaa.IocContainer.Assemblies
         private void AddDomainAssemblies()
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            _assemblies.AddRange(assemblies);
         }
 
         /// <summary>
@@ -51,7 +52,9 @@ namespace Suyaa.IocContainer.Assemblies
                 foreach (var type in types)
                 {
                     // 跳过接口
-                    if (serviceType.IsInterface) continue;
+                    if (type.IsInterface) continue;
+                    // 跳过抽象类
+                    if (type.IsAbstract) continue;
                     if (serviceType.IsAssignableFrom(type)) implementationTypes.Add(type);
                 }
                 return implementationTypes;

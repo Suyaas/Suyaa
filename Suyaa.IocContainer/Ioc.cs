@@ -74,45 +74,85 @@ namespace Suyaa.IocContainer
     /// 控制反转
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public struct Ioc<T> where T : class
+    public struct Ioc<TService> where TService : class
     {
         /// <summary>
-        /// 引入
+        /// 注册
         /// </summary>
         /// <param name="lifetime"></param>
-        public static void Include(Lifetime lifetime)
+        public static void Register(Lifetime lifetime)
         {
-            var type = typeof(T);
+            var type = typeof(TService);
             if (Ioc.Container.Models.Where(d => d.ServiceType == type && d.ImplementationType == type).Any()) return;
             Ioc.Container.Add(type, type, lifetime);
         }
 
         /// <summary>
-        /// 引入
+        /// 注册
         /// </summary>
         /// <param name="lifetime"></param>
-        public static void Include(Type ImplementationType, Lifetime lifetime)
+        public static void Register(Type ImplementationType, Lifetime lifetime)
         {
-            var serviceType = typeof(T);
+            var serviceType = typeof(TService);
             if (Ioc.Container.Models.Where(d => d.ServiceType == serviceType && d.ImplementationType == ImplementationType).Any()) return;
             Ioc.Container.Add(serviceType, ImplementationType, lifetime);
         }
 
         /// <summary>
-        /// 排除
+        /// 注册
         /// </summary>
-        public static void Exclude(Type implementationType)
+        /// <param name="lifetime"></param>
+        public static void Register<TImplementation>(Lifetime lifetime)
         {
-            var serviceType = typeof(T);
+            Register(typeof(TImplementation), lifetime);
+        }
+
+        /// <summary>
+        /// 批量注册
+        /// </summary>
+        /// <param name="lifetime"></param>
+        public static void Registers(Lifetime lifetime)
+        {
+            var serviceType = typeof(TService);
+            var implementationTypes = Ioc.Assemblies.FindImplementationTypes(serviceType);
+            // 注册所有的服务实现
+            foreach (var implementationType in implementationTypes)
+            {
+                if (Ioc.Container.Models.Where(d => d.ServiceType == serviceType && d.ImplementationType == implementationType).Any()) continue;
+                Ioc.Container.Add(serviceType, implementationType, lifetime);
+            }
+            // 注册所有的单实现
+            foreach (var implementationType in implementationTypes)
+            {
+                if (Ioc.Container.Models.Where(d => d.ServiceType == implementationType && d.ImplementationType == implementationType).Any()) continue;
+                Ioc.Container.Add(implementationType, implementationType, lifetime);
+            }
+        }
+
+        /// <summary>
+        /// 移除
+        /// </summary>
+        public static void Remove(Type implementationType)
+        {
+            var serviceType = typeof(TService);
             Ioc.Container.Remove(serviceType, implementationType);
         }
 
         /// <summary>
-        /// 排除
+        /// 移除
         /// </summary>
-        public static void Exclude()
+        /// <param name="lifetime"></param>
+        public static void Remove<TImplementation>()
         {
-            var serviceType = typeof(T);
+            Remove(typeof(TImplementation));
+        }
+
+        /// <summary>
+        /// 移除
+        /// </summary>
+        public static void Remove()
+        {
+            var serviceType = typeof(TService);
             var models = Ioc.Container.Models.Where(d => d.ServiceType == serviceType).ToList();
             foreach (var model in models)
             {
@@ -124,21 +164,21 @@ namespace Suyaa.IocContainer
         /// 决议对象
         /// </summary>
         /// <returns></returns>
-        public static T? Resolve()
+        public static TService? Resolve()
         {
-            var serviceType = typeof(T);
-            return (T?)Ioc.Container.Resolve(serviceType);
+            var serviceType = typeof(TService);
+            return (TService?)Ioc.Container.Resolve(serviceType);
         }
 
         /// <summary>
         /// 决议对象
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="IocNotExistsException{T}"></exception>
-        public static T ResolveRequired()
+        /// <exception cref="IocNotExistsException{TService}"></exception>
+        public static TService ResolveRequired()
         {
             var obj = Resolve();
-            if (obj is null) throw new IocNotExistsException<T>();
+            if (obj is null) throw new IocNotExistsException<TService>();
             return obj;
         }
     }

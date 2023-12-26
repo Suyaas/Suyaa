@@ -8,13 +8,16 @@ namespace SuyaaTest.Iocs
 {
     public sealed class TestApp
     {
-        private readonly TestCore _iocTestCore;
+        private readonly ITestCore _iocTestCore;
 
-        public TestApp(TestCore iocTestCore)
+        public TestApp(ITestCore iocTestCore)
         {
             _iocTestCore = iocTestCore;
+            TestProperty = new DefaultTestProperty();
         }
 
         public string GetCoreName() => _iocTestCore.GetName();
+
+        public ITestProperty TestProperty { get; set; }
     }
 }

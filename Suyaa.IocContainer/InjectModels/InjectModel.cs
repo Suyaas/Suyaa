@@ -14,10 +14,14 @@ namespace Suyaa.IocContainer.InjectModels
     /// </summary>
     public sealed class InjectModel
     {
+        // 字符串类型
+        private static readonly Type _stringType = typeof(string);
         // 供应商集合
         private readonly IEnumerable<IInjectModellProvider> _providers;
         // 构建依赖
         private readonly List<Type> _constructorTypes;
+        // 属性依赖
+        private readonly List<PropertyInfo> _properties;
 
         /// <summary>
         /// 注入模型
@@ -29,6 +33,7 @@ namespace Suyaa.IocContainer.InjectModels
             ImplementationType = implementationType;
             Lifetime = lifetime;
             _constructorTypes = GetConstructorTypes();
+            _properties = GetProperties();
         }
 
         /// <summary>
@@ -41,12 +46,10 @@ namespace Suyaa.IocContainer.InjectModels
             ImplementationType = implementationType;
             Lifetime = lifetime;
             _constructorTypes = GetConstructorTypes();
+            _properties = GetProperties();
         }
 
-        /// <summary>
-        /// 构建依赖
-        /// </summary>
-        /// <returns></returns>
+        // 获取构造函数依赖
         private List<Type> GetConstructorTypes()
         {
             var constructors = ImplementationType.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
@@ -61,10 +64,22 @@ namespace Suyaa.IocContainer.InjectModels
             return types;
         }
 
+        // 获取属性依赖
+        private List<PropertyInfo> GetProperties()
+        {
+            return ImplementationType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(d => d.CanWrite && !d.PropertyType.IsValueType && d.PropertyType != _stringType).ToList();
+        }
+
         /// <summary>
         /// 构造依赖类型集合
         /// </summary>
         public IEnumerable<Type> ConstructorTypes => _constructorTypes;
+
+        /// <summary>
+        /// 属性依赖集合
+        /// </summary>
+        public IEnumerable<PropertyInfo> Properties => _properties;
 
         /// <summary>
         /// 服务类型

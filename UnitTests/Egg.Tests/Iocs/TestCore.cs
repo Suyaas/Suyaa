@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace SuyaaTest.Iocs
 {
-    public sealed class TestCore
+    public interface ITestCore
     {
-        public string GetName() => nameof(TestCore);
+        string GetName();
+    }
+    public sealed class TestCore : ITestCore
+    {
+        private readonly ITestGeneric<string> _testGeneric;
+
+        public TestCore(ITestGeneric<string> testGeneric)
+        {
+            _testGeneric = testGeneric;
+        }
+
+        public string GetName() => _testGeneric.GetTypeName();
     }
 }

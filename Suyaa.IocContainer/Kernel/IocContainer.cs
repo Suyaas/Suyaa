@@ -3,6 +3,7 @@ using Suyaa.IocContainer.InjectModels.Dependency;
 using Suyaa.IocContainer.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Suyaa.IocContainer.Kernel
@@ -47,6 +48,22 @@ namespace Suyaa.IocContainer.Kernel
             var obj = _iocScope.CreateInstance(serviceType);
             _singleton[serviceType] = obj;
             return obj;
+        }
+
+        /// <summary>
+        /// 添加单例对象
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <param name="implementationType"></param>
+        /// <param name="lifetime"></param>
+        public void AddSingleton(Type serviceType, object instance)
+        {
+            var implementationType = instance.GetType();
+            if (!_injectModellFactory.GetModels().Where(d => d.ServiceType == serviceType && d.ImplementationType == implementationType).Any())
+            {
+                _injectModellFactory.Add(serviceType, implementationType, Lifetime.Singleton);
+            }
+            _singleton[serviceType] = instance;
         }
 
         /// <summary>
