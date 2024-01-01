@@ -41,9 +41,11 @@ namespace SuyaaTest
             Ioc<ITestCore>.Registers(Lifetime.Transient);
             Ioc<TestApp>.Register(Lifetime.Transient);
             Ioc.Container.Add(typeof(ITestGeneric<>), typeof(TestGeneric<>), Lifetime.Transient);
+            Ioc<TestMultipleEntity>.AddSingleton(new TestMultipleEntity());
             //Ioc.Container.re
             Ioc<ITestProperty>.Register(typeof(TestProperty), Lifetime.Transient);
             var testApp = Ioc<TestApp>.ResolveRequired();
+            var multiple = Ioc<TestMultipleEntity>.ResolveRequired();
             _output.WriteLine(testApp.GetCoreName());
             _output.WriteLine(testApp.TestProperty.Name);
         }

@@ -64,6 +64,18 @@ namespace Suyaa.IocContainer.Kernel.Helpers
         }
 
         /// <summary>
+        /// 添加单例
+        /// </summary>
+        /// <param name="serviceType">服务类型</param>
+        /// <returns></returns>
+        public static IIocContainer AddSingleton<TService>(this IIocContainer iocContainer, object instance)
+            where TService : class
+        {
+            iocContainer.AddSingleton(typeof(TService), instance);
+            return iocContainer;
+        }
+
+        /// <summary>
         /// 决议对象
         /// </summary>
         /// <param name="serviceType">服务类型</param>

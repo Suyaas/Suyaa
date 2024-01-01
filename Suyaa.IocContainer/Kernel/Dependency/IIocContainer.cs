@@ -22,6 +22,13 @@ namespace Suyaa.IocContainer.Kernel.Dependency
         /// <param name="lifetime"></param>
         void Add(Type serviceType, Type implementationType, Lifetime lifetime);
         /// <summary>
+        /// 添加单例对象
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <param name="implementationType"></param>
+        /// <param name="lifetime"></param>
+        void AddSingleton(Type serviceType, object instance);
+        /// <summary>
         /// 移除
         /// </summary>
         /// <param name="type"></param>

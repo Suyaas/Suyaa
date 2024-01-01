@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Suyaa.IocContainer.InjectModels
@@ -53,11 +54,22 @@ namespace Suyaa.IocContainer.InjectModels
         private List<Type> GetConstructorTypes()
         {
             var constructors = ImplementationType.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
-            if (constructors.Length > 1) throw new IocConstructorException(ImplementationType);
-            var constructor = constructors.First()!;
-            var parameters = constructor.GetParameters();
+            //if (constructors.Length > 1) throw new IocConstructorException(ImplementationType);
+            // 按照最多构造函数建模，如最多为多个，则取第一个
+            int parameterCount = -1;
+            ConstructorInfo? constructor = null;
+            ParameterInfo[]? parameters = null;
+            foreach (var currentConstructor in constructors)
+            {
+                var currentParameters = currentConstructor.GetParameters();
+                if (currentParameters.Length > parameterCount)
+                {
+                    constructor = currentConstructor;
+                    parameters = currentParameters;
+                }
+            }
             List<Type> types = new List<Type>();
-            foreach (var parameter in parameters)
+            foreach (var parameter in parameters!)
             {
                 types.Add(parameter.ParameterType);
             }

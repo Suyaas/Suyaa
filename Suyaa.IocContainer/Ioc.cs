@@ -130,6 +130,16 @@ namespace Suyaa.IocContainer
         }
 
         /// <summary>
+        /// 添加单例
+        /// </summary>
+        /// <param name="serviceType">服务类型</param>
+        /// <returns></returns>
+        public static void AddSingleton(object instance)
+        {
+            Ioc.Container.AddSingleton(typeof(TService), instance);
+        }
+
+        /// <summary>
         /// 移除
         /// </summary>
         public static void Remove(Type implementationType)
